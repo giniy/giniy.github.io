@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gulab</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.ico">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+	<link href="style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="img/logo6.png"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#about">About</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#services">Services</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Team</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#connect">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<section id="about">
+    <!-- Image Slider -->
+    <div id="slides" class="carousel slide" data-ride="carousel" data-aos="fade-up"
+        data-aos-offset="200"
+        data-aos-delay="50"
+        data-aos-duration="1000">
+        
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1"></li>
+            <li data-target="#slides" data-slide-to="2"></li>
+        </ul>
+
+        <!-- Carousel Inner -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="image d-block w-100" src="img/ubuntu-studio1.jpg">
+                <div class="carousel-caption">
+                    <h4>Hi, I'm <span class="highlight">Gulab</span><br>Talent Acquisition | Python | Full Stack Developer | Bridging Tech & People</h4>
+                    <p class="skills" style="font-size: 0.6em;color: #298b46;">Django [MVC], HTML, CSS, JavaScript</p>
+                    <p class="highlight">Specialized in interaction code and design systems/web applications.<br>Passionate about crafting delightful experiences.</p>
+                    <a href="#connect" class="nav-link">Get in touch →</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!-- Video in second slide -->
+                <div class="video-container">
+                    <video class="d-block w-100" autoplay muted loop>
+                        <source src="img/vid2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay-text">
+                        <h4>Django, Flask, Web Scraping, API Development, Debugging, finding bugs and troubleshooting makes me more productive</h4>
+                        <p>Is't it great!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!-- Video in third slide -->
+                <div class="video-container">
+                    <video class="d-block w-100" autoplay muted loop>
+                        <source src="img/vid3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay-text">
+                        <h4>Hey, I love traveling, visiting different places</h4>
+                        <p>It gives me a new ideas and life changing lessons</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS (Required) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+</section>
+
+<!--- Jumbotron -->
+<!-- <div class="container-fluid" data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row jumbotron">
+		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+			<p class="lead">A web hosting service allows individuals and
+				organizations to make their website accessible via the World
+				Wide Web.</p>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+			<a href="#">
+				<button type="button" class="btn btn-outline-secondary btn-lg">Web Hosting</button></a>
+		</div>
+	</div>
+</div> -->
+
+<!--- Welcome Section -->
+<div class="container-fluid padding"data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row welcome text-center">
+		<div class="col-12">
+		<p class="display-41"
+			style="
+			font-size: 1.5rem;
+			font-weight: 300;
+			line-height: 1.2;">SUPPORTED TO 
+		</p>
+		</div>
+		<hr>
+	<section id="services">
+      <div class="logo-container1">
+         <a href="https://www.hcltech.com" target="_blank">
+            <img class="img22" src="https://www.hcltech.com/themes/custom/hcltech/images/hcltech-new-logo.svg" alt="HCL">
+            <p>HCL</p>
+         </a>
+         <a href="https://en.wikipedia.org/wiki/Google" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/360px-Google_2015_logo.svg.png" alt="Google">
+            <p>Google</p>
+         </a>
+         <a href="https://about.meta.com/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/390px-Meta_Platforms_Inc._logo.svg.png" alt="Meta">
+            <p>Meta</p>
+         </a>
+         <a href="https://www.ust.com" target="_blank">
+            <img src="https://www.ust.com/etc.clientlibs/global/clientlibs/clientlib-base/resources/images/logo-main.svg" alt="UST">
+            <p>UST</p>
+         </a>
+         <a href="https://www.ltimindtree.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/LTIMindtree_Logo.svg/330px-LTIMindtree_Logo.svg.png" alt="LTIMindtree">
+            <p>LTIMindtree</p>
+         </a>
+         <a href="https://www.bmo.com/main/about-bmo/" target="_blank">
+            <img src="https://www.bmo.com/dist/images/logos/bmo-blue-on-transparent-en.svg" alt="BMO">
+            <p>BMO</p>
+         </a>
+         <a href="https://www.synechron.com/en-in" target="_blank">
+            <img src="https://www.synechron.com/themes/synechron/images/logo.svg" alt="Synechron">
+            <p>Synechron</p>
+         </a>
+         <a href="https://www.genmab.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Genmab.svg/375px-Genmab.svg.png" alt="Genmab">
+            <p>Genmab</p>
+         </a>
+         <a href="https://www.lockheedmartin.com" target="_blank">
+            <img src="https://www.lockheedmartin.com/content/dam/lockheed-martin/general/lm-logo.svg" alt="Lockheed Martin">
+            <p>Lockheed Martin</p>
+         </a>
+         <a href="https://www.morganstanley.com" target="_blank">
+            <img src="https://www.morganstanley.com/etc.clientlibs/msdotcomr4/clientlibs/clientlib-site/resources/img/logo-black.png" alt="Morgan Stanley">
+            <p>Morgan Stanley</p>
+         </a>
+         <a href="https://www.roche.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Hoffmann-La_Roche_logo.svg/330px-Hoffmann-La_Roche_logo.svg.png" alt="Roche">
+            <p>Roche</p>
+         </a>
+         <a href="https://www.gene.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Genentech.svg/315px-Genentech.svg.png" alt="Genentech">
+            <p>Genentech</p>
+         </a>
+         <a href="https://www.astrazeneca.com" target="_blank">
+            <img src="https://www.astrazeneca.com/etc/designs/az/img/logo-az.png" alt="Astra Zeneca/Neogene">
+            <p>Astra Zeneca/Neogene</p>
+         </a>
+         <a href="https://www.thermofisher.com/in/en/home.html" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Thermo_Fisher_Scientific_Logo.svg/330px-Thermo_Fisher_Scientific_Logo.svg.png" alt="Thermo Fisher Scientific Inc.">
+            <p>Thermo Fisher Scientific Inc.</p>
+         </a>
+         <a href="https://www.ariat.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/en/9/93/Ariat_Logo.png" alt="Ariat">
+            <p>Ariat</p>
+         </a>
+         <a href="https://www.rogers.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Rogers_Communications_%282015%29.svg/330px-Rogers_Communications_%282015%29.svg.png" alt="Rogers">
+            <p>Rogers</p>
+         </a>
+         <a href="https://sada.com" target="_blank">
+            <img src="https://sada.com/wp-content/uploads/2023/01/SADA_logo_rgb_fuchsia_400px.png" alt="SADA">
+            <p>SADA</p>
+         </a>
+         <a href="https://www.rbcroyalbank.com/" target="_blank">
+            <img src="https://www.rbcroyalbank.com/dvl/assets/images/logos/rbc-logo-shield.svg" alt="RBC">
+            <p>RBC</p>
+         </a>
+         <a href="https://www.ge.com" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/General_Electric_logo.svg/330px-General_Electric_logo.svg.png" alt="GE">
+            <p>GE</p>
+         </a>
+         <a href="https://www.t-mobile.com/" target="_blank">
+            <img src="https://www.t-mobile.com/content/dam/t-mobile/ntm/branding/logos/corporate/tmo-logo-v4.svg" alt="T-Mobile">
+            <p>T-Mobile</p>
+         </a>
+         <a href="https://www.cn.ca/en/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/CN_Railway_logo.svg/300px-CN_Railway_logo.svg.png" alt="Canadian National Railway">
+            <p>Canadian National Railway</p>
+         </a>
+         <a href="https://www.cdw.com/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/CDW_Logo.svg/225px-CDW_Logo.svg.png" alt="CDW">
+            <p>CDW Corporation</p>
+         </a>
+         <a href="https://group.bnpparibas/en/" target="_blank">
+            <img src="https://cdn-group.bnpparibas.com/build/images/logo-bnp.svg" alt="BNP Paribas">
+            <p>BNP Paribas</p>
+         </a>
+         <a href="https://www.kellyservices.com/" target="_blank">
+            <img src="https://www.kellyservices.com/hubfs/_Website_Kelly%20Services_COM/Logos/MT3810_Hubspot_.COM_Kelly-Logo_SVG.svg" alt="Kelly Services">
+            <p>Kelly Services</p>
+         </a>
+         <a href="https://www.jnj.com/" target="_blank">
+            <img src="https://jnj-content-lab2.brightspotcdn.com/ac/25/bd2078f54d5992dd486ed26140ce/johnson-johnson-logo.svg" alt="Johnson & Johnson">
+            <p>Johnson & Johnson</p>
+         </a>
+         <a href="https://honorvets.com/home" target="_blank">
+            <img src="https://honorvets.com/assets/images/LOGO1.png" alt="Honorvet">
+            <p>Honorvet Technologies</p>
+         </a>
+         <a href="https://www.agilisium.com/" target="_blank">
+            <img src="https://cdn.prod.website-files.com/627badd0d06f4dfa4f929764/6620e44105bbc40c54a7aab4_13kb.webp" alt="Agilisium">
+            <p>Agilisium</p>
+         </a>
+         <a href="https://www.deere.com/en/index.html" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/John_Deere_logo.svg/330px-John_Deere_logo.svg.png" alt="John Deere">
+            <p>John Deere</p>
+         </a>
+         <a href="https://www.humana.com/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Humana_logo.svg/330px-Humana_logo.svg.png" alt="Humana">
+            <p>Humana</p>
+         </a>
+         <a href="https://www.takeda.com/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Takeda_Pharmaceutical_Company_logo.svg/330px-Takeda_Pharmaceutical_Company_logo.svg.png" alt="Takeda">
+            <p>Takeda</p>
+         </a>
+      </div>
+	</section>
+		<div class="col-12">
+			<p class="lead">Developement + Talent hunting.
+				Python, Django, Flask, JavaScript, HTML, CSS, PostgreSQL, MySQL, etc.
+				Talent Acquisition skills: ATS, Recruitment Strategies, Tech Hiring, etc.
+			</p>
+		</div>
+	</div>
+</div>
+
+<!--- Three Column Section -->
+<div class="container-fluid padding"data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row text-center padding">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<i class="fas fa-code"></i>
+			<h3>Python</h3>
+			<p>Built with the latest version of Python, Django, DRF.</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<i class="fas fa-bold"></i>
+			<h3>BOOTSTRAP</h3>
+			<p>Built with the latest version of Bootstrap, Bootstrap 4.</p>
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<i class="fab fa-css3"></i>
+			<h3>HTML, CSS3</h3>
+			<p>Built with the latest version of CSS, CSS3.</p>
+		</div>
+	</div>
+	<hr class="my-4">
+</div>
+
+<!--- Two Column Section -->
+<div class="container-fluid padding"data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row padding">
+		<div class="col-md-12 col-lg-6">
+			<h2>If you build it...</h2>
+			<p>
+			I am skilled Python Full Stack Developer and Technical Recruiter with expertise in software development and talent acquisition. With a strong background in **Python, Django, API development, and database management (MySQL, PostgreSQL, MSSQL).
+			</p>
+			<p>
+				I have successfully developed and deployed various web and desktop applications. Additionally, his experience in technical recruitment spans global IT staffing, interviewing, and handling requisitions for **US and Canada-based clients**.  
+			</p>
+			<p>
+			I worked with reputed firms like BridgeFix Technologies, Sumeru Inc., TEK Infotree Global, and Acretix Software. Experienced includes full-cycle software development, data analysis, and HR staffing for major tech clients. Recognized for his achievements, he has received multiple awards for performance excellence. With a strong foundation in both coding and recruitment, he effectively bridges the gap between technology and talent acquisition.
+			</p>
+		</div>
+		<div class="col-lg-6">
+			<img src="img/desk3.png" class="img-fluid">
+		</div>
+	</div>
+</div>
+
+<hr class="my-4">
+
+
+<!--- Meet the team -->
+<div class="container-fluid padding">
+	<div class="row welcome text-center">
+		<div class="col-12">
+			<h1 class="display-4">Meet the Team </h1>
+		</div>
+	</div>
+</div>
+
+<!--- Cards -->
+<div class="container-fluid padding" data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row padding">
+		<div class="col-md-4">
+			<div class="card">
+				<img class="card-img-top" src="https://media.licdn.com/dms/image/v2/D4D03AQHvveVcro3fYA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727218746212?e=1744243200&v=beta&t=af8_O81aq71H2n3XKL7mDxqFjPAAiXS6W3Y__kUy7Lk">
+				<div class="card-body" style="" >
+					<h4 class="card-title">Naman Choudhary</h4>
+					<p class="card-text">Naman is a Sr Talent 
+						Acquisition specialist with 4+ years of experience.
+					</p>
+					<a href="https://www.linkedin.com/in/namanchy/" class="btn btn-outline-secondary">See Profile</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<img class="card-img-top" src="https://media.licdn.com/dms/image/v2/C4E03AQFIzJPxaDBVfw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1649063159793?e=1744243200&v=beta&t=y1u5_3EzwQWndYuAQBhFQA5Ejy4JwhXl2LvsEcfGYnY">
+				<div class="card-body">
+					<h4 class="card-title">Ravikant Tiwari</h4>
+					<p class="card-text">Ravi is a Sr Technical Recruiter with a almost 3+ years
+					of Recruiting experience.</p>
+					<a href="https://www.linkedin.com/in/ravikant-tiwari-a4a6b3236/" class="btn btn-outline-secondary">See Profile</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<img class="card-img-top" src="https://media.licdn.com/dms/image/v2/D4D03AQHls6quBsVgvQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731528875055?e=1744243200&v=beta&t=7RESEIZIneNMHhtbxoXPyXXqfceMLhSVm3MryUrG-MY"">
+				<div class="card-body">
+					<h4 class="card-title">Akhilesh choudhary</h4>
+					<p class="card-text">Akhilesh is an developer with over 5 years
+					of web development experience.</p>
+					<a href="https://www.linkedin.com/in/bawa-akki/" class="btn btn-outline-secondary">See Profile</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--- Two Column Section -->
+<div class="container-fluid padding" data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+	<div class="row padding">
+		<div class="col-md-12 col-lg-6">
+			<h2>Our Philosophy</h2>
+			<p>
+			We believe in innovation, integrity, and collaboration. Our goal is to create meaningful connections and provide tailored solutions that make a lasting impact. With a focus on transparency and ethical practices, we strive to foster growth, sustainability, and positive change.
+			</p>
+			<p>
+			Our success is measured by the relationships we build and the communities we serve. Every step we take is driven by our commitment to making a difference.
+			</p>
+
+		</div>
+		<div class="col-lg-6">
+			<img src="img/team-t.jpg" class="img-fluid">
+		</div>
+	</div>
+	<hr class="my-4">
+</div>
+
+<!--- Connect -->
+<section id="connect">
+		<!-- <span class="connect-me"> Connect </span> -->
+		<ul class="socialmediaicons">
+		   <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+		   <li><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+		   <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+		   <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+		   <li><a href="https://github.com/techcure" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+		   <li><a href="https://www.linkedin.com/in/gulabdays/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+		</ul>
+</section>
+
+<!--- Footer -->
+<footer>
+	<div class="container-fluid padding" data-aos="fade-up"
+		data-aos-offset="200"
+		data-aos-delay="50"
+		data-aos-duration="1000">
+		<div class="row text-center">
+			<div class="col-md-4 pt-0">
+				<div class="footer-image">
+				<img src="img/logo6.png"></div>
+				<hr class="light">
+				<p><i class="fa fa-phone"  aria-hidden="true"></i> &nbsp; 9407488956 &nbsp; <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Our hours</h5>
+				<hr class="light">
+				<p>Monday: 9am - 5pm</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Service Area</h5>
+				<hr class="light">
+				<p>India | Canada | USA | Maxico</p>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; Gulab | Singh <span class="small-text">All rights reserved.</span></h5>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+AOS.init();
+</script>
+
+</body>
+</html>
