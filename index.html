@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="mail.js"></script> 
 </head>
 <body>
 <!-- Navigation -->
@@ -404,18 +405,42 @@
 
 		</div>
 		<div class="col-lg-6">
-			<!-- contact form -->
-			<form method="POST" id="contactForm">
-				Send me a message : 
-				<div class="app-form-group">
-				<input class="app-form-control" id="name" placeholder="Name" name="name" value=""></div>
-				<div class="app-form-group">
-				<input class="app-form-control" id="email" type="email" placeholder="Email" name="email"></div>
-				<div class="app-form-group">
-				<textarea class="app-form-control" id="message" placeholder="Message" name="message"></textarea></div>
-				<div class="app-form-group buttons">
-				<button class="app-form-button" type="submit" id="sendButton">Send</button> </div>
-			  </form>
+			<!-- contact form -->			
+				<form method="POST" id="contactForm">
+					<p>Send me a message:</p>
+					<div class="app-form-group">
+						<input class="app-form-control" id="name" placeholder="Name" name="name" required>
+					</div>
+					<div class="app-form-group">
+						<input class="app-form-control" id="email" type="email" placeholder="Email" name="email" required>
+					</div>
+					<div class="app-form-group">
+						<textarea class="app-form-control" id="message" placeholder="Message" name="message" required></textarea>
+					</div>
+					<div class="app-form-group buttons">
+						<button class="app-form-button" type="submit" id="sendButton">Send</button>
+					</div>
+				</form>
+				<script>
+					(function() {
+						emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with your EmailJS user ID
+					})();
+					document.getElementById("contactForm").addEventListener("submit", function(event) {
+						event.preventDefault();
+						emailjs.send("service_f3yw8gb", "template_lcn60zm", {
+							from_name: document.getElementById("name").value,
+							from_email: document.getElementById("email").value,
+							message: document.getElementById("message").value
+						}).then(
+							function(response) {
+								alert("Email sent successfully!");
+							},
+							function(error) {
+								alert("Failed to send email: " + JSON.stringify(error));
+							}
+						);
+					});
+					</script>
 			<!-- End contact form -->
 		</div>
 	</div>

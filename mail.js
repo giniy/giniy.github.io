@@ -1,5 +1,6 @@
+<script>
 (function() {
-    emailjs.init("service_f3yw8gb"); // Replace with your EmailJS user ID
+    emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with your EmailJS user ID
 })();
 
 document.getElementById("contactForm").addEventListener("submit", function(event) {
@@ -14,7 +15,8 @@ document.getElementById("contactForm").addEventListener("submit", function(event
             alert("Email sent successfully!");
         },
         function(error) {
-            alert("Failed to send email: " + error);
+            alert("Failed to send email: " + JSON.stringify(error));
         }
     );
 });
+</script>
