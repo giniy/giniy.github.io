@@ -274,13 +274,17 @@ Extra (xl) large devices (large desktops, 1200px and up)
     width: 120px;
     height: 40px;
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
+    /*background-color: #ffffff;;*/
+    /*opacity: .4;*/
+    /*background: linear-gradient(#e66465, #9198e5);*/
+    /*background-color: rgba(255, 255, 255, .4);*/
 }
 
 .logo-container1 img:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
 }
 
 .logo-container1 p {
