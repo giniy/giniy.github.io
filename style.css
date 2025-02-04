@@ -376,3 +376,67 @@ Extra (xl) large devices (large desktops, 1200px and up)
 .navbar-light .navbar-nav .nav-link {
   color: rgb(207 166 209 / 50%);
 }
+
+/* General form styling */
+#contactForm {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
+
+/* Input fields and textarea styling */
+.app-form-control {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  background: linear-gradient(45deg, #1b313d, #431e39);
+  color: #fff;  /* Text color */
+  caret-color: #fff; /* Cursor color */
+  transition: all 0.3s ease-in-out;
+}
+
+.app-form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.app-form-control:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Textarea specific styling */
+textarea.app-form-control {
+  resize: none;
+  height: 100px;
+}
+
+/* Button styling */
+.app-form-button {
+  width: 30%;
+  padding: 10px;
+  background: #0c5460;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.app-form-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styling */
+@media (max-width: 480px) {
+  #contactForm {
+    width: 90%;
+  }
+}
+

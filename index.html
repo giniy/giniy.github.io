@@ -15,6 +15,8 @@
 	<link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <!-- Navigation -->
@@ -402,25 +404,35 @@
 
 		</div>
 		<div class="col-lg-6">
-			<img src="img/team-t.jpg" class="img-fluid">
+			<!-- contact form -->
+			<form method="POST" id="contactForm">
+				Send me a message : 
+				<div class="app-form-group">
+				<input class="app-form-control" id="name" placeholder="Name" name="name" value=""></div>
+				<div class="app-form-group">
+				<input class="app-form-control" id="email" type="email" placeholder="Email" name="email"></div>
+				<div class="app-form-group">
+				<textarea class="app-form-control" id="message" placeholder="Message" name="message"></textarea></div>
+				<div class="app-form-group buttons">
+				<button class="app-form-button" type="submit" id="sendButton">Send</button> </div>
+			  </form>
+			<!-- End contact form -->
 		</div>
 	</div>
 	<hr class="my-4">
 </div>
-
 <!--- Connect -->
 <section id="connect">
-		<!-- <span class="connect-me"> Connect </span> -->
-		<ul class="socialmediaicons">
-		   <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-		   <li><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
-		   <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
-		   <li><a href="https://www.instagram.com/gulab_days/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-		   <li><a href="https://github.com/techcure" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-		   <li><a href="https://www.linkedin.com/in/gulabdays/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-		</ul>
+	<!-- <span class="connect-me"> Connect </span> -->
+	<ul class="socialmediaicons">
+	   <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+	   <li><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+	   <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+	   <li><a href="https://www.instagram.com/gulab_days/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+	   <li><a href="https://github.com/techcure" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+	   <li><a href="https://www.linkedin.com/in/gulabdays/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+	</ul>
 </section>
-
 <!--- Footer -->
 <footer>
 	<div class="container-fluid padding" data-aos="fade-up"
