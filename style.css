@@ -439,4 +439,43 @@ textarea.app-form-control {
     width: 90%;
   }
 }
+.container-fluid.padding {
+    margin: 0 auto; /* Center the div */
+}
+.profile-container {
+    position: relative;
+}
 
+.profile-card {
+    position: absolute;
+    top: 115%;
+    left: -58%;
+    transform: translateX(-50%);
+    width: 299px;
+    background: linear-gradient(45deg, #1b313d, #431e39);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center;
+    display: none;
+    z-index: 100;
+}
+
+.profile-card p {
+    font-size: 14px; /* Adjust the size as needed */
+    color: #726c6c; /* Optional: Set text color */
+    line-height: 1.5; /* Optional: Improve readability */
+    font-feature-settings: "smcp", "zero";
+}
+ 
+.profile-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 0px solid #726c6c;
+    margin-bottom: 10px;
+}
+
+.profile-container:hover .profile-card {
+    display: block;
+}
