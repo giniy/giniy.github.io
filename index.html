@@ -432,7 +432,7 @@
 		<div class="col-lg-6">
 		<section id="connect"></section>
 			<!-- contact form -->			
-				<form method="POST" id="contactForm">
+				<form method="POST" id="contactForm" onsubmit="handleSubmit(event)">
 					<p>Send me a message :</p>
 					<div class="app-form-group">
 						<input class="app-form-control" id="name" placeholder="Name" name="name" required>
@@ -466,6 +466,10 @@
 							alert("Failed to send email. Check the console for details.");
 						}
 					});
+                    function handleSubmit(event) {
+                        event.preventDefault();
+                        document.getElementById("contactForm").reset();  // Resets the form
+                    }
 				</script>
 			<!-- End contact form -->
 		</div>
