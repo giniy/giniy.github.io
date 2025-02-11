@@ -312,7 +312,15 @@ Small (sm) devices (landscape phones, 576px and up)
     width: 100%;
     height: auto;
 }
-
+.carousel-item active {
+    position: relative;
+    width: 100%;
+    height: 550px;
+}
+.carousel-item active {
+    width: 100%;
+    height: auto;
+}
 .overlay-text {
     position: absolute;
     top: 50%;
