@@ -432,45 +432,42 @@
 		<div class="col-lg-6">
 		<section id="connect"></section>
 			<!-- contact form -->			
-				<form method="POST" id="contactForm" onsubmit="handleSubmit(event)">
-					<p>Send me a message :</p>
-					<div class="app-form-group">
-						<input class="app-form-control" id="name" placeholder="Name" name="name" required>
-					</div>
-					<div class="app-form-group">
-						<input class="app-form-control" id="email" type="email" placeholder="Email" name="email" required>
-					</div>
-					<div class="app-form-group">
-						<textarea class="app-form-control" id="message" placeholder="Message" name="message" required></textarea>
-					</div>
-					<div class="app-form-group buttons">
-						<button class="app-form-button" type="submit" id="sendButton">Send</button>
-					</div>
-				</form>
-				<script>
-					document.addEventListener("DOMContentLoaded", function() {
-						emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with actual EmailJS Public Key
-					});
-					document.getElementById("contactForm").addEventListener("submit", async function(event) {
-						event.preventDefault(); // Prevent form from reloading the page
-						try {
-							const response = await emailjs.send("service_f3yw8gb", "template_lcn60zm", {
-								from_name: document.getElementById("name").value,
-								from_email: document.getElementById("email").value,
-								message: document.getElementById("message").value
-							});
-							console.log("✅ Email sent successfully!", response);
-							alert("Email sent successfully!");
-						} catch (error) {
-							console.error("❌ Failed to send email:", error);
-							alert("Failed to send email. Check the console for details.");
-						}
-					});
-                    function handleSubmit(event) {
-                        event.preventDefault();
-                        document.getElementById("contactForm").reset();  // Resets the form
-                    }
-				</script>
+            <form method="POST" id="contactForm">
+                <p>Send me a message :</p>
+                <div class="app-form-group">
+                    <input class="app-form-control" id="name" placeholder="Name" name="from_name" required>
+                </div>
+                <div class="app-form-group">
+                    <input class="app-form-control" id="email" type="email" placeholder="Email" name="from_email" required>
+                </div>
+                <div class="app-form-group">
+                    <textarea class="app-form-control" id="message" placeholder="Message" name="message" required></textarea>
+                </div>
+                <div class="app-form-group buttons">
+                    <button class="app-form-button" type="submit" id="sendButton">Send</button>
+                </div>
+            </form>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with your actual EmailJS Public Key
+                });
+
+                document.getElementById("contactForm").addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevent page reload
+
+                    emailjs.sendForm("service_f3yw8gb", "template_lcn60zm", this)
+                        .then(function(response) {
+                            console.log("✅ Email sent successfully!", response);
+                            alert("Email sent successfully!");
+                            document.getElementById("contactForm").reset(); // Reset form after success
+                        })
+                        .catch(function(error) {
+                            console.error("❌ Failed to send email:", error);
+                            alert("Failed to send email. Check the console for details.");
+                        });
+                });
+            </script>
+
 			<!-- End contact form -->
 		</div>
 	</div>
