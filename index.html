@@ -441,21 +441,14 @@
                     repos.forEach(repo => {
                         const repoCard = document.createElement("div");
                         repoCard.classList.add("repo-card");
-
                         repoCard.innerHTML = `
                             <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-                            <p>${repo.description ? repo.description : "No description available"}</p>
-                        `;
-
+                            <p>${repo.description ? repo.description : "No description available"}</p>`;
                         repoList.appendChild(repoCard);
                     });
                 }
-
                 fetchGitHubRepos();
             </script>
-
-
-
 		</div>
 		<div class="col-lg-6">
 		<section id="connect"></section>
@@ -540,7 +533,7 @@
 			</div>
 			<div class="col-12">
 				<hr class="light-100">
-				<h5>&copy; Gulab | Singh <span class="small-text">2025 All rights reserved.</span></h5>
+				<h5>&copy; Gulab Singh <span class="small-text">2025 All rights reserved.</span></h5>
 			</div>
 		</div>
 	</div>
