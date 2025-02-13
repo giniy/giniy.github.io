@@ -857,5 +857,25 @@ img {
   }
 }
 
+.repo-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.repo-card {
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+}
+.repo-card a {
+    text-decoration: none;
+    color: #0366d6;
+    font-weight: bold;
+}
+
 
 /**/
