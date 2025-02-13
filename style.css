@@ -242,13 +242,15 @@ Small (sm) devices (landscape phones, 576px and up)
 /* Logo Container */
 .logo-container1 {
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-    margin: -10px auto;
+    justify-content: space-evenly; /* Distributes items evenly */
+    align-items: center; /* Centers items vertically */
+    gap: 20px; /* Adds spacing between items */
+    margin: 20px auto;
     max-width: 1200px;
+    padding: 10px;
+    flex-wrap: wrap; /* Prevents overflow but keeps items in one line if possible */
 }
+
 
 .logo-container1 a {
     text-decoration: none;
@@ -263,8 +265,8 @@ Small (sm) devices (landscape phones, 576px and up)
 
 /* Logo Images */
 .logo-container1 img {
-    width: 120px;
-    height: 40px;
+    width: 100px;
+    height: 20px;
     object-fit: contain;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
