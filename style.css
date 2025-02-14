@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
 
-html, body{
+html, body {
   height: 100%;
   width: 100%;
   font-family: 'Poppins', sans-serif;
-  color:#fff;
-  /*background: rgb(23 20 24 / 90%);*/
-  background-color: #fff;
+  color: #fff;
   background: linear-gradient(45deg, #1b313d, #431e39);
+  background-size: 200% 200%;
+  animation: moveGradient 5s infinite linear;
 }
+
 .container-fluid{
   background: linear-gradient(45deg, #1b313d, #431e39);
+  animation: moveGradient 5s infinite linear;
 }
 .navbar{
   padding: 0rem;
@@ -123,6 +125,7 @@ footer {
   background: linear-gradient(45deg, #1b313d, #431e39);
   color: #d5d5d5;
   padding-top: 2rem;
+  animation: moveGradient 5s infinite linear;
 }
 hr.light {
   border-top: 1px solid #d5d5d5;
@@ -877,5 +880,15 @@ img {
     font-weight: bold;
 }
 
-
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 /**/
