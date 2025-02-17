@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gulab</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="mail.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="img/logo6.png"></a>
+        <div class="portfolio-tagline">Crafting Digital Symphonies</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section id="song">
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+}
+/**/
+    .player {
+            display: inline-block;
+            padding: 0px;
+            border: 0px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .playlist {
+            margin-top: 20px;
+        }
+        .playlist button {
+            display: flex;
+            align-items: center;
+            margin: 10px auto;
+            padding: 10px;
+            width: 100%;
+            background: linear-gradient(45deg, #1b313d, #431e39);            
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+        }
+        .playlist button:hover {
+            background-color: #0056b3;
+        }
+        .song-poster {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #now-playing {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #song-details {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+    <br>
+    <div class="player">
+        <!-- Now Playing Section -->
+        <p id="now-playing">Select a song to play</p>
+        <div id="song-poster-container">
+            <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
+        </div>
+        <p id="song-details"></p>
+
+        <!-- Audio Player -->
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <!-- Playlist -->
+        <div class="playlist">
+            <button onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
+                <div>
+                    <strong>Tere Naam Ki Mannat</strong><br>
+                    <small>Gulab Days - Tere Naam Ki Mannat</small>
+                </div>
+            </button>
+            <button onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 2 Poster" class="song-poster">
+                <div>
+                    <strong>Tere Naam Ki Mannat</strong><br>
+                    <small>Gulab Days - Tere Naam Ki Mannat</small>
+                </div>
+            </button>
+            <button onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 3 Poster" class="song-poster">
+                <div>
+                    <strong>Tere Naam Ki Mannat</strong><br>
+                    <small>Gulab Days - Tere Naam Ki Mannat</small>
+                </div>
+            </button>
+        </div>
+    </div>
+
+
+
+</section>
+
+<!--- Footer -->
+<footer>
+    <div class="container-fluid padding" data-aos="fade-up"
+        data-aos-offset="200"
+        data-aos-delay="50"
+        data-aos-duration="1000">
+        <div class="row text-center">
+            <div class="col-md-4 pt-0">
+                <div class="footer-image">
+                <img src="img/logo6.png"></div>
+                <hr class="light">
+                <p><i class="fa fa-phone"  aria-hidden="true"></i> &nbsp; 9407488956 &nbsp; <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Best time to reach me</h5>
+                <hr class="light">
+                <p>M - F : 2pm - 5pm || S - S : 11am - 8pm IST</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Service Area</h5>
+                <hr class="light">
+                <p>India | Canada | USA | Maxico</p>
+            </div>
+            <div class="col-12">
+                <hr class="light-100">
+                <h5>&copy; Gulab | Singh <span class="small-text">2025 All rights reserved.</span></h5>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+AOS.init();
+</script>
+<p class="small-text">You've visited this page <span id="visitCount">0</span> times.</p>
+    <script>
+        // Get visit count from local storage
+        let visitCount = localStorage.getItem('visitCount');
+        // If it's the first visit, set visitCount to 1
+        if (!visitCount) {
+            visitCount = 1;
+        } else {
+            visitCount = parseInt(visitCount) + 1; // Increment the visit count
+        }
+        // Store updated visit count in local storage
+        localStorage.setItem('visitCount', visitCount);
+
+        // Display visit count on the webpage
+        document.getElementById('visitCount').textContent = visitCount;
+        // Function to play a song
+        function playSong(songFile, songName, posterFile, artistName, albumName) {
+            const audioPlayer = document.getElementById('audio-player');
+            const nowPlaying = document.getElementById('now-playing');
+            const songPoster = document.getElementById('song-poster');
+            const songDetails = document.getElementById('song-details');
+
+            // Set the song source
+            audioPlayer.src = songFile;
+
+            // Update the "Now Playing" text
+            nowPlaying.textContent = "Now Playing: " + songName;
+
+            // Update the song poster
+            songPoster.src = posterFile;
+            songPoster.style.display = "block";
+
+            // Update the song details
+            songDetails.innerHTML = `<strong>Artist:</strong> ${artistName}<br><strong>Album:</strong> ${albumName}`;
+
+            // Play the song
+            audioPlayer.play();
+        }
+
+    </script>
+</body>
+</html>
