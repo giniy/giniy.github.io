@@ -116,40 +116,45 @@ body {
         </audio>
         <!-- Playlist -->
         <div class="playlist">
-            <button onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
-                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
-                <div>
-                    <strong>Tere Naam Ki Mannat</strong><br>
-                    <small>Gulab Days - Tere Naam Ki Mannat</small>
-                </div>
-            </button>
+        <button class="song-button" onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+            <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
+            <div class="song-info">
+                <strong>Tere Naam Ki Mannat</strong><br>
+                <small>Gulab Days - Tere Naam Ki Mannat</small>
+            </div>
+            <span class="buy-button" onclick="buySong('Tere Naam Ki Mannat'); event.stopPropagation();">Buy</span>
+        </button>
             <button onclick="playSong('mp3/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'mp3/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
                 <img src="mp3/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
-                <div>
+                <div class="song-info">
                     <strong>Kismat Ki Likhai</strong><br>
                     <small>Gulab Days - Kismat Ki Likhai</small>
                 </div>
+            <span class="buy-button" onclick="buySong('Kismat Ki Likhai'); event.stopPropagation();">Buy</span>
             </button>
             <button onclick="playSong('mp3/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'mp3/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
                 <img src="mp3/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
-                <div>
+                <div class="song-info">
                     <strong>Dil Ki Zubaan</strong><br>
                     <small>Gulab Days - Dil Ki Zubaan</small>
                 </div>
+                <span class="buy-button" onclick="buySong('Dil Ki Zubaan'); event.stopPropagation();">Buy</span>
             </button>
             <button onclick="playSong('mp3/Melody of Love.mp3', 'Melody of Love', 'mp3/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
                 <img src="mp3/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
-                <div>
+                <div class="song-info">
                     <strong>Melody of Love</strong><br>
                     <small>Gulab Days - Melody of Love</small>
                 </div>
+                <span class="buy-button" onclick="buySong('Melody of Love'); event.stopPropagation();">Buy</span>
             </button>
             <button onclick="playSong('mp3/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'mp3/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
                 <img src="mp3/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
-                <div>
+                <div class="song-info">
                     <strong>Chalo Re Sakhi</strong><br>
                     <small>Gulab Days - चलो रे सखी</small>
                 </div>
+                <span class="buy-button" onclick="buySong('Chalo Re Sakhi'); event.stopPropagation();">Buy</span>
             </button>
         </div>
     </div>
@@ -228,6 +233,11 @@ AOS.init();
             // Play the song
             audioPlayer.play();
         }
+            function buySong(songName) {
+                // Replace the alert with your actual purchase page redirection logic
+                alert('Redirecting to purchase page for ' + songName);
+                window.location.href = 'https://example.com/buy/' + encodeURIComponent(songName);
+            }
     </script>
 </body>
 </html>
