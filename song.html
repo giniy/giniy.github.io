@@ -19,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="mail.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="song-page.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation -->
@@ -39,119 +40,57 @@
     </div>
 </nav>
 <section id="song">
-<style>
-body {
-/*    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;*/
-/*    text-align: center;*/
-}
-/**/
-    .player {
-            display: inline-block;
-            padding: 0px;
-            border: 0px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        .player-container{
-            text-align: center;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 10px;
-        }
-        .playlist {
-            margin-top: 20px;
-        }
-        .playlist button {
-            display: flex;
-            align-items: center;
-            margin: 10px auto;
-            padding: 10px;
-            width: 100%;
-            background: linear-gradient(45deg, #1b313d, #431e39);            
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: left;
-        }
-        .playlist button:hover {
-            background-color: #0056b3;
-        }
-        .song-poster {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-        #now-playing {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        #song-details {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-        .player-text {
-        max-width: auto;
-        text-align: center;
-        font-size: 16px;
-        color: #555;
-        }
-
-        .player-text h3 {
-        margin-bottom: .5rem;
-        font-family: inherit;
-        font-weight: 500;
-        line-height: 1.2;
-        color: #c8b9b9;
-        }
-        .player-text p{
-            color: #807f7f;
-        }
-    </style>
-            <!-- New Text Section -->
+    <!-- New Text Section -->
     <div class="player-text">
         <h3>Enjoy the Best Music</h3>
         <p>Welcome to our playlist, where you can listen to the best songs from <strong>Gulab Days</strong>. Click on a song from the list to start playing. Enjoy the melodies and experience a musical journey like never before!</p>
     </div>
     <div class="player-container "> 
-    <div class="player">
+        <div class="player">
         <!-- Now Playing Section -->
         <p id="now-playing">Select a song to play</p>
         <div id="song-poster-container">
-            <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
+        <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
         </div>
         <p id="song-details"></p>
-
         <!-- Audio Player -->
         <audio id="audio-player" controls>
             Your browser does not support the audio element.
         </audio>
+        <!-- Audio Player -->
+
         <!-- Playlist -->
         <div class="playlist">
-        <button class="song-button" onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
-            <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
-            <div class="song-info">
-                <strong>Tere Naam Ki Mannat</strong><br>
-                <small>Gulab Days - Tere Naam Ki Mannat</small>
+
+            <!-- Songs button row -->
+
+            <button class="song-button" onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+            <!-- Updated Image with Hover Effect -->
+            <div class="song-poster-container">
+                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <div class="hover-text">Gulab</div>
             </div>
-            <span class="buy-button" onclick="buySong('Tere Naam Ki Mannat'); event.stopPropagation();">
-            <i class="fa fa-download" aria-hidden="true"></i>
-            </span>
-        </button>
+            <!-- Updated Image with Hover Effect -->
+                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
+                <div class="song-info">
+                    <strong>Tere Naam Ki Mannat</strong><br>
+                    <small>Gulab Days - Tere Naam Ki Mannat</small>
+                </div>
+                <span class="buy-button" onclick="buySong('Tere Naam Ki Mannat'); event.stopPropagation();">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                </span>
+            </button>
+
+            <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'mp3/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
+                <!-- Updated Image with Hover Effect -->
+                <div class="song-poster-container">
+                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <div class="hover-text">Gulab</div>
+                </div>
+                &nbsp;&nbsp;
+                <!-- Updated Image with Hover Effect -->
                 <img src="mp3/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Kismat Ki Likhai</strong><br>
@@ -161,7 +100,17 @@ body {
                 <i class="fa fa-download" aria-hidden="true"></i>
             </span>
             </button>
+
+            <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'mp3/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
+            <!-- Updated Image with Hover Effect -->
+            <div class="song-poster-container">
+                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <div class="hover-text">Gulab</div>
+            </div>
+            &nbsp;&nbsp;
+            <!-- Updated Image with Hover Effect -->
                 <img src="mp3/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Dil Ki Zubaan</strong><br>
@@ -171,7 +120,17 @@ body {
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </span>
             </button>
+
+            <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Melody of Love.mp3', 'Melody of Love', 'mp3/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
+                <!-- Updated Image with Hover Effect -->
+                <div class="song-poster-container">
+                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <div class="hover-text">Gulab</div>
+                </div>
+                &nbsp;&nbsp;
+                <!-- Updated Image with Hover Effect -->
                 <img src="mp3/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Melody of Love</strong><br>
@@ -181,7 +140,17 @@ body {
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </span>
             </button>
+
+            <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'mp3/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
+                <!-- Updated Image with Hover Effect -->
+                <div class="song-poster-container">
+                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <div class="hover-text">Gulab</div>
+                </div>
+                &nbsp;&nbsp;
+                <!-- Updated Image with Hover Effect -->
                 <img src="mp3/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Chalo Re Sakhi</strong><br>
@@ -192,7 +161,16 @@ body {
                 </span>
             </button>
 
+        <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Rango Me.mp3', 'Rango Me', 'mp3/rango_me.png', 'Gulab Days', 'Rango Me')">
+            <!-- Updated Image with Hover Effect -->
+            <div class="song-poster-container">
+                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <div class="hover-text">Gulab</div>
+            </div>
+            &nbsp;&nbsp;
+            <!-- Updated Image with Hover Effect -->
                 <img src="mp3/rango_me.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Rango Me</strong><br>
@@ -202,7 +180,17 @@ body {
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </span>
             </button>
+
+            <!-- Songs button row -->
+
             <button onclick="playSong('mp3/Rango Me - 2.mp3', 'Rango Me - 2', 'mp3/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
+                <!-- Updated Image with Hover Effect -->
+                <div class="song-poster-container">
+                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <div class="hover-text">Gulab</div>
+                </div>
+                &nbsp;&nbsp;
+                <!-- Updated Image with Hover Effect -->
                 <img src="mp3/rango_me_2.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Rango Me - 2</strong><br>
@@ -212,6 +200,9 @@ body {
                     <i class="fa fa-download" aria-hidden="true"></i>
                 </span>
             </button>
+
+            <!-- Songs button row -->
+
         </div>
     </div>
     </div>
