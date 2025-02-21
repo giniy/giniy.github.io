@@ -27,11 +27,12 @@ jobs:
       - name: Upload Pages Artifact (Fix)
         run: |
           mkdir -p artifact
-          cp -r * artifact/
+          # Copy everything except the 'artifact' directory
+          rsync -av --exclude='artifact' ./* artifact/
         shell: bash
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3  # Updated to v3
+        uses: actions/upload-pages-artifact@v3
         with:
           path: artifact  # Deploying only copied files
 
