@@ -19,11 +19,14 @@ jobs:
       - name: Deploy to Public Repo
         run: |
           mkdir public
-          cp -r * public/  # Copy all files from private repo
+          cp -r * public/
           cd public
-          rm -rf .git  # Remove git history to avoid conflicts
+          rm -rf .git
           git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Deploy lat
+          git commit -m "Deploy latest portfolio update"
+          git branch -M main
+          git remote add origin https://github.com/techcure/techcure.github.io.git
+          git push -f origin main
