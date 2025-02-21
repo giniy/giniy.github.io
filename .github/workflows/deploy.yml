@@ -25,10 +25,10 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Upload Files to GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v2
         with:
           path: .  # Deploy all files from the private repo
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v2
