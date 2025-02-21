@@ -1,0 +1,30 @@
+name: Deploy Portfolio from Private Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Private Repository
+        uses: actions/checkout@v3
+        with:
+          repository: techcure/portfolio-private
+          token: ${{ secrets.GHPAT }}
+
+      - name: Deploy to Public Repo
+        run: |
+          cp -r * ../public/
+          cd ../public
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Update public portfolio"
+          git branch -M main
+          git remote add origin https://github.com/techcure/techcure.github.io.git
+          git push -f origin main
