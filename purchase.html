@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Song via PayPal QR</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .product { margin: 20px; padding: 10px; border: 1px solid #ddd; display: inline-block; }
+        #paymentReady, #qrCode { margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <h2>Buy Your Favorite Song</h2>
+    <div class="product">
+        <h2>Purchase Details</h2>
+        <p id="songInfo"></p>
+        <button onclick="generatePaymentLink()">
+        <style>.pp-5R9QXC8WRZDB4{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
+        <form action="https://www.paypal.com/ncp/payment/5R9QXC8WRZDB4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+          <input class="pp-5R9QXC8WRZDB4" type="submit" value="Buy Now" />
+          <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
+          <section> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+        </form>
+    </button>
+    </div>
+    <!-- Payment Ready Section -->
+<!--     <div id="paymentReady">
+        <h3>Your payment link is ready</h3>
+        <button onclick="showQRCode()">Proceed to Payment</button>
+    </div> -->
+
+    <!-- QR Code Section -->
+    <div id="qrCode">
+        <h3>Scan to Pay via PayPal</h3>
+        <img id="qrImage" src="" alt="PayPal QR Code" width="200">
+        <p>Waiting for payment verification...</p>
+    </div>
+    <script>
+        let songName = "";
+        let price = "";
+
+        function getParams() {
+            const params = new URLSearchParams(window.location.search);
+            songName = params.get("songName");
+            price = params.get("price");
+
+            if (songName && price) {
+                document.getElementById("songInfo").textContent = `Song: ${songName}, Price: $${price}`;
+            } else {
+                document.getElementById("songInfo").textContent = "No song selected.";
+            }
+        }
+        getParams();
+        function generatePaymentLink() {
+            // Show "Your payment link is ready" message
+            document.getElementById("paymentReady").style.display = "block";
+        }
+        function showQRCode() {
+            // Hide payment link message and show QR code
+            document.getElementById("paymentReady").style.display = "none";
+            document.getElementById("qrCode").style.display = "block";
+
+            // Set PayPal QR Code (Replace with your actual PayPal QR Code URL)
+            document.getElementById("qrImage").src = "https://www.paypalobjects.com/images/Debit_Credit_APM.svg";
+            // Start checking payment status
+            checkPaymentStatus();
+        }
+        function checkPaymentStatus() {
+            setTimeout(() => {
+                // Simulate payment verification from PayPal API (Replace this with real API call)
+                let paymentSuccess = Math.random() > 0.5; // Simulating success/failure
+
+                if (paymentSuccess) {
+                    alert("Payment successful! Redirecting to download...");
+                    window.location.href = "success.html?songName=" + encodeURIComponent(songName);
+                } else {
+                    alert("Payment failed! Redirecting back...");
+                    window.location.href = "purchase.html?songName=" + encodeURIComponent(songName) + "&price=" + encodeURIComponent(price);
+                }
+            }, 5000); // Simulated delay for PayPal verification
+        }
+    </script>
+
+</body>
+</html>
