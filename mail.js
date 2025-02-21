@@ -52,16 +52,14 @@ document.getElementById("contactForm").addEventListener("submit", async function
             // Play the song
             audioPlayer.play();
         }
-        function buySong(songName) {
-            // Ask for user confirmation before redirecting
-            let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
-            
-            if (userConfirmed) {
-                // Proceed with redirection if the user confirms
-                alert('Redirecting to purchase page for ' + songName);
-                window.location.href = 'https://example.com/buy/' + encodeURIComponent(songName);
-            } else {
-                // Notify the user that the purchase was canceled
-                alert('Purchase canceled.');
-            }
+
+    function buySong(songName, price) {
+        let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
+
+        if (userConfirmed) {
+            alert('Redirecting to purchase page for ' + songName);
+            window.location.href = 'purchase.html?songName=' + encodeURIComponent(songName) + '&price=' + encodeURIComponent(price);
+        } else {
+            alert('Purchase canceled.');
         }
+    }
