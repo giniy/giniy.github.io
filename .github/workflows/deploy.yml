@@ -19,22 +19,18 @@ jobs:
         with:
           repository: techcure/portfolio-private
           ref: main
-          token: ${{ secrets.GHPAT }}  # Use the PAT to access the private repo
+          token: ${{ secrets.GHPAT }}
 
       - name: Debug - List Repository Contents
         run: |
           ls -R
         shell: bash
 
-      - name: Prepare Artifact from Repository
+      - name: Create Dummy Artifact
         run: |
           mkdir -p artifact
-          # Copy index.html and other necessary files into the artifact directory
-          cp index.html artifact/
-          # Optionally, copy other files or directories (e.g., css, js, images)
-          cp -r css js images artifact/
-          # Debug: List files in the artifact directory
-          ls -R artifact
+          echo "Hello, GitHub Pages!" > artifact/index.html
+          ls -R artifact  # Debug: List files in the artifact directory
         shell: bash
 
       - name: Upload Artifact
