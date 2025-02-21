@@ -34,6 +34,7 @@ jobs:
           # Debug: List files in the artifact directory
           ls -R artifact
         shell: bash
+
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
