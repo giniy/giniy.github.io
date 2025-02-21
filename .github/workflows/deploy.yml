@@ -19,18 +19,20 @@ jobs:
         with:
           repository: techcure/portfolio-private
           ref: main
-          token: ${{ secrets.GHPAT }}
+          token: ${{ secrets.GHPAT }}  # Use the PAT to access the private repo
 
       - name: Debug - List Repository Contents
         run: |
           ls -R
         shell: bash
 
-      - name: Upload Pages Artifact (Fix)
+      - name: Prepare Artifact from Repository
         run: |
           mkdir -p artifact
-          # Copy everything except the 'artifact' directory
-          rsync -av --exclude='artifact' ./* artifact/
+          # Copy index.html and other necessary files into the artifact directory
+          cp index.html artifact/
+          # Optionally, copy other files or directories (e.g., css, js, images)
+          cp -r css js images artifact/
           # Debug: List files in the artifact directory
           ls -R artifact
         shell: bash
