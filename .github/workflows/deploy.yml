@@ -14,29 +14,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Private Repository (portfolio-private)
+      - name: Checkout Private Repository
         uses: actions/checkout@v4
         with:
           repository: techcure/portfolio-private
           ref: main
-          token: ${{ secrets.GHPAT }}
+          token: ${{ secrets.GHPAT }}  # Use the PAT here
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload Pages Artifact (Fix)
+      - name: Upload Pages Artifact
         run: |
           mkdir -p artifact
-          # Copy everything except the 'artifact' directory
           rsync -av --exclude='artifact' ./* artifact/
-          # Debug: List files in the artifact directory
-          ls -R artifact
+          ls -R artifact  # Debug: List files in the artifact directory
         shell: bash
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: artifact  # Deploying only copied files
+          path: artifact  # Ensure this matches the directory created above
 
       - name: Deploy to GitHub Pages
         id: deployment
