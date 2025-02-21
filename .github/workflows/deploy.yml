@@ -31,7 +31,7 @@ jobs:
         shell: bash
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3  # Updated to v3
         with:
           path: artifact  # Deploying only copied files
 
