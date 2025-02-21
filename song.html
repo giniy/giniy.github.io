@@ -12,20 +12,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="mail.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <link href="song-page.css" rel="stylesheet">
+    <script src="static/js/mail.js"></script> 
+    <link href="static/css/song-page.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img src="img/logo6.png"></a>
+        <a class="navbar-brand" href="index.html"><img src="static/images/logo6.png"></a>
         <div class="portfolio-tagline">Crafting Digital Symphonies</div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
@@ -65,14 +65,15 @@
 
             <!-- Songs button row -->
 
-            <button class="song-button" onclick="playSong('mp3/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat', 'mp3/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+            <button class="song-button" onclick="playSong('static/media/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat',
+            'static/media/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
             <!-- Updated Image with Hover Effect -->
             <div class="song-poster-container">
-                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                 <div class="hover-text">Gulab</div>
             </div>
             <!-- Updated Image with Hover Effect -->
-                <img src="mp3/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
+                <img src="static/media/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Tere Naam Ki Mannat</strong><br>
                     <small>Tere Naam Ki Mannat - Gulab Days</small>
@@ -84,15 +85,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'mp3/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
+            <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
+                <img src="static/media/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Kismat Ki Likhai</strong><br>
                     <small>Kismat Ki Likhai - Gulab Days</small>
@@ -104,15 +105,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'mp3/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
+            <button onclick="playSong('static/media/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'static/media/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
             <!-- Updated Image with Hover Effect -->
             <div class="song-poster-container">
-                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                 <div class="hover-text">Gulab</div>
             </div>
             &nbsp;&nbsp;
             <!-- Updated Image with Hover Effect -->
-                <img src="mp3/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Dil Ki Zubaan</strong><br>
                     <small>Dil Ki Zubaan - Gulab Days</small>
@@ -124,15 +125,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Melody of Love.mp3', 'Melody of Love', 'mp3/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
+            <button onclick="playSong('static/media/Melody of Love.mp3', 'Melody of Love', 'static/media/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Melody of Love</strong><br>
                     <small>Melody of Love - Gulab Days</small>
@@ -144,15 +145,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'mp3/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
+            <button onclick="playSong('static/media/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'static/media/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Chalo Re Sakhi</strong><br>
                     <small>चलो रे सखी - Gulab Days</small>
@@ -164,15 +165,15 @@
 
         <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Rango Me.mp3', 'Rango Me', 'mp3/rango_me.png', 'Gulab Days', 'Rango Me')">
+            <button onclick="playSong('static/media/Rango Me.mp3', 'Rango Me', 'static/media/rango_me.png', 'Gulab Days', 'Rango Me')">
             <!-- Updated Image with Hover Effect -->
             <div class="song-poster-container">
-                <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                 <div class="hover-text">Gulab</div>
             </div>
             &nbsp;&nbsp;
             <!-- Updated Image with Hover Effect -->
-                <img src="mp3/rango_me.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/rango_me.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Rango Me</strong><br>
                     <small>Rango Me - Gulab Days</small>
@@ -184,15 +185,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Rango Me - 2.mp3', 'Rango Me - 2', 'mp3/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
+            <button onclick="playSong('static/media/Rango Me - 2.mp3', 'Rango Me - 2', 'static/media/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/rango_me_2.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/rango_me_2.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Rango Me - 2</strong><br>
                     <small>Rango Me - 2 - Gulab Days</small>
@@ -206,15 +207,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Tu Jaha.mp3', 'Tu Jaha', 'mp3/tu_jaha.png', 'Gulab Days', 'Tu Jaha');">
+            <button onclick="playSong('static/media/Tu Jaha.mp3', 'Tu Jaha', 'static/media/tu_jaha.png', 'Gulab Days', 'Tu Jaha');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tu Jaha" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/tu_jaha.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/tu_jaha.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Tu Jaha</strong><br>
                     <small>Tu Jaha - Gulab Days</small>
@@ -228,15 +229,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'mp3/tera_intezar.png', 'Gulab Days', 'Tera Intezar Karu');">
+            <button onclick="playSong('static/media/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'static/media/tera_intezar.png', 'Gulab Days', 'Tera Intezar Karu');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tu Jaha" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/tera_intezar.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/tera_intezar.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Tera Intezar Karu</strong><br>
                     <small>Tera Intezar Karu - Gulab Days</small>
@@ -250,15 +251,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Kurbat.mp3', 'Kurbat', 'mp3/kurbat.png', 'Gulab Days', 'Kurbat');">
+            <button onclick="playSong('static/media/Kurbat.mp3', 'Kurbat', 'static/media/kurbat.png', 'Gulab Days', 'Kurbat');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Tu Jaha" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/kurbat.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/kurbat.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Kurbat</strong><br>
                     <small>Kurbat - Gulab Days</small>
@@ -272,15 +273,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'mp3/chand_bhi.png', 'Gulab Days', 'Chand Bhi Tujhse');">
+            <button onclick="playSong('static/media/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'static/media/chand_bhi.png', 'Gulab Days', 'Chand Bhi Tujhse');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Chand Bhi Tujhse" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Chand Bhi Tujhse" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/chand_bhi.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/chand_bhi.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Chand Bhi Tujhse</strong><br>
                     <small>Chand Bhi Tujhse - Gulab Days</small>
@@ -294,15 +295,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Cry Moon.mp3', 'Cry Moon', 'mp3/cry_moon.png', 'Gulab Days', 'Cry Moon');">
+            <button onclick="playSong('static/media/Cry Moon.mp3', 'Cry Moon', 'static/media/cry_moon.png', 'Gulab Days', 'Cry Moon');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Cry Moon" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Cry Moon" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/cry_moon.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/cry_moon.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Cry Moon</strong><br>
                     <small>Cry Moon - Gulab Days</small>
@@ -316,15 +317,15 @@
 
             <!-- Songs button row -->
 
-            <button onclick="playSong('mp3/Jhoom Le.mp3', 'Jhoom Le', 'mp3/joom_le.png', 'Gulab Days', 'Jhoom Le');">
+            <button onclick="playSong('static/media/Jhoom Le.mp3', 'Jhoom Le', 'static/media/joom_le.png', 'Gulab Days', 'Jhoom Le');">
                 <!-- Updated Image with Hover Effect -->
                 <div class="song-poster-container">
-                    <img src="img/img.jpg" alt="Jhoom Le" class="song-poster1">
+                    <img src="static/images/img.jpg" alt="Jhoom Le" class="song-poster1">
                     <div class="hover-text">Gulab</div>
                 </div>
                 &nbsp;&nbsp;
                 <!-- Updated Image with Hover Effect -->
-                <img src="mp3/joom_le.png" alt="Song 3 Poster" class="song-poster">
+                <img src="static/media/joom_le.png" alt="Song 3 Poster" class="song-poster">
                 <div class="song-info">
                     <strong>Jhoom Le</strong><br>
                     <small>Jhoom Le - Gulab Days</small>
@@ -349,7 +350,7 @@
         <div class="row text-center">
             <div class="col-md-4 pt-0">
                 <div class="footer-image">
-                <img src="img/logo6.png"></div>
+                <img src="static/images/logo6.png"></div>
                 <hr class="light">
                 <p><i class="fa fa-phone"  aria-hidden="true"></i> &nbsp; 9407488956 &nbsp; <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
             </div>
