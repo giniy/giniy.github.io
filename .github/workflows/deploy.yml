@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: techcure/portfolio-private
+	  ref: main  # Ensure the correct branch nam
           path: private_repo
           token: ${{ secrets.GHPAT }}
 
