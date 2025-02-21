@@ -23,22 +23,26 @@ jobs:
 
       - name: Debug - List Repository Contents
         run: |
-          ls -R
+          echo "🔍 Listing all files in the private repository:"
+          ls -lah
         shell: bash
 
       - name: Upload Pages Artifact (Fix)
         run: |
+          echo "📂 Creating deployment artifact directory..."
           mkdir -p artifact
-          # Copy everything except the 'artifact' directory
-          rsync -av --exclude='artifact' ./* artifact/
-          # Debug: List files in the artifact directory
-          ls -R artifact
+
+          echo "🚀 Copying necessary files (excluding unwanted files)..."
+          rsync -av --exclude='artifact' --exclude='.git' --exclude='.github' . artifact/
+
+          echo "✅ Files copied successfully. Listing artifact directory:"
+          ls -lah artifact
         shell: bash
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: artifact  # Ensure this matches the directory created above
+          path: artifact  # Matches the directory created above
 
       - name: Deploy to GitHub Pages
         id: deployment
