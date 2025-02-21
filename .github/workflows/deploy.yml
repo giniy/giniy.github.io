@@ -26,7 +26,7 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Create Dummy Artifact
+      - name: Create Artifact for Deployment
         run: |
           mkdir -p artifact
           echo "Hello, GitHub Pages!" > artifact/index.html
@@ -36,7 +36,12 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: artifact  # Ensure this matches the directory created above
+          name: github-pages  # Explicitly set the artifact name
+          path: artifact
+
+      - name: Debug - List Uploaded Artifacts
+        run: |
+          ls -R artifact
 
       - name: Deploy to GitHub Pages
         id: deployment
