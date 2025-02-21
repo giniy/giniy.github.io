@@ -1,6 +1,0 @@
-This favicon was generated using the following font:
-
-- Font Title: Playwrite IN
-- Font Author: undefined
-- Font Source: https://fonts.gstatic.com/s/playwritein/v4/uk-xEGGpoLQ97mfv2J3cZzuz7CyEJhPw65lkM7mMMR8n3_Ag1kU.ttf
-- Font License: undefined)
