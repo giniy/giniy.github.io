@@ -3,7 +3,7 @@ name: Deploy Portfolio from Private Repo
 on:
   push:
     branches:
-      - main  # Trigger workflow when the main branch is updated
+      - main  # Runs when pushing to main branch
 
 permissions:
   contents: read
@@ -14,38 +14,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Public Repository (techcure.github.io)
-        uses: actions/checkout@v3
-        with:
-          repository: techcure/techcure.github.io
-          token: ${{ secrets.GHPAT }}
-          path: public_repo
-
-      - name: Remove Everything Except Workflow in Public Repo
-        run: |
-          shopt -s extglob  # Enable extended pattern matching
-          rm -rf public_repo/!(.github)  # Delete everything except .github
-          cd public_repo
-          git add .
-          git commit -m "Cleanup public repo before deployment" || echo "No changes to commit"
-          git push origin main
-
       - name: Checkout Private Repository (portfolio-private)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: techcure/portfolio-private
           ref: main
           token: ${{ secrets.GHPAT }}
-          path: private_repo
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
 
       - name: Upload Files to GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: private_repo  # Only deploy files from private repo
+          path: .  # Deploy all files from the private repo
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
