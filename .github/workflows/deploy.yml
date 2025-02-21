@@ -24,7 +24,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload Files to GitHub Pages
+      - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: .  # Deploy all files from the private repo
