@@ -23,29 +23,25 @@ jobs:
 
       - name: Debug - List Repository Contents
         run: |
-          echo "🔍 Listing all files in the private repository:"
-          ls -lah
+          ls -R
         shell: bash
-
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4  # Ensure GitHub Pages is set up properly
 
       - name: Create Artifact for Deployment
         run: |
-          echo "📂 Creating deployment artifact directory..."
           mkdir -p artifact
-
-          echo "🚀 Copying necessary files (excluding unwanted files)..."
-          rsync -av --exclude='artifact' --exclude='.git' --exclude='.github' . artifact/
-
-          echo "✅ Files copied successfully. Listing artifact directory:"
-          ls -lah artifact
+          echo "Hello, GitHub Pages!" > artifact/index.html
+          ls -R artifact  # Debug: List files in the artifact directory
         shell: bash
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v2  # Use the latest stable version
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: artifact  # Ensure this matches the directory created above
+          name: github-pages  # Explicitly set the artifact name
+          path: artifact
+
+      - name: Debug - List Uploaded Artifacts
+        run: |
+          ls -R artifact
 
       - name: Deploy to GitHub Pages
         id: deployment
