@@ -29,6 +29,8 @@ jobs:
           mkdir -p artifact
           # Copy everything except the 'artifact' directory
           rsync -av --exclude='artifact' ./* artifact/
+          # Debug: List files in the artifact directory
+          ls -R artifact
         shell: bash
 
       - name: Upload Artifact
