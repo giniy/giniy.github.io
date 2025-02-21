@@ -14,22 +14,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: techcure/techcure.github.io
+          token: ${{ secrets.GHPAT }}
 
       - name: Checkout Private Repository
         uses: actions/checkout@v3
         with:
           repository: techcure/portfolio-private
-	  ref: main  # Ensure the correct branch nam
           path: private_repo
           token: ${{ secrets.GHPAT }}
 
-      - name: Copy Files to Public Repo
+      - name: Copy Files from Private Repo to Public Repo
         run: |
           cp -r private_repo/* .
           rm -rf private_repo .git .github
+
+      - name: Commit and Push Changes to Public Repo
+        run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add .
           git commit -m "Deploy latest portfolio update" || echo "No changes to commit"
-          git push origin main --force
-
+          git push origin main
