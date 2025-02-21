@@ -24,10 +24,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload Pages Artifact
+      - name: Upload Pages Artifact (Fix)
+        run: |
+          mkdir -p artifact
+          cp -r * artifact/
+        shell: bash
+
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: .  # Deploy all files from the private repo
+          path: artifact  # Deploying only copied files
 
       - name: Deploy to GitHub Pages
         id: deployment
