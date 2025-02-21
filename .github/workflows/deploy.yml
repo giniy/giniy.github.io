@@ -10,26 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Public Repository
+      - name: Checkout Public Repository (techcure.github.io)
         uses: actions/checkout@v3
         with:
           repository: techcure/techcure.github.io
           token: ${{ secrets.GHPAT }}
+          path: public_repo  # Explicit path to public repo
 
-      - name: Checkout Private Repository
+      - name: Checkout Private Repository (portfolio-private)
         uses: actions/checkout@v3
         with:
           repository: techcure/portfolio-private
+          ref: main  # Ensure it's the correct branch
           path: private_repo
           token: ${{ secrets.GHPAT }}
 
-      - name: Copy Files from Private Repo to Public Repo
+      - name: Copy Files from Private to Public Repo
         run: |
-          cp -r private_repo/* .
-          rm -rf private_repo .git .github
+          cp -r private_repo/* public_repo/
+          rm -rf private_repo
 
-      - name: Commit and Push Changes to Public Repo
+      - name: Commit & Push Changes to Public Repo
         run: |
+          cd public_repo  # Move into public repo
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add .
