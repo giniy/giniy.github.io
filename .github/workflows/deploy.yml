@@ -23,7 +23,8 @@ jobs:
 
       - name: Remove Everything Except Workflow in Public Repo
         run: |
-          find public_repo -mindepth 1 ! -regex '^public_repo/.github\(/.*\)?' -delete
+          shopt -s extglob  # Enable extended pattern matching
+          rm -rf public_repo/!(.github)  # Delete everything except .github
           cd public_repo
           git add .
           git commit -m "Cleanup public repo before deployment" || echo "No changes to commit"
