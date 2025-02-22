@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Gulab</title>
-      <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.ico">
+      <link rel="shortcut icon" type="image/png" href="static/images/favicon/favicon.ico">
       <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
       <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-      <script src="static/js/mail.js"></script> 
+      <script src="static/js/song.js"></script> 
       <link href="static/css/style1.css" rel="stylesheet">
       <link href="static/css/style.css" rel="stylesheet">
    </head>
@@ -55,16 +55,34 @@
                   <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
                </div>
                <p id="song-details"></p>
+
                <!-- Audio Player -->
-               <audio id="audio-player" controls>
-                  Your browser does not support the audio element.
-               </audio>
-               <!-- Audio Player -->
+            <div class="custom-audio-player">
+                <div class="player-controls">
+                    <button id="play-pause-btn" class="control-btn">
+                        <i class="fas fa-play"></i> <!-- Play icon -->
+                    </button>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                    </div>
+                    <button id="mute-btn" class="control-btn">
+                        <i class="fas fa-volume-up"></i> <!-- Volume icon -->
+                    </button>
+                </div>
+            </div>
+            <audio id="audio-player">
+                Your browser does not support the audio element.
+            </audio>
+            <!-- Audio Player -->
+
                <!-- Playlist -->
                <div class="playlist">
                   <!-- Songs button row -->
                   <button class="song-button" onclick="playSong('static/media/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat',
-                     'static/media/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+                     'static/media/tere_naam_ki_mannat.webp', 'Tere Naam Ki Mannat', 'Gulab, Om Prakash')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -81,7 +99,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
+                  <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Kismat Ki Likhai', 'Gulab')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -99,7 +117,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'static/media/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
+                  <button onclick="playSong('static/media/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'static/media/dil_ki_zubaan.jpg', 'Dil Ki Zubaan', 'Gulab')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -117,7 +135,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Melody of Love.mp3', 'Melody of Love', 'static/media/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
+                  <button onclick="playSong('static/media/Melody of Love.mp3', 'Melody of Love', 'static/media/melody_of_love.png', 'Melody of Love', 'Gulab, Om Praksh')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -135,7 +153,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'static/media/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
+                  <button onclick="playSong('static/media/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'static/media/chalo_re_sakhi.png', 'Chalo Re Sakhi', 'Gulab, Om Prakash')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -153,7 +171,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Rango Me.mp3', 'Rango Me', 'static/media/rango_me.png', 'Gulab Days', 'Rango Me')">
+                  <button onclick="playSong('static/media/Rango Me.mp3', 'Rango Me', 'static/media/rango_me.png', 'Rango Me', 'Gulab, Om Prakash')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -171,7 +189,7 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Rango Me - 2.mp3', 'Rango Me - 2', 'static/media/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
+                  <button onclick="playSong('static/media/Rango Me - 2.mp3', 'Rango Me - 2', 'static/media/rango_me_2.png', 'Rango Me - 2', 'Gulab, Om Prakash');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -190,7 +208,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Tu Jaha.mp3', 'Tu Jaha', 'static/media/tu_jaha.png', 'Gulab Days', 'Tu Jaha');">
+                  <button onclick="playSong('static/media/Tu Jaha.mp3', 'Tu Jaha', 'static/media/tu_jaha.png', 'Tu Jaha', 'Gulab');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -209,7 +227,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'static/media/tera_intezar.png', 'Gulab Days', 'Tera Intezar Karu');">
+                  <button onclick="playSong('static/media/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'static/media/tera_intezar.png', 'Tera Intezar Karu', 'Gulab');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -228,7 +246,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Kurbat.mp3', 'Kurbat', 'static/media/kurbat.png', 'Gulab Days', 'Kurbat');">
+                  <button onclick="playSong('static/media/Kurbat.mp3', 'Kurbat', 'static/media/kurbat.png', 'Kurbat', 'Gulab');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -247,7 +265,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'static/media/chand_bhi.png', 'Gulab Days', 'Chand Bhi Tujhse');">
+                  <button onclick="playSong('static/media/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'static/media/chand_bhi.png', 'Chand Bhi Tujhse', 'Gulab, Om Prakash');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -266,7 +284,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Cry Moon.mp3', 'Cry Moon', 'static/media/cry_moon.png', 'Gulab Days', 'Cry Moon');">
+                  <button onclick="playSong('static/media/Cry Moon.mp3', 'Cry Moon', 'static/media/cry_moon.png', 'Cry Moon', 'Gulab');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -285,7 +303,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Jhoom Le.mp3', 'Jhoom Le', 'static/media/joom_le.png', 'Gulab Days', 'Jhoom Le');">
+                  <button onclick="playSong('static/media/Jhoom Le.mp3', 'Jhoom Le', 'static/media/joom_le.png', 'Jhoom Le', 'Gulab, Om Prakash');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
@@ -304,7 +322,7 @@
                   </button>
                   <!-- Songs button row -->
                   <!-- Songs button row -->
-                  <button onclick="playSong('static/media/Tera Naam.mp3', 'Tera Naam', 'static/media/tera_naam.png', 'Gulab Days', 'Tera Naam');">
+                  <button onclick="playSong('static/media/Tera Naam.mp3', 'Tera Naam', 'static/media/tera_naam.png', 'Tera Naam', 'Gulab, Om Prakash');">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
                         <img src="static/images/img.jpg" alt="artist" class="song-poster1">
