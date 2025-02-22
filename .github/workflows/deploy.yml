@@ -43,4 +43,5 @@ jobs:
           cd public_repo
           git add .
           git commit -m "Deploy from portfolio-private" || echo "No changes to commit"
-          git push https://techcure:${{ secrets.GHPAT }}@github.com/techcure/techcure.github.io.git main
+          git push --force https://techcure:${{ secrets.GHPAT }}@github.com/techcure/techcure.github.io.git main
+
