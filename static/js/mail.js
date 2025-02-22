@@ -53,13 +53,41 @@ document.getElementById("contactForm").addEventListener("submit", async function
             audioPlayer.play();
         }
 
-    function buySong(songName, price) {
-        let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
+    // function buySong(songName, price) {
+    //     let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
 
-        if (userConfirmed) {
-            alert('Redirecting to purchase page for ' + songName);
-            window.location.href = 'purchase.html?songName=' + encodeURIComponent(songName) + '&price=' + encodeURIComponent(price);
-        } else {
-            alert('Purchase canceled.');
-        }
-    }
+    //     if (userConfirmed) {
+    //         alert('Redirecting to purchase page for ' + songName);
+    //         window.location.href = 'purchase.html?songName=' + encodeURIComponent(songName) + '&price=' + encodeURIComponent(price);
+    //     } else {
+    //         alert('Purchase canceled.');
+    //     }
+    // }
+  function buySong(songName, price) {
+      // Ask user for their email
+      var userEmail = prompt("Please enter your email to proceed with the download request.");
+
+      // If the user cancels or enters an empty email, stop the process
+      if (!userEmail || userEmail.trim() === "") {
+          alert("Email is required to proceed.");
+          return;
+      }
+
+      // Prepare the parameters for EmailJS
+      var templateParams = {
+          song: songName,
+          price: price,
+          user_email: userEmail,  // Include user's email
+          message: "I want to download : " + songName + " for $" + price,
+      };
+
+      // Send email using EmailJS
+      emailjs.send("service_wvya9qv", "template_x4ggdpv", templateParams)
+          .then(function(response) {
+              console.log("SUCCESS!", response.status, response.text);
+              alert("Download request sent! We will contact you at " + userEmail);
+          }, function(error) {
+              console.log("FAILED...", error);
+              alert("There was an error sending the email. Please try again later.");
+          });
+  }
