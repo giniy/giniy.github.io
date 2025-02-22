@@ -1,122 +1,203 @@
 body {
-/*    margin: 0;
+    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.5;*/
-/*    text-align: center;*/
+    line-height: 1.5;
 }
-/**/
-    .player {
-            display: inline-block;
-            padding: 0px;
-            border: 0px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 310px;
-            width: 100%;
-            text-align: center;
-        }
-        .player-container{
-            text-align: center;
-        }
 
-        audio {
-            width: 100%;
-            margin-top: 10px;
-        }
-        .playlist {
-            margin-top: 20px;
-        }
-        .playlist button {
-            display: flex;
-            align-items: center;
-            margin: 10px auto;
-            padding: 10px;
-            width: 125%;
-            background: linear-gradient(45deg, #1b313d, #431e39);            
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: left;
-        }
-        .playlist button:hover {
-            background-color: #0056b3;
-        }
-        .song-poster {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            margin-right: 10px;
-            position: relative;
-            display: inline-block;
+.player {
+    display: inline-block;
+    padding: 0px;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Adjusted for responsiveness */
+    width: 100%;
+    text-align: center;
+}
 
-        }
-        .song-poster1 {
-            width: 50px;
-            height: 50px;
-            border-radius: 30px;
-            margin-right: 10px;
-            position: relative;
-            display: inline-block;
+.player-container {
+    text-align: center;
+    padding: 0 15px; /* Added padding for smaller screens */
+}
 
-        }
-        #now-playing {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        #song-details {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-        .player-text {
-        max-width: auto;
-        text-align: center;
-        font-size: 16px;
-        color: #555;
-        }
+audio {
+    width: 100%;
+    margin-top: 10px;
+}
 
-        .player-text h3 {
-        margin-bottom: .5rem;
-        font-family: inherit;
-        font-weight: 500;
-        line-height: 1.2;
-        color: #c8b9b9;
-        }
-        .player-text p{
-            color: #807f7f;
-        }
-    .song-poster-container:hover .hover-text {
-        opacity: 1;
-        visibility: visible;
+.playlist {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into multiple rows */
+    gap: 10px; /* Space between items */
+    justify-content: center; /* Center items horizontally */
+    margin-top: 20px;
+}
+
+.playlist button {
+    flex: 1 1 calc(33.333% - 20px); /* 3 columns on larger screens */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(45deg, #1b313d, #431e39);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    min-width: 250px; /* Minimum width for each button */
+    max-width: 100%; /* Ensure buttons don't overflow */
+}
+
+.playlist button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .playlist button {
+        flex: 1 1 100%; /* Full width on smaller screens (single column) */
+        min-width: auto; /* Remove minimum width for smaller screens */
     }
+}
 
-    .song-poster-container {
-        position: relative;
-        display: inline-block;
-    }
-    .hover-text {
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(0, 0, 0, 0.75);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 14px;
-        white-space: nowrap;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    }
+.song-poster {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.song-poster1 {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+#now-playing {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#song-details {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.player-text {
+    max-width: 100%; /* Adjusted for responsiveness */
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    padding: 0 15px; /* Added padding for smaller screens */
+}
+
+.player-text h3 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #c8b9b9;
+}
+
+.player-text p {
+    color: #807f7f;
+}
+
+.song-poster-container:hover .hover-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+.song-poster-container {
+    position: relative;
+    display: inline-block;
+}
+
+.hover-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
 .small-text {
-    font-size: 0.75rem; /* Smaller text */
-    margin-left: 0px; /* Space between text */
-    color: gray; /* Optional: Adjust color */
+    font-size: 0.75rem;
+    margin-left: 0px;
+    color: gray;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .playlist button {
+        width: 100%; /* Full width on smaller screens */
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+
+    .player-text {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+
+    .player-text h3 {
+        font-size: 20px; /* Adjust heading size for smaller screens */
+    }
+
+    .song-poster, .song-poster1 {
+        width: 40px; /* Smaller poster size for smaller screens */
+        height: 40px;
+    }
+
+    #now-playing {
+        font-size: 16px; /* Smaller font size for smaller screens */
+    }
+
+    #song-details {
+        font-size: 12px; /* Smaller font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .playlist button {
+        padding: 8px; /* Smaller padding for smaller screens */
+        font-size: 12px; /* Smaller font size for smaller screens */
+    }
+
+    .player-text {
+        font-size: 12px; /* Smaller font size for smaller screens */
+    }
+
+    .player-text h3 {
+        font-size: 18px; /* Adjust heading size for smaller screens */
+    }
+
+    .song-poster, .song-poster1 {
+        width: 30px; /* Smaller poster size for smaller screens */
+        height: 30px;
+    }
+
+    #now-playing {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+
+    #song-details {
+        font-size: 10px; /* Smaller font size for smaller screens */
+    }
 }
