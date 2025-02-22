@@ -33,5 +33,5 @@ jobs:
           git checkout -b main  # Ensure branch exists
           git add .
           git commit -m "Deploy from private repo"
-          git remote add origin https://github.com/techcure/techcure.github.io.git
+          git remote add origin https://${{ secrets.GHPAT }}@github.com/techcure/techcure.github.io.git
           git push --force origin main  # Force push to overwrite public repo
