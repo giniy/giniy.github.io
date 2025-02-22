@@ -1,406 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gulab</title>
-    <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.ico">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="static/js/mail.js"></script> 
-    <link href="static/css/song-page.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
-</head>
-<body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img src="static/images/logo6.png"></a>
-        <div class="portfolio-tagline">Crafting Digital Symphonies</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Gulab</title>
+      <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.ico">
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.16/bundle/libphonenumber-js.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+      <script src="static/js/mail.js"></script> 
+      <link href="static/css/song-page.css" rel="stylesheet">
+      <link href="static/css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="static/images/logo6.png"></a>
+            <div class="portfolio-tagline">Crafting Digital Symphonies</div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<section id="song">
-    <!-- New Text Section -->
-    <div class="player-text">
-        <h3>Enjoy the Best Music</h3>
-        <p>Welcome to my playlist, where you can listen to the best songs from <strong>Gulab Days</strong>.
-            <br>Click on a song from the list to start playing. Enjoy the melodies and experience a musical journey like never before!</p>
-    </div>
-    <div class="player-container "> 
-        <div class="player">
-        <!-- Now Playing Section -->
-        <p id="now-playing">Select a song to play</p>
-        <div id="song-poster-container">
-        <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
-        </div>
-        <p id="song-details"></p>
-        <!-- Audio Player -->
-        <audio id="audio-player" controls>
-            Your browser does not support the audio element.
-        </audio>
-        <!-- Audio Player -->
-
-        <!-- Playlist -->
-        <div class="playlist">
-
-            <!-- Songs button row -->
-
-            <button class="song-button" onclick="playSong('static/media/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat',
-            'static/media/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
-            <!-- Updated Image with Hover Effect -->
-            <div class="song-poster-container">
-                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                <div class="hover-text">Gulab</div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+               <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                     <a class="nav-link" href="index.html">Home</a>
+                  </li>
+               </ul>
             </div>
-            <!-- Updated Image with Hover Effect -->
-                <img src="static/media/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Tere Naam Ki Mannat</strong><br>
-                    <small>Tere Naam Ki Mannat - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Tere Naam Ki Mannat', '9.99'); event.stopPropagation();">
-                <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Kismat Ki Likhai</strong><br>
-                    <small>Kismat Ki Likhai - Gulab Days</small>
-                </div>
-            <span class="buy-button" onclick="buySong('Kismat Ki Likhai', '9.99'); event.stopPropagation();">
-                <i class="fa fa-download" aria-hidden="true"></i>
-            </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'static/media/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
-            <!-- Updated Image with Hover Effect -->
-            <div class="song-poster-container">
-                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                <div class="hover-text">Gulab</div>
+         </div>
+      </nav>
+      <section id="song">
+         <!-- New Text Section -->
+         <div class="player-text">
+            <h3>Enjoy the Best Music</h3>
+            <p>Welcome to my playlist, where you can listen to the best songs from <strong>Gulab Days</strong>.
+               <br>Click on a song from the list to start playing. Enjoy the melodies and experience a musical journey like never before!
+            </p>
+         </div>
+         <div class="player-container ">
+            <div class="player">
+               <!-- Now Playing Section -->
+               <p id="now-playing">Select a song to play</p>
+               <div id="song-poster-container">
+                  <img id="song-poster" src="" alt="Song Poster" style="width: 200px; height: 200px; border-radius: 10px; display: none;">
+               </div>
+               <p id="song-details"></p>
+               <!-- Audio Player -->
+               <audio id="audio-player" controls>
+                  Your browser does not support the audio element.
+               </audio>
+               <!-- Audio Player -->
+               <!-- Playlist -->
+               <div class="playlist">
+                  <!-- Songs button row -->
+                  <button class="song-button" onclick="playSong('static/media/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat',
+                     'static/media/tere_naam_ki_mannat.webp', 'Gulab Days', 'Tere Naam Ki Mannat')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/tere_naam_ki_mannat.webp" alt="Song 1 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Tere Naam Ki Mannat</strong><br>
+                        <small>Tere Naam Ki Mannat - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Tere Naam Ki Mannat', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Gulab Days', 'Kismat Ki Likhai')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/kismat_ki_likhai.png" alt="Song 2 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Kismat Ki Likhai</strong><br>
+                        <small>Kismat Ki Likhai - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Kismat Ki Likhai', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Dil Ki Zubaan.mp3', 'Dil Ki Zubaan', 'static/media/dil_ki_zubaan.jpg', 'Gulab Days', 'Dil Ki Zubaan')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Dil Ki Zubaan</strong><br>
+                        <small>Dil Ki Zubaan - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Dil Ki Zubaan', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Melody of Love.mp3', 'Melody of Love', 'static/media/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Melody of Love</strong><br>
+                        <small>Melody of Love - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Melody of Love', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'static/media/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Chalo Re Sakhi</strong><br>
+                        <small>चलो रे सखी - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Chalo Re Sakhi', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Rango Me.mp3', 'Rango Me', 'static/media/rango_me.png', 'Gulab Days', 'Rango Me')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/rango_me.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Rango Me</strong><br>
+                        <small>Rango Me - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Rango Me', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Rango Me - 2.mp3', 'Rango Me - 2', 'static/media/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/rango_me_2.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Rango Me - 2</strong><br>
+                        <small>Rango Me - 2 - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Rango Me - 2', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Tu Jaha.mp3', 'Tu Jaha', 'static/media/tu_jaha.png', 'Gulab Days', 'Tu Jaha');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/tu_jaha.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Tu Jaha</strong><br>
+                        <small>Tu Jaha - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Tu Jaha', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'static/media/tera_intezar.png', 'Gulab Days', 'Tera Intezar Karu');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/tera_intezar.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Tera Intezar Karu</strong><br>
+                        <small>Tera Intezar Karu - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Tera Intezar Karu', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Kurbat.mp3', 'Kurbat', 'static/media/kurbat.png', 'Gulab Days', 'Kurbat');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/kurbat.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Kurbat</strong><br>
+                        <small>Kurbat - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Kurbat', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'static/media/chand_bhi.png', 'Gulab Days', 'Chand Bhi Tujhse');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Chand Bhi Tujhse" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/chand_bhi.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Chand Bhi Tujhse</strong><br>
+                        <small>Chand Bhi Tujhse - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Kurbat', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Cry Moon.mp3', 'Cry Moon', 'static/media/cry_moon.png', 'Gulab Days', 'Cry Moon');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Cry Moon" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/cry_moon.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Cry Moon</strong><br>
+                        <small>Cry Moon - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Cry Moon', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Jhoom Le.mp3', 'Jhoom Le', 'static/media/joom_le.png', 'Gulab Days', 'Jhoom Le');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Jhoom Le" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/joom_le.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Jhoom Le</strong><br>
+                        <small>Jhoom Le - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Jhoom Le', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+                  <!-- Songs button row -->
+                  <button onclick="playSong('static/media/Tera Naam.mp3', 'Tera Naam', 'static/media/tera_naam.png', 'Gulab Days', 'Tera Naam');">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/img.jpg" alt="Jhoom Le" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     &nbsp;&nbsp;
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/tera_naam.png" alt="Song 3 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Tera Naam</strong><br>
+                        <small>Tera Naam - Gulab Days</small>
+                     </div>
+                     <span class="buy-button" onclick="buySong('Tera Naam', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+               </div>
             </div>
-            &nbsp;&nbsp;
-            <!-- Updated Image with Hover Effect -->
-                <img src="static/media/dil_ki_zubaan.jpg" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Dil Ki Zubaan</strong><br>
-                    <small>Dil Ki Zubaan - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Dil Ki Zubaan', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Melody of Love.mp3', 'Melody of Love', 'static/media/melody_of_love.png', 'Gulab Days', 'Melody of Love')">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/melody_of_love.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Melody of Love</strong><br>
-                    <small>Melody of Love - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Melody of Love', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Chalo Re Sakhi.mp3', 'Chalo Re Sakhi', 'static/media/chalo_re_sakhi.png', 'Gulab Days', 'Chalo Re Sakhi')">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/chalo_re_sakhi.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Chalo Re Sakhi</strong><br>
-                    <small>चलो रे सखी - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Chalo Re Sakhi', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-        <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Rango Me.mp3', 'Rango Me', 'static/media/rango_me.png', 'Gulab Days', 'Rango Me')">
-            <!-- Updated Image with Hover Effect -->
-            <div class="song-poster-container">
-                <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                <div class="hover-text">Gulab</div>
+         </div>
+      </section>
+      <!--- Footer -->
+      <footer>
+         <div class="container-fluid padding" data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1000">
+            <div class="row text-center">
+               <div class="col-md-4 pt-0">
+                  <div class="footer-image">
+                     <img src="static/images/logo6.png">
+                  </div>
+                  <hr class="light">
+                  <p><i class="fa fa-phone"  aria-hidden="true"></i> &nbsp; 9407488956 &nbsp; <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
+               </div>
+               <div class="col-md-4">
+                  <hr class="light">
+                  <h5>Best time to reach me</h5>
+                  <hr class="light">
+                  <p>M - F : 2pm - 5pm || S - S : 11am - 8pm IST</p>
+               </div>
+               <div class="col-md-4">
+                  <hr class="light">
+                  <h5>Service Area</h5>
+                  <hr class="light">
+                  <p>India | Canada | USA | Maxico</p>
+               </div>
+               <div class="col-12">
+                  <hr class="light-100">
+                  <h5>&copy; Gulab | Singh <span class="small-text">2025 All rights reserved.</span></h5>
+               </div>
             </div>
-            &nbsp;&nbsp;
-            <!-- Updated Image with Hover Effect -->
-                <img src="static/media/rango_me.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Rango Me</strong><br>
-                    <small>Rango Me - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Rango Me', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Rango Me - 2.mp3', 'Rango Me - 2', 'static/media/rango_me_2.png', 'Gulab Days', 'Rango Me - 2');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tere Naam Ki Mannat" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/rango_me_2.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Rango Me - 2</strong><br>
-                    <small>Rango Me - 2 - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Rango Me - 2', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Tu Jaha.mp3', 'Tu Jaha', 'static/media/tu_jaha.png', 'Gulab Days', 'Tu Jaha');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/tu_jaha.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Tu Jaha</strong><br>
-                    <small>Tu Jaha - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Tu Jaha', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Tera Intezar Karu.mp3', 'Tera Intezar Karu', 'static/media/tera_intezar.png', 'Gulab Days', 'Tera Intezar Karu');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/tera_intezar.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Tera Intezar Karu</strong><br>
-                    <small>Tera Intezar Karu - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Tera Intezar Karu', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Kurbat.mp3', 'Kurbat', 'static/media/kurbat.png', 'Gulab Days', 'Kurbat');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Tu Jaha" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/kurbat.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Kurbat</strong><br>
-                    <small>Kurbat - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Kurbat', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Chand Bhi Tujhse.mp3', 'Chand Bhi Tujhse', 'static/media/chand_bhi.png', 'Gulab Days', 'Chand Bhi Tujhse');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Chand Bhi Tujhse" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/chand_bhi.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Chand Bhi Tujhse</strong><br>
-                    <small>Chand Bhi Tujhse - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Kurbat', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Cry Moon.mp3', 'Cry Moon', 'static/media/cry_moon.png', 'Gulab Days', 'Cry Moon');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Cry Moon" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/cry_moon.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Cry Moon</strong><br>
-                    <small>Cry Moon - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Cry Moon', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Jhoom Le.mp3', 'Jhoom Le', 'static/media/joom_le.png', 'Gulab Days', 'Jhoom Le');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Jhoom Le" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/joom_le.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Jhoom Le</strong><br>
-                    <small>Jhoom Le - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Jhoom Le', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-            <!-- Songs button row -->
-
-            <button onclick="playSong('static/media/Tera Naam.mp3', 'Tera Naam', 'static/media/tera_naam.png', 'Gulab Days', 'Tera Naam');">
-                <!-- Updated Image with Hover Effect -->
-                <div class="song-poster-container">
-                    <img src="static/images/img.jpg" alt="Jhoom Le" class="song-poster1">
-                    <div class="hover-text">Gulab</div>
-                </div>
-                &nbsp;&nbsp;
-                <!-- Updated Image with Hover Effect -->
-                <img src="static/media/tera_naam.png" alt="Song 3 Poster" class="song-poster">
-                <div class="song-info">
-                    <strong>Tera Naam</strong><br>
-                    <small>Tera Naam - Gulab Days</small>
-                </div>
-                <span class="buy-button" onclick="buySong('Tera Naam', '9.99'); event.stopPropagation();">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                </span>
-            </button>
-
-            <!-- Songs button row -->
-
-        </div>
-    </div>
-    </div>
-</section>
-
-<!--- Footer -->
-
-<footer>
-    <div class="container-fluid padding" data-aos="fade-up"
-        data-aos-offset="200"
-        data-aos-delay="50"
-        data-aos-duration="1000">
-        <div class="row text-center">
-            <div class="col-md-4 pt-0">
-                <div class="footer-image">
-                <img src="static/images/logo6.png"></div>
-                <hr class="light">
-                <p><i class="fa fa-phone"  aria-hidden="true"></i> &nbsp; 9407488956 &nbsp; <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
-            </div>
-            <div class="col-md-4">
-                <hr class="light">
-                <h5>Best time to reach me</h5>
-                <hr class="light">
-                <p>M - F : 2pm - 5pm || S - S : 11am - 8pm IST</p>
-            </div>
-            <div class="col-md-4">
-                <hr class="light">
-                <h5>Service Area</h5>
-                <hr class="light">
-                <p>India | Canada | USA | Maxico</p>
-            </div>
-            <div class="col-12">
-                <hr class="light-100">
-                <h5>&copy; Gulab | Singh <span class="small-text">2025 All rights reserved.</span></h5>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-AOS.init();
-</script>
-<p class="small-text">You've visited this page <span id="visitCount">0</span> times.</p>
-</body>
+         </div>
+      </footer>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+         AOS.init();
+      </script>
+      <p class="small-text">You've visited this page <span id="visitCount">0</span> times.</p>
+   </body>
 </html>
