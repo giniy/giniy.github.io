@@ -13,7 +13,7 @@ body {
             border: 0px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            max-width: 310px;
             width: 100%;
             text-align: center;
         }
@@ -114,3 +114,9 @@ body {
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
     }
+    }
+.small-text {
+    font-size: 0.75rem; /* Smaller text */
+    margin-left: 0px; /* Space between text */
+    color: gray; /* Optional: Adjust color */
+}
