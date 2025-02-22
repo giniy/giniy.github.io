@@ -1,0 +1,48 @@
+name: Deploy Portfolio from Private Repo
+
+on:
+  push:
+    branches:
+      - main  # Runs when pushing to main branch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Private Repository (portfolio-private)
+        uses: actions/checkout@v4
+        with:
+          repository: techcure/portfolio-private
+          ref: main
+          token: ${{ secrets.GHPAT }}
+
+      - name: Debug - List Repository Contents
+        run: |
+          ls -R
+        shell: bash
+
+      - name: Create Artifact for Deployment
+        run: |
+          mkdir -p artifact
+          echo "Hello, GitHub Pages!" > artifact/index.html
+          ls -R artifact  # Debug: List files in the artifact directory
+        shell: bash
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages  # Explicitly set the artifact name
+          path: artifact
+
+      - name: Debug - List Uploaded Artifacts
+        run: |
+          ls -R artifact
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
