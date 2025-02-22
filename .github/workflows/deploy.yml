@@ -6,7 +6,7 @@ on:
       - main  # Runs on push to main branch
 
 permissions:
-  contents: read
+  contents: write  # Allow pushing files
   pages: write
   id-token: write
 
@@ -21,9 +21,16 @@ jobs:
           ref: main
           token: ${{ secrets.GHPAT }}
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - name: Push Private Repo Content to Public Repo (techcure.github.io)
+        run: |
+          rm -rf .git  # Remove Git history from private repo
+          git init
+          git remote add origin https://github.com/techcure/techcure.github.io.git
+          git add .
+          git commit -m "Deploy from private repo"
+          git push --force origin main
