@@ -44,4 +44,7 @@ jobs:
           git add .
           git commit -m "Deploy from portfolio-private" || echo "No changes to commit"
           git push --force https://techcure:${{ secrets.GHPAT }}@github.com/techcure/techcure.github.io.git main
-
+      - name: Pull Latest Changes (Allow Merging)
+        run: |
+          cd public_repo
+          git pull origin main --rebase --allow-unrelated-histories
