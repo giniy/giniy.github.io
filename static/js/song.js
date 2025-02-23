@@ -139,31 +139,82 @@ document.addEventListener('DOMContentLoaded', () => {
     //         alert('Purchase canceled.');
     //     }
     // }
-  function buySong(songName, price) {
-      // Ask user for their email
-      var userEmail = prompt("Please enter your email to proceed with the download request.");
 
-      // If the user cancels or enters an empty email, stop the process
-      if (!userEmail || userEmail.trim() === "") {
-          alert("Email is required to proceed.");
-          return;
-      }
 
-      // Prepare the parameters for EmailJS
-      var templateParams = {
-          song: songName,
-          price: price,
-          user_email: userEmail,  // Include user's email
-          message: "I want to download : " + songName + " for $" + price,
-      };
+  function showAlert(message, type) {
+    let alertBox = document.createElement("div");
+    alertBox.classList.add("alert", type);
+    alertBox.textContent = message;
+    document.body.appendChild(alertBox);
+    setTimeout(() => {
+        alertBox.style.opacity = "1";
+        alertBox.style.transform = "translate(-50%, -50%) scale(1.1)";
+    }, 10);
+    setTimeout(() => {
+        alertBox.style.opacity = "0";
+        alertBox.style.transform = "translate(-50%, -50%) scale(0.8)";
+        setTimeout(() => alertBox.remove(), 700);
+    }, 4000);
+}
 
-      // Send email using EmailJS
-      emailjs.send("service_wvya9qv", "template_x4ggdpv", templateParams)
-          .then(function(response) {
-              console.log("SUCCESS!", response.status, response.text);
-              alert("Download request sent! We will contact you at " + userEmail);
-          }, function(error) {
-              console.log("FAILED...", error);
-              alert("There was an error sending the email. Please try again later.");
-          });
-  }
+function showEmailModal(songName, price) {
+    let modal = document.createElement("div");
+    modal.classList.add("modal-content");
+    modal.innerHTML = `
+        <p>Please enter your email to proceed with the download request:</p>
+        <input type="email" id="userEmail" placeholder="Enter your email" required>
+        <div class="modal-buttons">
+            <button onclick="submitEmail('${songName}', '${price}')">Send</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add("show"), 10);
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    let modal = document.querySelector(".modal-content");
+    if (modal) {
+        modal.classList.remove("show");
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+function submitEmail(songName, price) {
+    var userEmail = document.getElementById("userEmail").value;
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!userEmail || userEmail.trim() === "") {
+        showAlert("Email is required to proceed.", "error");
+        return;
+    }
+    if (!emailPattern.test(userEmail)) {
+        showAlert("Please enter a valid email address.", "error");
+    return;
+    }
+    closeModal();
+    buySong(songName, price, userEmail);
+}
+
+function buySong(songName, price, userEmail = null) {
+    if (!userEmail) {
+        showEmailModal(songName, price);
+        return;
+    }
+
+    var templateParams = {
+        song: songName,
+        price: price,
+        user_email: userEmail,
+        message: "I want to download : " + songName + " for $" + price,
+    };
+
+    emailjs.send("service_wvya9qv", "template_x4ggdpv", templateParams)
+        .then(function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+            showAlert("Download request sent! We will contact you at " + userEmail, "success");
+        }, function(error) {
+            console.log("FAILED...", error);
+            showAlert("There was an error sending the email. Please try again later.", "error");
+        });
+}
