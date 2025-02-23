@@ -3,6 +3,7 @@
 let audioPlayer;
 let customPlayer;
 let playPauseBtn;
+emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with actual EmailJS Public Key
 
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', () => {
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     visitCountElement.textContent = visitCount;
 });
 
-    
+
     // Paypal integration
     // function buySong(songName, price) {
     //     let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
