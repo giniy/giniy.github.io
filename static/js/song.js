@@ -99,7 +99,7 @@ async function decryptAudioFile(encryptedData) {
 
         // Convert the secret key to a CryptoKey using PBKDF2
         const encoder = new TextEncoder();
-        const keyData = encoder.encode(ENCRYPTION_KEY); // Your encryption key
+        const keyData = encoder.encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Your encryption key
         console.log('Key data:', new Uint8Array(keyData));
 
         const baseKey = await crypto.subtle.importKey(
@@ -147,6 +147,7 @@ async function decryptAudioFile(encryptedData) {
         throw error;
     }
 }
+
 
 // Function to play a song
 window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) {
