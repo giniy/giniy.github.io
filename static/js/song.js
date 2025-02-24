@@ -72,63 +72,43 @@ function formatTime(time) {
 }
 
 // Define playSong globally
-
-
-async function playSong(songUrl, songTitle, posterUrl, album, artist) {
-    let audioPlayer = document.getElementById("audio-player");
-    let playPauseBtn = document.getElementById("play-pause-btn");
-
-    if (songUrl.endsWith(".enc")) {
-        console.log("Encrypted file detected. Decrypting...");
-
-        try {
-            const response = await fetch(songUrl);
-            const encryptedData = await response.arrayBuffer();
-
-            // The same key used in OpenSSL encryption
-            const key = new TextEncoder().encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Replace with actual key
-            const iv = new Uint8Array(16); // Must be the same IV as in encryption
-
-            const cryptoKey = await crypto.subtle.importKey(
-                "raw",
-                key,
-                { name: "AES-CBC" },
-                false,
-                ["decrypt"]
-            );
-
-            const decryptedData = await crypto.subtle.decrypt(
-                { name: "AES-CBC", iv },
-                cryptoKey,
-                encryptedData
-            );
-
-            // Convert decrypted data to a playable audio URL
-            const blob = new Blob([decryptedData], { type: "audio/mpeg" });
-            songUrl = URL.createObjectURL(blob);
-        } catch (error) {
-            console.error("Decryption failed:", error);
-            return;
-        }
+window.playSong = function (songUrl, songTitle, posterUrl, album, artist) {
+    if (!audioPlayer) {
+        console.error('audioPlayer is not initialized!');
+        return;
     }
-
-    // Set audio source and play
+    // Set the audio source and load the song
     audioPlayer.src = songUrl;
     audioPlayer.load();
+
+    // Show the custom audio player
+    customPlayer.style.display = 'block';
+
+    // Play the song
     audioPlayer.play();
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
 
-    // Update UI elements
-    document.getElementById("now-playing").textContent = `Now Playing: ${songTitle}`;
-    document.getElementById("song-poster").src = posterUrl;
-    document.getElementById("song-poster").style.display = "block";
-    document.getElementById("song-details").textContent = `Album: ${album} | Artist: ${artist}`;
-}
+    // Update the "Now Playing" text (if you have this element)
+    const nowPlaying = document.getElementById('now-playing');
+    if (nowPlaying) {
+        nowPlaying.textContent = `Now Playing: ${songTitle}`;
+    }
+
+    // Update the song poster (if you have this element)
+    const songPoster = document.getElementById('song-poster');
+    if (songPoster) {
+        songPoster.src = posterUrl;
+        songPoster.style.display = 'block';
+    }
+
+    // Update the song details (if you have this element)
+    const songDetails = document.getElementById('song-details');
+    if (songDetails) {
+        songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
+    }
+};
 
 
-
-
-// enc/dec funtion end
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get the visitCount element
