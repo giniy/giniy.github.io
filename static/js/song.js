@@ -75,12 +75,26 @@ function formatTime(time) {
 }
 
 // Function to decrypt an encrypted audio file
+
+
 async function decryptAudioFile(encryptedData) {
     try {
+        console.log('Encrypted data:', encryptedData);
+
+        // Check if the file has the "Salted__" header
+        const header = new Uint8Array(encryptedData.slice(0, 8));
+        const headerText = new TextDecoder().decode(header);
+        if (headerText !== 'Salted__') {
+            throw new Error('Invalid file format: Missing "Salted__" header.');
+        }
+
+        // Extract salt (bytes 8–15)
+        const salt = encryptedData.slice(8, 16);
+        console.log('Salt:', new Uint8Array(salt));
+
         // Convert the secret key to a CryptoKey using PBKDF2
         const encoder = new TextEncoder();
         const keyData = encoder.encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Your encryption key
-        const salt = encryptedData.slice(8, 16); // Extract salt from the encrypted file
 
         const baseKey = await crypto.subtle.importKey(
             'raw', // Key format
@@ -103,9 +117,15 @@ async function decryptAudioFile(encryptedData) {
             ['decrypt'] // Usage
         );
 
-        // Extract the IV (first 16 bytes after the salt)
+        console.log('CryptoKey created:', cryptoKey);
+
+        // Extract the IV (bytes 16–31)
         const iv = encryptedData.slice(16, 32);
+        console.log('IV:', new Uint8Array(iv));
+
+        // Extract the encrypted data (bytes 32+)
         const data = encryptedData.slice(32);
+        console.log('Data to decrypt:', new Uint8Array(data));
 
         // Decrypt the audio data
         const decryptedData = await crypto.subtle.decrypt(
@@ -114,12 +134,14 @@ async function decryptAudioFile(encryptedData) {
             data
         );
 
+        console.log('Decryption successful:', decryptedData);
         return decryptedData;
     } catch (error) {
         console.error('Decryption failed:', error);
         throw error;
     }
 }
+
 
 // Define playSong globally
 window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) {
