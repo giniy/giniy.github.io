@@ -71,83 +71,59 @@ function formatTime(time) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-async function decryptAES(encryptedData) {
-    const password = "7x!Lq9@Zv2$pTm5W#8Rn&Ks"; // 🔐 Must match your OpenSSL encryption key
-    const encoder = new TextEncoder();
-
-    // Derive key using PBKDF2
-    const keyMaterial = await crypto.subtle.importKey(
-        "raw",
-        encoder.encode(password),
-        { name: "PBKDF2" },
-        false,
-        ["deriveBits", "deriveKey"]
-    );
-
-    const key = await crypto.subtle.deriveKey(
-        {
-            name: "PBKDF2",
-            salt: new Uint8Array(16), // Salt used in encryption
-            iterations: 100000, // Match encryption settings
-            hash: "SHA-256"
-        },
-        keyMaterial,
-        { name: "AES-CBC", length: 256 },
-        true,
-        ["decrypt"]
-    );
-
-    // Extract IV (First 16 bytes of encryptedData)
-    const iv = new Uint8Array(encryptedData.slice(0, 16));
-    const encryptedContent = new Uint8Array(encryptedData.slice(16));
-
-    // Decrypt using AES-CBC
-    const decryptedData = await crypto.subtle.decrypt(
-        { name: "AES-CBC", iv: iv },
-        key,
-        encryptedContent
-    );
-
-    return decryptedData;
-}
-
-
 // Define playSong globally
 async function playSong(songUrl, songTitle, posterUrl, album, artist) {
-    if (!audioPlayer) {
-        console.error("audioPlayer is not initialized!");
-        return;
+    let audioPlayer = document.getElementById("audio-player");
+    let playPauseBtn = document.getElementById("play-pause-btn");
+
+    // Detect if the file is encrypted (.enc)
+    if (songUrl.endsWith(".enc")) {
+        console.log("Encrypted file detected. Decrypting...");
+
+        try {
+            const response = await fetch(songUrl);
+            const encryptedData = await response.arrayBuffer();
+
+            // Decryption key (Must be the same key used for encryption)
+            const key = new TextEncoder().encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Replace with your actual key
+            const iv = new Uint8Array(16); // IV must match encryption IV
+
+            const cryptoKey = await crypto.subtle.importKey(
+                "raw",
+                key,
+                { name: "AES-CBC" },
+                false,
+                ["decrypt"]
+            );
+
+            const decryptedData = await crypto.subtle.decrypt(
+                { name: "AES-CBC", iv },
+                cryptoKey,
+                encryptedData
+            );
+
+            // Convert decrypted data to playable audio URL
+            const blob = new Blob([decryptedData], { type: "audio/mpeg" });
+            songUrl = URL.createObjectURL(blob);
+        } catch (error) {
+            console.error("Decryption failed:", error);
+            return;
+        }
     }
 
-    try {
-        // Step 1: Fetch the encrypted file
-        const response = await fetch(songUrl);
-        const encryptedData = await response.arrayBuffer();
+    // Set the audio source and play the song
+    audioPlayer.src = songUrl;
+    audioPlayer.load();
+    audioPlayer.play();
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
 
-        // Step 2: Decrypt the audio
-        const decryptedBuffer = await decryptAES(encryptedData);
-
-        // Step 3: Convert to Blob and create Object URL
-        const audioBlob = new Blob([decryptedBuffer], { type: "audio/mpeg" });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        
-        // Step 4: Set the decrypted audio source and play
-        audioPlayer.src = audioUrl;
-        audioPlayer.load();
-        audioPlayer.play();
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
-
-        // Update UI elements
-        document.getElementById("now-playing").textContent = `Now Playing: ${songTitle}`;
-        document.getElementById("song-poster").src = posterUrl;
-        document.getElementById("song-poster").style.display = "block";
-        document.getElementById("song-details").textContent = `Album: ${album} | Artist: ${artist}`;
-    } catch (error) {
-        console.error("Error playing song:", error);
-    }
+    // Update UI elements
+    document.getElementById("now-playing").textContent = `Now Playing: ${songTitle}`;
+    document.getElementById("song-poster").src = posterUrl;
+    document.getElementById("song-poster").style.display = "block";
+    document.getElementById("song-details").textContent = `Album: ${album} | Artist: ${artist}`;
 }
-
-
+// enc/dec funtion end
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get the visitCount element
