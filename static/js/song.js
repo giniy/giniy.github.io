@@ -5,6 +5,9 @@ let customPlayer;
 let playPauseBtn;
 emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with actual EmailJS Public Key
 
+// Encryption key (replace with your actual key)
+const ENCRYPTION_KEY = "7x!Lq9@Zv2$pTm5W#8Rn&Ks"; // Must match the key used for encryption
+
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize audioPlayer and other elements
@@ -16,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('audioPlayer element not found!');
         return;
     }
+
     // Play/Pause functionality
     playPauseBtn.addEventListener('click', () => {
         if (audioPlayer.paused) {
@@ -71,14 +75,72 @@ function formatTime(time) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
+// Function to decrypt an encrypted audio file
+async function decryptAudioFile(encryptedData) {
+    try {
+        // Convert the secret key to a CryptoKey
+        const encoder = new TextEncoder();
+        const keyData = encoder.encode(ENCRYPTION_KEY);
+        const cryptoKey = await crypto.subtle.importKey(
+            'raw', // Key format
+            keyData,
+            { name: 'AES-CBC' }, // Algorithm
+            false, // Not extractable
+            ['decrypt'] // Usage
+        );
+
+        // Extract the IV (first 16 bytes of the encrypted file)
+        const iv = encryptedData.slice(0, 16);
+        const data = encryptedData.slice(16);
+
+        // Decrypt the audio data
+        const decryptedData = await crypto.subtle.decrypt(
+            { name: 'AES-CBC', iv },
+            cryptoKey,
+            data
+        );
+
+        return decryptedData;
+    } catch (error) {
+        console.error('Decryption failed:', error);
+        throw error;
+    }
+}
+
 // Define playSong globally
-window.playSong = function (songUrl, songTitle, posterUrl, album, artist) {
+window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
-    // Set the audio source and load the song
-    audioPlayer.src = songUrl;
+
+    // Check if the file is encrypted (.enc)
+    if (songUrl.endsWith('.enc')) {
+        try {
+            // Fetch the encrypted audio file
+            const response = await fetch(songUrl);
+            const encryptedData = await response.arrayBuffer();
+
+            // Decrypt the audio file
+            const decryptedData = await decryptAudioFile(encryptedData);
+
+            // Create a Blob from the decrypted data
+            const blob = new Blob([decryptedData], { type: 'audio/mp3' });
+            const url = URL.createObjectURL(blob);
+
+            // Set the audio source and load the song
+            audioPlayer.src = url;
+        } catch (error) {
+            console.error('Error decrypting or playing the audio file:', error);
+            alert('Failed to decrypt or play the audio file.');
+            return;
+        }
+    } else {
+        // For non-encrypted files, set the source directly
+        audioPlayer.src = songUrl;
+    }
+
+    // Load the audio player
     audioPlayer.load();
 
     // Show the custom audio player
@@ -108,8 +170,7 @@ window.playSong = function (songUrl, songTitle, posterUrl, album, artist) {
     }
 };
 
-
-
+// Visit count functionality
 document.addEventListener('DOMContentLoaded', () => {
     // Get the visitCount element
     const visitCountElement = document.getElementById('visitCount');
@@ -127,21 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
     visitCountElement.textContent = visitCount;
 });
 
-
-    // Paypal integration
-    // function buySong(songName, price) {
-    //     let userConfirmed = confirm('Do you want to proceed with purchasing ' + songName + '?');
-
-    //     if (userConfirmed) {
-    //         alert('Redirecting to purchase page for ' + songName);
-    //         window.location.href = 'purchase.html?songName=' + encodeURIComponent(songName) + '&price=' + encodeURIComponent(price);
-    //     } else {
-    //         alert('Purchase canceled.');
-    //     }
-    // }
-
-
-  function showAlert(message, type) {
+// Email and download functionality
+function showAlert(message, type) {
     let alertBox = document.createElement("div");
     alertBox.classList.add("alert", type);
     alertBox.textContent = message;
@@ -190,7 +238,7 @@ function submitEmail(songName, price) {
     }
     if (!emailPattern.test(userEmail)) {
         showAlert("Please enter a valid email address.", "error");
-    return;
+        return;
     }
     closeModal();
     buySong(songName, price, userEmail);
@@ -210,10 +258,10 @@ function buySong(songName, price, userEmail = null) {
     };
 
     emailjs.send("service_wvya9qv", "template_x4ggdpv", templateParams)
-        .then(function(response) {
+        .then(function (response) {
             console.log("SUCCESS!", response.status, response.text);
             showAlert("Download request sent! We will contact you at " + userEmail, "success");
-        }, function(error) {
+        }, function (error) {
             console.log("FAILED...", error);
             showAlert("There was an error sending the email. Please try again later.", "error");
         });
