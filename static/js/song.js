@@ -6,7 +6,6 @@ let playPauseBtn;
 emailjs.init("ZZLSDWRpVQ47uOfh2"); // Replace with actual EmailJS Public Key
 
 // Encryption key (replace with your actual key)
-const ENCRYPTION_KEY = "7x!Lq9@Zv2$pTm5W#8Rn&Ks"; // Must match the key used for encryption
 
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', () => {
@@ -78,20 +77,35 @@ function formatTime(time) {
 // Function to decrypt an encrypted audio file
 async function decryptAudioFile(encryptedData) {
     try {
-        // Convert the secret key to a CryptoKey
+        // Convert the secret key to a CryptoKey using PBKDF2
         const encoder = new TextEncoder();
-        const keyData = encoder.encode(ENCRYPTION_KEY);
-        const cryptoKey = await crypto.subtle.importKey(
+        const keyData = encoder.encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Your encryption key
+        const salt = encryptedData.slice(8, 16); // Extract salt from the encrypted file
+
+        const baseKey = await crypto.subtle.importKey(
             'raw', // Key format
             keyData,
-            { name: 'AES-CBC' }, // Algorithm
+            { name: 'PBKDF2' }, // Key derivation algorithm
+            false, // Not extractable
+            ['deriveKey'] // Usage
+        );
+
+        const cryptoKey = await crypto.subtle.deriveKey(
+            {
+                name: 'PBKDF2',
+                salt: salt,
+                iterations: 100000, // Match the -iter value used in OpenSSL
+                hash: 'SHA-256', // Hash function used by OpenSSL
+            },
+            baseKey,
+            { name: 'AES-CBC', length: 256 }, // AES-256-CBC
             false, // Not extractable
             ['decrypt'] // Usage
         );
 
-        // Extract the IV (first 16 bytes of the encrypted file)
-        const iv = encryptedData.slice(0, 16);
-        const data = encryptedData.slice(16);
+        // Extract the IV (first 16 bytes after the salt)
+        const iv = encryptedData.slice(16, 32);
+        const data = encryptedData.slice(32);
 
         // Decrypt the audio data
         const decryptedData = await crypto.subtle.decrypt(
