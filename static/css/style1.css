@@ -362,3 +362,18 @@ audio {
                 margin-bottom: 5px;
             }
         }
+        /* Define the color change animation */
+        @keyframes colorChange {
+            0% { color: #1594ab; }
+            50% { color: #8bc8aac2; }
+            100% { color: #c091b7e0; }
+        }
+
+        /* Apply the animation to the <strong> element */
+        .song-info strong {
+            animation: colorChange 3s infinite;
+        }
+        .small-text {
+            font-size: 0.8em;
+            color: #555;
+        }
