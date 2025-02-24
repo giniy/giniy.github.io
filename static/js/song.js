@@ -86,7 +86,7 @@ async function playSong(songUrl, songTitle, posterUrl, album, artist) {
             const encryptedData = await response.arrayBuffer();
 
             // The same key used in OpenSSL encryption
-            const key = new TextEncoder().encode("your-secret-key"); // Replace with actual key
+            const key = new TextEncoder().encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Replace with actual key
             const iv = new Uint8Array(16); // Must be the same IV as in encryption
 
             const cryptoKey = await crypto.subtle.importKey(
