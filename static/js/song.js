@@ -77,140 +77,82 @@ function formatTime(time) {
 // Function to decrypt an encrypted audio file
 
 
-// Encryption key (must match the key used during encryption)
-
-// Function to decrypt an encrypted audio file
-
-async function decryptAudioFile(encryptedData) {
+async function decryptAudioFile(encryptedFileUrl, secretKey) {
     try {
-        console.log('Encrypted data:', encryptedData);
+        const response = await fetch(encryptedFileUrl);
+        if (!response.ok) throw new Error("Failed to fetch encrypted file");
 
-        // Check if the file has the "Salted__" header
-        const header = new Uint8Array(encryptedData.slice(0, 8));
-        const headerText = new TextDecoder().decode(header);
-        if (headerText !== 'Salted__') {
-            throw new Error('Invalid file format: Missing "Salted__" header.');
-        }
-        console.log('Header:', headerText);
+        const encryptedData = await response.arrayBuffer();
+        const keyMaterial = await getKeyMaterial(secretKey);
+        const key = await deriveKey(keyMaterial);
 
-        // Extract salt (bytes 8–15)
-        const salt = encryptedData.slice(8, 16);
-        console.log('Salt:', new Uint8Array(salt));
+        const iv = encryptedData.slice(0, 16); // Extract IV (first 16 bytes)
+        const encryptedContent = encryptedData.slice(16);
 
-        // Convert the secret key to a CryptoKey using PBKDF2
-        const encoder = new TextEncoder();
-        const keyData = encoder.encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Your encryption key
-        console.log('Key data:', new Uint8Array(keyData));
-
-        const baseKey = await crypto.subtle.importKey(
-            'raw', // Key format
-            keyData,
-            { name: 'PBKDF2' }, // Key derivation algorithm
-            false, // Not extractable
-            ['deriveKey'] // Usage
-        );
-
-        const cryptoKey = await crypto.subtle.deriveKey(
-            {
-                name: 'PBKDF2',
-                salt: salt,
-                iterations: 100000, // Match the -iter value used in OpenSSL
-                hash: 'SHA-256', // Hash function used by OpenSSL
-            },
-            baseKey,
-            { name: 'AES-CBC', length: 256 }, // AES-256-CBC
-            false, // Not extractable
-            ['decrypt'] // Usage
-        );
-
-        console.log('CryptoKey created:', cryptoKey);
-
-        // Extract the IV (bytes 16–31)
-        const iv = encryptedData.slice(16, 32);
-        console.log('IV:', new Uint8Array(iv));
-
-        // Extract the encrypted data (bytes 32+)
-        const data = encryptedData.slice(32);
-        console.log('Data to decrypt:', new Uint8Array(data));
-
-        // Decrypt the audio data
         const decryptedData = await crypto.subtle.decrypt(
-            { name: 'AES-CBC', iv },
-            cryptoKey,
-            data
+            { name: "AES-CBC", iv: iv },
+            key,
+            encryptedContent
         );
 
-        console.log('Decryption successful:', decryptedData);
-        return decryptedData;
+        return new Blob([decryptedData], { type: "audio/mp3" });
+
     } catch (error) {
-        console.error('Decryption failed:', error);
-        throw error;
+        console.error("Error decrypting audio file:", error);
+        return null;
+    }
+}
+
+async function getKeyMaterial(secret) {
+    const enc = new TextEncoder();
+    return await crypto.subtle.importKey(
+        "raw",
+        enc.encode(secret),
+        { name: "PBKDF2" },
+        false,
+        ["deriveBits", "deriveKey"]
+    );
+}
+
+async function deriveKey(keyMaterial) {
+    return await crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: new TextEncoder().encode("your-salt-value"),
+            iterations: 100000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        { name: "AES-CBC", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+    );
+}
+
+async function playSong(encryptedFileUrl, songTitle, posterUrl, album, artist) {
+    try {
+        const secretKey = "7x!Lq9@Zv2$pTm5W#8Rn&Ks"; // Use the same key as used in encryption
+        const decryptedBlob = await decryptAudioFile(encryptedFileUrl, secretKey);
+        if (!decryptedBlob) throw new Error("Decryption failed");
+
+        const audioPlayer = document.getElementById('audio-player');
+        if (!audioPlayer) throw new Error("Audio player element not found");
+
+        audioPlayer.src = URL.createObjectURL(decryptedBlob);
+        audioPlayer.load();
+        audioPlayer.play();
+
+        document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
+        document.getElementById('song-poster').src = posterUrl;
+        document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
+
+    } catch (error) {
+        console.error("Error decrypting or playing the audio file:", error);
     }
 }
 
 
-// Function to play a song
-window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) {
-    if (!audioPlayer) {
-        console.error('audioPlayer is not initialized!');
-        return;
-    }
 
-    // Check if the file is encrypted (.enc)
-    if (songUrl.endsWith('.enc')) {
-        try {
-            // Fetch the encrypted audio file
-            const response = await fetch(songUrl);
-            const encryptedData = await response.arrayBuffer();
-
-            // Decrypt the audio file
-            const decryptedData = await decryptAudioFile(encryptedData);
-
-            // Create a Blob from the decrypted data
-            const blob = new Blob([decryptedData], { type: 'audio/mp3' });
-            const url = URL.createObjectURL(blob);
-
-            // Set the audio source and load the song
-            audioPlayer.src = url;
-        } catch (error) {
-            console.error('Error decrypting or playing the audio file:', error);
-            alert('Failed to decrypt or play the audio file.');
-            return;
-        }
-    } else {
-        // For non-encrypted files, set the source directly
-        audioPlayer.src = songUrl;
-    }
-
-    // Load the audio player
-    audioPlayer.load();
-
-    // Show the custom audio player
-    customPlayer.style.display = 'block';
-
-    // Play the song
-    audioPlayer.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
-
-    // Update the "Now Playing" text (if you have this element)
-    const nowPlaying = document.getElementById('now-playing');
-    if (nowPlaying) {
-        nowPlaying.textContent = `Now Playing: ${songTitle}`;
-    }
-
-    // Update the song poster (if you have this element)
-    const songPoster = document.getElementById('song-poster');
-    if (songPoster) {
-        songPoster.src = posterUrl;
-        songPoster.style.display = 'block';
-    }
-
-    // Update the song details (if you have this element)
-    const songDetails = document.getElementById('song-details');
-    if (songDetails) {
-        songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
-    }
-};
 
 
 
