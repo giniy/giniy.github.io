@@ -77,6 +77,10 @@ function formatTime(time) {
 // Function to decrypt an encrypted audio file
 
 
+// Encryption key (must match the key used during encryption)
+const ENCRYPTION_KEY = "7x!Lq9@Zv2$pTm5W#8Rn&Ks";
+
+// Function to decrypt an encrypted audio file
 async function decryptAudioFile(encryptedData) {
     try {
         console.log('Encrypted data:', encryptedData);
@@ -87,6 +91,7 @@ async function decryptAudioFile(encryptedData) {
         if (headerText !== 'Salted__') {
             throw new Error('Invalid file format: Missing "Salted__" header.');
         }
+        console.log('Header:', headerText);
 
         // Extract salt (bytes 8–15)
         const salt = encryptedData.slice(8, 16);
@@ -94,7 +99,8 @@ async function decryptAudioFile(encryptedData) {
 
         // Convert the secret key to a CryptoKey using PBKDF2
         const encoder = new TextEncoder();
-        const keyData = encoder.encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Your encryption key
+        const keyData = encoder.encode(ENCRYPTION_KEY); // Your encryption key
+        console.log('Key data:', new Uint8Array(keyData));
 
         const baseKey = await crypto.subtle.importKey(
             'raw', // Key format
@@ -142,8 +148,7 @@ async function decryptAudioFile(encryptedData) {
     }
 }
 
-
-// Define playSong globally
+// Function to play a song
 window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
@@ -205,6 +210,8 @@ window.playSong = async function (songUrl, songTitle, posterUrl, album, artist) 
         songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
     }
 };
+
+
 
 // Visit count functionality
 document.addEventListener('DOMContentLoaded', () => {
