@@ -79,69 +79,67 @@ function formatTime(time) {
 
 async function decryptAudioFile(encryptedFileUrl, secretKey) {
     try {
+        // Fetch the encrypted file
         const response = await fetch(encryptedFileUrl);
-        if (!response.ok) throw new Error("Failed to fetch encrypted file");
-
         const encryptedData = await response.arrayBuffer();
-        const keyMaterial = await getKeyMaterial(secretKey);
-        const key = await deriveKey(keyMaterial);
 
-        const iv = encryptedData.slice(0, 16); // Extract IV (first 16 bytes)
-        const encryptedContent = encryptedData.slice(16);
+        // Convert secretKey to a usable format
+        const encoder = new TextEncoder();
+        const keyMaterial = await window.crypto.subtle.importKey(
+            "raw",
+            encoder.encode(secretKey),
+            { name: "PBKDF2" },
+            false,
+            ["deriveKey"]
+        );
 
-        const decryptedData = await crypto.subtle.decrypt(
+        // Derive AES Key
+        const aesKey = await window.crypto.subtle.deriveKey(
+            {
+                name: "PBKDF2",
+                salt: encoder.encode("random-salt-1234"),  // Change this salt value
+                iterations: 100000,
+                hash: "SHA-256"
+            },
+            keyMaterial,
+            { name: "AES-CBC", length: 256 },
+            true,
+            ["decrypt"]
+        );
+
+        // Extract IV from the encrypted data (First 16 bytes)
+        const iv = new Uint8Array(encryptedData.slice(0, 16));
+        const encryptedContent = new Uint8Array(encryptedData.slice(16));
+
+        // Decrypt
+        const decryptedAudio = await window.crypto.subtle.decrypt(
             { name: "AES-CBC", iv: iv },
-            key,
+            aesKey,
             encryptedContent
         );
 
-        return new Blob([decryptedData], { type: "audio/mp3" });
+        // Convert decrypted data to a Blob URL
+        const blob = new Blob([decryptedAudio], { type: "audio/mp3" });
+        return URL.createObjectURL(blob);
 
     } catch (error) {
         console.error("Error decrypting audio file:", error);
-        return null;
+        throw new Error("Decryption failed");
     }
 }
 
-async function getKeyMaterial(secret) {
-    const enc = new TextEncoder();
-    return await crypto.subtle.importKey(
-        "raw",
-        enc.encode(secret),
-        { name: "PBKDF2" },
-        false,
-        ["deriveBits", "deriveKey"]
-    );
-}
-
-async function deriveKey(keyMaterial) {
-    return await crypto.subtle.deriveKey(
-        {
-            name: "PBKDF2",
-            salt: new TextEncoder().encode("your-salt-value"),
-            iterations: 100000,
-            hash: "SHA-256"
-        },
-        keyMaterial,
-        { name: "AES-CBC", length: 256 },
-        true,
-        ["encrypt", "decrypt"]
-    );
-}
-
+// Function to play the decrypted song
 async function playSong(encryptedFileUrl, songTitle, posterUrl, album, artist) {
     try {
-        const secretKey = "7x!Lq9@Zv2$pTm5W#8Rn&Ks"; // Use the same key as used in encryption
-        const decryptedBlob = await decryptAudioFile(encryptedFileUrl, secretKey);
-        if (!decryptedBlob) throw new Error("Decryption failed");
+        const decryptedUrl = await decryptAudioFile(encryptedFileUrl, "7x!Lq9@Zv2$pTm5W#8Rn&Ks");
 
-        const audioPlayer = document.getElementById('audio-player');
-        if (!audioPlayer) throw new Error("Audio player element not found");
-
-        audioPlayer.src = URL.createObjectURL(decryptedBlob);
+        audioPlayer.src = decryptedUrl;
         audioPlayer.load();
         audioPlayer.play();
 
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+
+        // Update UI
         document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
         document.getElementById('song-poster').src = posterUrl;
         document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
@@ -150,7 +148,6 @@ async function playSong(encryptedFileUrl, songTitle, posterUrl, album, artist) {
         console.error("Error decrypting or playing the audio file:", error);
     }
 }
-
 
 
 
