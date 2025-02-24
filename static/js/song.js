@@ -78,9 +78,9 @@ function formatTime(time) {
 
 
 // Encryption key (must match the key used during encryption)
-const ENCRYPTION_KEY = "7x!Lq9@Zv2$pTm5W#8Rn&Ks";
 
 // Function to decrypt an encrypted audio file
+
 async function decryptAudioFile(encryptedData) {
     try {
         console.log('Encrypted data:', encryptedData);
