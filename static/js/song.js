@@ -72,11 +72,12 @@ function formatTime(time) {
 }
 
 // Define playSong globally
+
+
 async function playSong(songUrl, songTitle, posterUrl, album, artist) {
     let audioPlayer = document.getElementById("audio-player");
     let playPauseBtn = document.getElementById("play-pause-btn");
 
-    // Detect if the file is encrypted (.enc)
     if (songUrl.endsWith(".enc")) {
         console.log("Encrypted file detected. Decrypting...");
 
@@ -84,9 +85,9 @@ async function playSong(songUrl, songTitle, posterUrl, album, artist) {
             const response = await fetch(songUrl);
             const encryptedData = await response.arrayBuffer();
 
-            // Decryption key (Must be the same key used for encryption)
-            const key = new TextEncoder().encode("7x!Lq9@Zv2$pTm5W#8Rn&Ks"); // Replace with your actual key
-            const iv = new Uint8Array(16); // IV must match encryption IV
+            // The same key used in OpenSSL encryption
+            const key = new TextEncoder().encode("your-secret-key"); // Replace with actual key
+            const iv = new Uint8Array(16); // Must be the same IV as in encryption
 
             const cryptoKey = await crypto.subtle.importKey(
                 "raw",
@@ -102,7 +103,7 @@ async function playSong(songUrl, songTitle, posterUrl, album, artist) {
                 encryptedData
             );
 
-            // Convert decrypted data to playable audio URL
+            // Convert decrypted data to a playable audio URL
             const blob = new Blob([decryptedData], { type: "audio/mpeg" });
             songUrl = URL.createObjectURL(blob);
         } catch (error) {
@@ -111,7 +112,7 @@ async function playSong(songUrl, songTitle, posterUrl, album, artist) {
         }
     }
 
-    // Set the audio source and play the song
+    // Set audio source and play
     audioPlayer.src = songUrl;
     audioPlayer.load();
     audioPlayer.play();
@@ -123,6 +124,10 @@ async function playSong(songUrl, songTitle, posterUrl, album, artist) {
     document.getElementById("song-poster").style.display = "block";
     document.getElementById("song-details").textContent = `Album: ${album} | Artist: ${artist}`;
 }
+
+
+
+
 // enc/dec funtion end
 
 document.addEventListener('DOMContentLoaded', () => {
