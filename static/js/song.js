@@ -66,6 +66,8 @@ function formatTime(time) {
 
 // playSong function
 
+
+
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
@@ -114,7 +116,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-// Function to parse LRC file and remove timestamps
+// Function to parse LRC file and remove timestamps, special characters, numbers, and operators
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
@@ -123,7 +125,10 @@ function parseLRC(lrcText) {
     const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
 
     lines.forEach(line => {
-        const cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps
+        let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps
+
+        // Remove all special characters, numbers, and extra spaces, keeping only letters
+        cleanLine = cleanLine.replace(/[^a-zA-Z\s]/g, "").replace(/\s+/g, " ").trim();
 
         if (cleanLine) {
             // Extract the first timestamp to use as the time reference
@@ -165,13 +170,14 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Update the lyrics display (only words, no timestamps)
+        // Update the lyrics display (only letters and spaces)
         lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
+
 
 
 
