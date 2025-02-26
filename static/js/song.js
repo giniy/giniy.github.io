@@ -72,7 +72,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         return;
     }
 
-    // Remove previous lyrics event listener to prevent conflicts
+    // Remove previous lyrics event listener before adding a new one
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
@@ -91,7 +91,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 
     document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
 
-    // Reset lyrics display immediately on song switch
+    // Reset lyrics display when switching songs
     const lyricsContainer = document.getElementById('lyrics-container');
     lyricsContainer.innerHTML = "Loading lyrics...";
     lyricsContainer.style.opacity = 1;
@@ -135,6 +135,9 @@ function displayLyrics(lyricsArray) {
 
     let currentIndex = 0;
 
+    // Remove old listener before adding a new one
+    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
+
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
 
@@ -145,10 +148,10 @@ function displayLyrics(lyricsArray) {
 
         // Display up to 3 lines of lyrics
         const lyricsToShow = lyricsArray.slice(Math.max(0, currentIndex - 2), currentIndex + 1)
-            .map(lyric => lyric.text)
-            .join("<br>");
+            .map(lyric => `<div>${lyric.text}</div>`)
+            .join(""); // Ensure each line appears separately
 
-        fadeOutIn(lyricsContainer, lyricsToShow);
+        slowFadeOutIn(lyricsContainer, lyricsToShow);
     };
 
     // Attach event listener
@@ -160,28 +163,31 @@ function displayWordByWordLyrics(lyricsText) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
 
-    const words = lyricsText.split(" ");
-    let wordIndex = 0;
+    const lines = lyricsText.split("\n");
+    let lineIndex = 0;
+
+    // Remove old listener before adding a new one
+    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     handleLyricsUpdate = function () {
-        if (wordIndex < words.length) {
-            fadeOutIn(lyricsContainer, words.slice(0, wordIndex + 1).join(" "));
-            wordIndex++;
+        if (lineIndex < lines.length) {
+            slowFadeOutIn(lyricsContainer, `<div>${lines.slice(0, lineIndex + 1).join("<br>")}</div>`);
+            lineIndex++;
         }
     };
 
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
-// Function to fade out old lyrics and fade in new lyrics
-function fadeOutIn(element, newText) {
-    element.style.transition = "opacity 1s";
+// Function to fade out old lyrics and fade in new lyrics (slowed down)
+function slowFadeOutIn(element, newText) {
+    element.style.transition = "opacity 1.5s"; // Slower fade effect
     element.style.opacity = 0;  // Fade out
 
     setTimeout(() => {
         element.innerHTML = newText;
         element.style.opacity = 1; // Fade in
-    }, 1000); // Wait 1s for fade-out before updating text
+    }, 1500); // Wait for fade-out before updating text
 }
 
 
