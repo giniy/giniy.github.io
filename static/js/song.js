@@ -64,36 +64,78 @@ function formatTime(time) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 // Define playSong globally
-window.playSong = function(songUrl, songTitle, posterUrl, album, artist) {
+
+window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
+
     // Set the audio source and load the song
     audioPlayer.src = songUrl;
     audioPlayer.load();
-    // Show the custom audio player
     customPlayer.style.display = 'block';
-    // Play the song
     audioPlayer.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
-    // Update the "Now Playing" text (if you have this element)
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+
+    // Update UI elements
     const nowPlaying = document.getElementById('now-playing');
-    if (nowPlaying) {
-        nowPlaying.textContent = `Now Playing: ${songTitle}`;
-    }
-    // Update the song poster (if you have this element)
+    if (nowPlaying) nowPlaying.textContent = `Now Playing: ${songTitle}`;
+
     const songPoster = document.getElementById('song-poster');
     if (songPoster) {
         songPoster.src = posterUrl;
         songPoster.style.display = 'block';
     }
-    // Update the song details (if you have this element)
+
     const songDetails = document.getElementById('song-details');
-    if (songDetails) {
-        songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
+    if (songDetails) songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
+
+    // Fetch lyrics from the text file
+    const lyricsContainer = document.getElementById('lyrics-container');
+    if (!lyricsContainer) return;
+
+    if (!lyricsFile) {
+        lyricsContainer.textContent = "Lyrics unavailable for this audio";
+        return;
     }
+
+    fetch(lyricsFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Lyrics file not found");
+            }
+            return response.text();
+        })
+        .then(data => {
+            const lyricsArray = data.split("\n").map(line => {
+                const parts = line.split("|");
+                return { time: parseFloat(parts[0]), text: parts[1] };
+            });
+
+            displayLyrics(lyricsArray);
+        })
+        .catch(error => {
+            console.error("Error loading lyrics:", error);
+            lyricsContainer.textContent = "Lyrics unavailable for this audio";
+        });
 };
+
+// Function to display lyrics in sync with the audio
+function displayLyrics(lyricsArray) {
+    const lyricsContainer = document.getElementById('lyrics-container');
+    if (!lyricsContainer) return;
+
+    audioPlayer.addEventListener("timeupdate", () => {
+        const currentTime = audioPlayer.currentTime;
+        const currentLyric = lyricsArray.find(lyric => lyric.time <= currentTime);
+        if (currentLyric) {
+            lyricsContainer.textContent = currentLyric.text;
+        }
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Get the visitCount element
     const visitCountElement = document.getElementById('visitCount');
@@ -102,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('visitCount element not found!');
         return;
     }
+
     // Update the visit count
     let visitCount = localStorage.getItem('visitCount') || 0;
     visitCount = parseInt(visitCount) + 1;
