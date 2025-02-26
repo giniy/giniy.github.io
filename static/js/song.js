@@ -112,7 +112,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
             }
         })
         .catch(() => {
-            lyricsContainer.textContent = "Lyrics not available for this audio";
+            lyricsContainer.textContent = "Lyrics unavailable for this audio";
         });
 };
 
