@@ -116,8 +116,8 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 
+// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
@@ -139,7 +139,10 @@ function parseLRC(lrcText) {
                 if (firstTimestamp) {
                     const minutes = parseInt(firstTimestamp[1]);
                     const seconds = parseFloat(firstTimestamp[2]);
-                    const timeInSeconds = minutes * 60 + seconds;
+                    let timeInSeconds = minutes * 60 + seconds;
+
+                    // Show lyrics 2 seconds earlier
+                    timeInSeconds = Math.max(0, timeInSeconds - 2); 
 
                     lyricsArray.push({ time: timeInSeconds, text: cleanLine });
                 }
@@ -149,8 +152,6 @@ function parseLRC(lrcText) {
 
     return lyricsArray;
 }
-
-
 
 
 
