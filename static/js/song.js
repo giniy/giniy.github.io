@@ -116,22 +116,20 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-// Function to parse LRC file and remove timestamps, special characters, numbers, and operators
+// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 
-
-// Function to parse LRC file and remove timestamps, but keep text in all languages
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
 
-    // Regex to match timestamps like [01:13.70]
+    // Regex to match timestamps like [01:13.70] but NOT remove [ ] braces
     const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
 
     lines.forEach(line => {
-        let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps
+        let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps, keep braces
 
-        // Keep all Unicode letters (all languages) and spaces, remove special characters
-        cleanLine = cleanLine.replace(/[^\p{L}\s]/gu, "").replace(/\s+/g, " ").trim();
+        // Keep all Unicode letters, matras (diacritics), spaces, and [ ] braces; remove special characters
+        cleanLine = cleanLine.replace(/[^\p{L}\p{M}\s\[\]]/gu, "").replace(/\s+/g, " ").trim();
 
         if (cleanLine) {
             // Extract the first timestamp to use as the time reference
@@ -151,6 +149,9 @@ function parseLRC(lrcText) {
 
     return lyricsArray;
 }
+
+
+
 
 
 // Global reference for event listener (to remove old one)
