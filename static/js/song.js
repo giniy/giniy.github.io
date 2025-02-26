@@ -66,13 +66,14 @@ function formatTime(time) {
 
 // playSong function
 
+
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
 
-    // Remove previous lyrics event listener before adding a new one
+    // Remove previous event listener before adding a new one
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
@@ -91,10 +92,9 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 
     document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
 
-    // Reset lyrics display when switching songs
+    // Reset lyrics display
     const lyricsContainer = document.getElementById('lyrics-container');
     lyricsContainer.innerHTML = "Loading lyrics...";
-    lyricsContainer.style.opacity = 1;
 
     // Fetch and parse the LRC file
     fetch(lyricsFile)
@@ -112,11 +112,10 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         })
         .catch(() => {
             lyricsContainer.textContent = "Lyrics not available for this audio";
-            lyricsContainer.style.opacity = 1;
         });
 };
 
-// Function to parse LRC file into an array of { time, text }
+// Function to parse LRC file dynamically
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
@@ -131,8 +130,15 @@ function parseLRC(lrcText) {
             const text = match[3].trim();
 
             const timeInSeconds = minutes * 60 + seconds;
+
             if (text) {
-                lyricsArray.push({ time: timeInSeconds, text });
+                // If multiple timestamps exist, merge them
+                let lastEntry = lyricsArray[lyricsArray.length - 1];
+                if (lastEntry && lastEntry.time === timeInSeconds) {
+                    lastEntry.text += " " + text; // Merge words for the same timestamp
+                } else {
+                    lyricsArray.push({ time: timeInSeconds, text });
+                }
             }
         }
     });
@@ -143,7 +149,7 @@ function parseLRC(lrcText) {
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
 
-// Function to display lyrics in sync (show 2 lines at a time with fade effect)
+// Function to display lyrics in sync with timestamps (real-time display)
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -156,33 +162,19 @@ function displayLyrics(lyricsArray) {
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
 
-        // Find the index of the current lyric
+        // Find the current lyric line
         while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
             currentIndex++;
         }
 
-        // Display 2 lines at a time
-        const lyricsToShow = lyricsArray.slice(Math.max(0, currentIndex - 1), currentIndex + 1)
-            .map(lyric => `<div>${lyric.text}</div>`)
-            .join("<br>"); // Ensure each line appears separately
-
-        slowFadeOutIn(lyricsContainer, lyricsToShow);
+        // Update the lyrics display
+        lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
-// Function to fade out old lyrics and fade in new lyrics (slow transition)
-function slowFadeOutIn(element, newText) {
-    element.style.transition = "opacity 1.5s"; // Smooth transition
-    element.style.opacity = 0;  // Fade out
-
-    setTimeout(() => {
-        element.innerHTML = newText;
-        element.style.opacity = 1; // Fade in
-    }, 1500); // Wait for fade-out before updating text
-}
 
 
 
