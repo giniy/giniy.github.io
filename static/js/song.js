@@ -117,6 +117,9 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 };
 
 // Function to parse LRC file and remove timestamps, special characters, numbers, and operators
+
+
+// Function to parse LRC file and remove timestamps, but keep text in all languages
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
@@ -127,8 +130,8 @@ function parseLRC(lrcText) {
     lines.forEach(line => {
         let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps
 
-        // Remove all special characters, numbers, and extra spaces, keeping only letters
-        cleanLine = cleanLine.replace(/[^a-zA-Z\s]/g, "").replace(/\s+/g, " ").trim();
+        // Keep all Unicode letters (all languages) and spaces, remove special characters
+        cleanLine = cleanLine.replace(/[^\p{L}\s]/gu, "").replace(/\s+/g, " ").trim();
 
         if (cleanLine) {
             // Extract the first timestamp to use as the time reference
@@ -148,6 +151,7 @@ function parseLRC(lrcText) {
 
     return lyricsArray;
 }
+
 
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
