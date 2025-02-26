@@ -79,45 +79,45 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
 
     // Update UI elements
-    const nowPlaying = document.getElementById('now-playing');
-    if (nowPlaying) nowPlaying.textContent = `Now Playing: ${songTitle}`;
-
+    document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
+    
     const songPoster = document.getElementById('song-poster');
-    if (songPoster) {
-        songPoster.src = posterUrl;
-        songPoster.style.display = 'block';
-    }
+    songPoster.src = posterUrl;
+    songPoster.style.display = 'block';
 
-    const songDetails = document.getElementById('song-details');
-    if (songDetails) songDetails.textContent = `Album: ${album} | Artist: ${artist}`;
+    document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
+
+    // Reset previous lyrics
+    const lyricsContainer = document.getElementById('lyrics-container');
+    lyricsContainer.textContent = "Loading lyrics...";
 
     // Fetch lyrics from the text file
-    const lyricsContainer = document.getElementById('lyrics-container');
-    if (!lyricsContainer) return;
-
-    if (!lyricsFile) {
-        lyricsContainer.textContent = "Lyrics unavailable for this audio";
-        return;
-    }
-
     fetch(lyricsFile)
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Lyrics file not found");
-            }
+            if (!response.ok) throw new Error("Lyrics file not found");
             return response.text();
         })
         .then(data => {
-            const lyricsArray = data.split("\n").map(line => {
-                const parts = line.split("|");
-                return { time: parseFloat(parts[0]), text: parts[1] };
-            });
+            const lines = data.split("\n");
 
-            displayLyrics(lyricsArray);
+            // Check if the first line contains a timestamp (for synchronized lyrics)
+            const hasTiming = lines[0].includes("|");
+
+            if (hasTiming) {
+                // Parse for synchronized lyrics
+                const lyricsArray = lines.map(line => {
+                    const parts = line.split("|");
+                    return { time: parseFloat(parts[0]), text: parts[1] };
+                });
+
+                displayLyrics(lyricsArray);
+            } else {
+                // Display static lyrics
+                lyricsContainer.textContent = data;
+            }
         })
-        .catch(error => {
-            console.error("Error loading lyrics:", error);
-            lyricsContainer.textContent = "Lyrics unavailable for this audio";
+        .catch(() => {
+            lyricsContainer.textContent = "Lyrics not available for this audio";
         });
 };
 
@@ -134,7 +134,6 @@ function displayLyrics(lyricsArray) {
         }
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get the visitCount element

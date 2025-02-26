@@ -1,9 +1,9 @@
 "Fading Echoes"
 
 [Verse 1]
-The moonlight fades, the night stands still,
-Shadows whisper, yet I'm lost in the chill.
-Every breath feels like a ghost of the past,
+0.0|The moonlight fades, the night stands still,
+5.5|Shadows whisper, yet I'm lost in the chill.
+10.2|Every breath feels like a ghost of the past,
 Time moves forward, but I'm stuck in the last.
 
 [Pre-Chorus]
