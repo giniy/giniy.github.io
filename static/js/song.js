@@ -116,7 +116,6 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-
 // Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
@@ -125,14 +124,13 @@ function parseLRC(lrcText) {
     // Regex to match timestamps like [01:13.70] but NOT remove [ ] braces
     const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
 
-    lines.forEach(line => {
+    lines.forEach((line, index) => {
         let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps, keep braces
 
         // Keep all Unicode letters, matras (diacritics), spaces, and [ ] braces; remove special characters
         cleanLine = cleanLine.replace(/[^\p{L}\p{M}\s\[\]]/gu, "").replace(/\s+/g, " ").trim();
 
         if (cleanLine) {
-            // Extract the first timestamp to use as the time reference
             const match = line.match(timeRegex);
             if (match) {
                 const firstTimestamp = match[0].match(/(\d+):(\d+\.\d+)/);
@@ -142,9 +140,22 @@ function parseLRC(lrcText) {
                     let timeInSeconds = minutes * 60 + seconds;
 
                     // Show lyrics 2 seconds earlier
-                    timeInSeconds = Math.max(0, timeInSeconds - 2); 
+                    timeInSeconds = Math.max(0, timeInSeconds - 2);
 
-                    lyricsArray.push({ time: timeInSeconds, text: cleanLine });
+                    // Calculate duration: Time until the next line appears
+                    let duration = 3; // Default duration if no next timestamp
+                    if (index < lines.length - 1) {
+                        const nextMatch = lines[index + 1].match(timeRegex);
+                        if (nextMatch) {
+                            const nextMinutes = parseInt(nextMatch[1]);
+                            const nextSeconds = parseFloat(nextMatch[2]);
+                            const nextTimeInSeconds = nextMinutes * 60 + nextSeconds;
+
+                            duration = nextTimeInSeconds - timeInSeconds; // Duration before the next lyric appears
+                        }
+                    }
+
+                    lyricsArray.push({ time: timeInSeconds, text: cleanLine, duration: duration });
                 }
             }
         }
@@ -152,8 +163,6 @@ function parseLRC(lrcText) {
 
     return lyricsArray;
 }
-
-
 
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
@@ -176,15 +185,20 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Update the lyrics display (only letters and spaces)
+        // Update the lyrics display (only words, no timestamps)
         lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
+
+        // Delay hiding the lyrics according to the duration of the next lyric
+        setTimeout(() => {
+            if (lyricsArray[currentIndex].time <= audioPlayer.currentTime) {
+                lyricsContainer.innerHTML = "";
+            }
+        }, lyricsArray[currentIndex].duration * 1000); // Convert duration to milliseconds
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
-
-
 
 
 // end playSong
