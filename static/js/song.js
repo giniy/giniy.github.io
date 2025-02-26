@@ -66,14 +66,13 @@ function formatTime(time) {
 
 // playSong function
 
-
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
 
-    // Remove previous event listener before adding a new one
+    // Remove previous lyrics event listener before adding a new one
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
@@ -115,29 +114,28 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-// Function to parse LRC file dynamically
+// Function to parse LRC file and remove timestamps
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
 
-    const timeRegex = /\[(\d+):(\d+\.\d+)\](.*)/;
+    // Regex to match timestamps like [01:13.70]
+    const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
 
     lines.forEach(line => {
-        const match = line.match(timeRegex);
-        if (match) {
-            const minutes = parseInt(match[1]);
-            const seconds = parseFloat(match[2]);
-            const text = match[3].trim();
+        const cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps
 
-            const timeInSeconds = minutes * 60 + seconds;
+        if (cleanLine) {
+            // Extract the first timestamp to use as the time reference
+            const match = line.match(timeRegex);
+            if (match) {
+                const firstTimestamp = match[0].match(/(\d+):(\d+\.\d+)/);
+                if (firstTimestamp) {
+                    const minutes = parseInt(firstTimestamp[1]);
+                    const seconds = parseFloat(firstTimestamp[2]);
+                    const timeInSeconds = minutes * 60 + seconds;
 
-            if (text) {
-                // If multiple timestamps exist, merge them
-                let lastEntry = lyricsArray[lyricsArray.length - 1];
-                if (lastEntry && lastEntry.time === timeInSeconds) {
-                    lastEntry.text += " " + text; // Merge words for the same timestamp
-                } else {
-                    lyricsArray.push({ time: timeInSeconds, text });
+                    lyricsArray.push({ time: timeInSeconds, text: cleanLine });
                 }
             }
         }
@@ -167,14 +165,13 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Update the lyrics display
+        // Update the lyrics display (only words, no timestamps)
         lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
-
 
 
 
