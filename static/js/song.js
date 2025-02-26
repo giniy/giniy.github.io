@@ -128,7 +128,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
 
-// Function to display lyrics in sync (show 3 lines at a time)
+// Function to display lyrics in sync (show 2 lines at a time with fade effect)
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -146,10 +146,10 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Display up to 3 lines of lyrics
-        const lyricsToShow = lyricsArray.slice(Math.max(0, currentIndex - 2), currentIndex + 1)
+        // Display 2 lines at a time
+        const lyricsToShow = lyricsArray.slice(Math.max(0, currentIndex - 1), currentIndex + 1)
             .map(lyric => `<div>${lyric.text}</div>`)
-            .join(""); // Ensure each line appears separately
+            .join("<br>"); // Ensure each line appears separately
 
         slowFadeOutIn(lyricsContainer, lyricsToShow);
     };
@@ -171,7 +171,11 @@ function displayWordByWordLyrics(lyricsText) {
 
     handleLyricsUpdate = function () {
         if (lineIndex < lines.length) {
-            slowFadeOutIn(lyricsContainer, `<div>${lines.slice(0, lineIndex + 1).join("<br>")}</div>`);
+            const lyricsToShow = lines.slice(Math.max(0, lineIndex - 1), lineIndex + 1)
+                .map(line => `<div>${line}</div>`)
+                .join("<br>"); // Display 2 lines at a time
+
+            slowFadeOutIn(lyricsContainer, lyricsToShow);
             lineIndex++;
         }
     };
@@ -179,9 +183,9 @@ function displayWordByWordLyrics(lyricsText) {
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
-// Function to fade out old lyrics and fade in new lyrics (slowed down)
+// Function to fade out old lyrics and fade in new lyrics (slow transition)
 function slowFadeOutIn(element, newText) {
-    element.style.transition = "opacity 1.5s"; // Slower fade effect
+    element.style.transition = "opacity 1.5s"; // Smooth transition
     element.style.opacity = 0;  // Fade out
 
     setTimeout(() => {
