@@ -63,13 +63,18 @@ function formatTime(time) {
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
-// Define playSong globally
+
+// playSong function
+
 
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
+
+    // Remove previous timeupdate event listener to prevent multiple bindings
+    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
     audioPlayer.src = songUrl;
@@ -121,19 +126,26 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
+// Global reference to the lyrics update function (needed for removal)
+let handleLyricsUpdate;
+
 // Function to display lyrics in sync with timestamps (with fade effect)
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
 
-    audioPlayer.addEventListener("timeupdate", () => {
+    // Define the event listener and store it in the global variable
+    handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
         const currentLyric = lyricsArray.find(lyric => lyric.time <= currentTime);
 
         if (currentLyric) {
             fadeOutIn(lyricsContainer, currentLyric.text);
         }
-    });
+    };
+
+    // Attach the new event listener
+    audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
 // Function to display lyrics word-by-word with fade effect
@@ -144,17 +156,19 @@ function displayWordByWordLyrics(lyricsText) {
     const words = lyricsText.split(" ");
     let wordIndex = 0;
 
-    audioPlayer.addEventListener("timeupdate", () => {
+    handleLyricsUpdate = function () {
         if (wordIndex < words.length) {
             fadeOutIn(lyricsContainer, words.slice(0, wordIndex + 1).join(" "));
             wordIndex++;
         }
-    });
+    };
+
+    audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
 // Function to fade out current lyrics and fade in new lyrics
 function fadeOutIn(element, newText) {
-    element.style.transition = "opacity 0.9s";
+    element.style.transition = "opacity 0.5s";
     element.style.opacity = 0;  // Fade out
 
     setTimeout(() => {
@@ -162,6 +176,9 @@ function fadeOutIn(element, newText) {
         element.style.opacity = 1; // Fade in
     }, 500); // Wait 500ms for fade-out to complete
 }
+
+
+// end playSong
 
 
 document.addEventListener('DOMContentLoaded', () => {
