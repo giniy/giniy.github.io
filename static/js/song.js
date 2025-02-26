@@ -96,27 +96,18 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
     lyricsContainer.innerHTML = "Loading lyrics...";
     lyricsContainer.style.opacity = 1;
 
-    // Fetch lyrics from the text file
+    // Fetch and parse the LRC file
     fetch(lyricsFile)
         .then(response => {
             if (!response.ok) throw new Error("Lyrics file not found");
             return response.text();
         })
         .then(data => {
-            const lines = data.split("\n");
-
-            // Parse lyrics with timestamps
-            const lyricsArray = lines.map(line => {
-                const parts = line.split("|");
-                return parts.length === 2 ? { time: parseFloat(parts[0]), text: parts[1] } : null;
-            }).filter(entry => entry !== null);
-
+            const lyricsArray = parseLRC(data);
             if (lyricsArray.length > 0) {
-                // If timestamps exist, use synchronized lyrics
                 displayLyrics(lyricsArray);
             } else {
-                // If no timestamps, show full lyrics gradually
-                displayWordByWordLyrics(data);
+                lyricsContainer.textContent = "Lyrics not available for this audio";
             }
         })
         .catch(() => {
@@ -124,6 +115,30 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
             lyricsContainer.style.opacity = 1;
         });
 };
+
+// Function to parse LRC file into an array of { time, text }
+function parseLRC(lrcText) {
+    const lines = lrcText.split("\n");
+    let lyricsArray = [];
+
+    const timeRegex = /\[(\d+):(\d+\.\d+)\](.*)/;
+
+    lines.forEach(line => {
+        const match = line.match(timeRegex);
+        if (match) {
+            const minutes = parseInt(match[1]);
+            const seconds = parseFloat(match[2]);
+            const text = match[3].trim();
+
+            const timeInSeconds = minutes * 60 + seconds;
+            if (text) {
+                lyricsArray.push({ time: timeInSeconds, text });
+            }
+        }
+    });
+
+    return lyricsArray;
+}
 
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
@@ -155,31 +170,6 @@ function displayLyrics(lyricsArray) {
     };
 
     // Attach event listener
-    audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
-}
-
-// Function to display lyrics gradually (if no timestamps)
-function displayWordByWordLyrics(lyricsText) {
-    const lyricsContainer = document.getElementById('lyrics-container');
-    if (!lyricsContainer) return;
-
-    const lines = lyricsText.split("\n");
-    let lineIndex = 0;
-
-    // Remove old listener before adding a new one
-    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
-
-    handleLyricsUpdate = function () {
-        if (lineIndex < lines.length) {
-            const lyricsToShow = lines.slice(Math.max(0, lineIndex - 1), lineIndex + 1)
-                .map(line => `<div>${line}</div>`)
-                .join("<br>"); // Display 2 lines at a time
-
-            slowFadeOutIn(lyricsContainer, lyricsToShow);
-            lineIndex++;
-        }
-    };
-
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
