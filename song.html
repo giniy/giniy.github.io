@@ -83,6 +83,28 @@
 
             <!-- Playlist -->
                <div class="playlist">
+
+                  <!-- Songs button row -->
+                  <button class="song-button" onclick="playSong('static/media/Fading Echoes 🎶(feat. Gulab Days).mp3', 'Fading Echoes 🎶',
+                     'static/media/fading_echoes.png', 'Fading Echoes 🎶', 'Gulab')">
+                     <!-- Updated Image with Hover Effect -->
+                     <div class="song-poster-container">
+                        <img src="static/images/blank_png.png" alt="artist" class="song-poster1">
+                        <div class="hover-text">Gulab</div>
+                     </div>
+                     <!-- Updated Image with Hover Effect -->
+                     <img src="static/media/fading_echoes.png" alt="Song 1 Poster" class="song-poster">
+                     <div class="song-info">
+                        <strong>Fading Echoes 🎶</strong><br>
+                        <span class="small-text">Artist : Gulab, Om Prakash</span>                       
+                     </div>
+                     <span class="buy-button" onclick="buySong('Fading Echoes 🎶', '9.99'); event.stopPropagation();">
+                     <i class="fa fa-download" aria-hidden="true"></i>
+                     </span>
+                  </button>
+                  <!-- Songs button row -->
+
+
                   <!-- Songs button row -->
                   <button class="song-button" onclick="playSong('static/media/Tere Naam Ki Mannat.mp3', 'Tere Naam Ki Mannat',
                      'static/media/tere_naam_ki_mannat.webp', 'Tere Naam Ki Mannat', 'Gulab, Om Prakash')">
@@ -102,6 +124,8 @@
                      </span>
                   </button>
                   <!-- Songs button row -->
+
+
                   <button onclick="playSong('static/media/Kismat Ki Likhai.mp3', 'Kismat Ki Likhai', 'static/media/kismat_ki_likhai.png', 'Kismat Ki Likhai', 'Gulab')">
                      <!-- Updated Image with Hover Effect -->
                      <div class="song-poster-container">
