@@ -154,7 +154,7 @@ function displayWordByWordLyrics(lyricsText) {
 
 // Function to fade out current lyrics and fade in new lyrics
 function fadeOutIn(element, newText) {
-    element.style.transition = "opacity 0.5s";
+    element.style.transition = "opacity 0.9s";
     element.style.opacity = 0;  // Fade out
 
     setTimeout(() => {
@@ -162,8 +162,6 @@ function fadeOutIn(element, newText) {
         element.style.opacity = 1; // Fade in
     }, 500); // Wait 500ms for fade-out to complete
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
