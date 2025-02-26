@@ -66,14 +66,13 @@ function formatTime(time) {
 
 // playSong function
 
-
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
         return;
     }
 
-    // Remove previous timeupdate event listener to prevent multiple bindings
+    // Remove previous lyrics event listener to prevent conflicts
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
@@ -92,10 +91,10 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 
     document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
 
-    // Reset previous lyrics
+    // Reset lyrics display immediately on song switch
     const lyricsContainer = document.getElementById('lyrics-container');
-    lyricsContainer.textContent = "Loading lyrics...";
-    lyricsContainer.style.opacity = 1; // Reset opacity
+    lyricsContainer.innerHTML = "Loading lyrics...";
+    lyricsContainer.style.opacity = 1;
 
     // Fetch lyrics from the text file
     fetch(lyricsFile)
@@ -106,17 +105,17 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         .then(data => {
             const lines = data.split("\n");
 
-            // Check if there are timestamps (time|text)
+            // Parse lyrics with timestamps
             const lyricsArray = lines.map(line => {
                 const parts = line.split("|");
                 return parts.length === 2 ? { time: parseFloat(parts[0]), text: parts[1] } : null;
             }).filter(entry => entry !== null);
 
             if (lyricsArray.length > 0) {
-                // If valid timestamps are found, use synchronized lyrics
+                // If timestamps exist, use synchronized lyrics
                 displayLyrics(lyricsArray);
             } else {
-                // If no timestamps, simulate word-by-word sync
+                // If no timestamps, show full lyrics gradually
                 displayWordByWordLyrics(data);
             }
         })
@@ -126,29 +125,37 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-// Global reference to the lyrics update function (needed for removal)
+// Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
 
-// Function to display lyrics in sync with timestamps (with fade effect)
+// Function to display lyrics in sync (show 3 lines at a time)
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
 
-    // Define the event listener and store it in the global variable
+    let currentIndex = 0;
+
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
-        const currentLyric = lyricsArray.find(lyric => lyric.time <= currentTime);
 
-        if (currentLyric) {
-            fadeOutIn(lyricsContainer, currentLyric.text);
+        // Find the index of the current lyric
+        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
+            currentIndex++;
         }
+
+        // Display up to 3 lines of lyrics
+        const lyricsToShow = lyricsArray.slice(Math.max(0, currentIndex - 2), currentIndex + 1)
+            .map(lyric => lyric.text)
+            .join("<br>");
+
+        fadeOutIn(lyricsContainer, lyricsToShow);
     };
 
-    // Attach the new event listener
+    // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
-// Function to display lyrics word-by-word with fade effect
+// Function to display lyrics gradually (if no timestamps)
 function displayWordByWordLyrics(lyricsText) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -166,16 +173,17 @@ function displayWordByWordLyrics(lyricsText) {
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
 
-// Function to fade out current lyrics and fade in new lyrics
+// Function to fade out old lyrics and fade in new lyrics
 function fadeOutIn(element, newText) {
-    element.style.transition = "opacity 0.5s";
+    element.style.transition = "opacity 1s";
     element.style.opacity = 0;  // Fade out
 
     setTimeout(() => {
-        element.textContent = newText;
+        element.innerHTML = newText;
         element.style.opacity = 1; // Fade in
-    }, 500); // Wait 500ms for fade-out to complete
+    }, 1000); // Wait 1s for fade-out before updating text
 }
+
 
 
 // end playSong
