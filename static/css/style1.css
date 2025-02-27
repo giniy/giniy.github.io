@@ -377,17 +377,13 @@ audio {
             font-size: 0.8em;
             color: #555;
         }
-
-/*        #lyrics-container {
-            color: #cc735d;
-        }*/
     #lyrics-container {
-        font-size: 24px;
+        font-size: 16px;
         font-weight: bold;
-        color: #333;
+        color: #caa6a6;
         padding: 10px;
-        background-color: #f0f0f0;
-        border-radius: 5px;
+/*        background-color: #f0f0f0;
+        border-radius: 5px;*/
         text-align: center;
         margin: 20px auto;
         max-width: 600px;

@@ -174,7 +174,7 @@ function displayLyrics(lyricsArray) {
         const currentTime = audioPlayer.currentTime;
 
         // Find the current lyric line with a delay
-        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime + 2) { // Add 2 seconds delay for text switching
+        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime + 4) { // Add 4 seconds delay for text switching
             currentIndex++;
         }
 
@@ -185,7 +185,7 @@ function displayLyrics(lyricsArray) {
         let progress = (currentTime - currentLine.time) / (nextLineTime - currentLine.time);
 
         // Slow down the progress by scaling it (e.g., divide by 2 or use a slower factor)
-        progress = progress * 0.5; // Adjust this value to control the speed (0.5 = 50% slower)
+        progress = progress * 0.9; // Adjust this value to control the speed (0.5 = 50% slower)
 
         // Ensure progress stays between 0 and 1
         progress = Math.min(progress, 1);
