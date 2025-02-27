@@ -178,14 +178,19 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Update the lyrics display (only letters and spaces)
-        lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
+        const currentLine = lyricsArray[currentIndex];
+        const nextLineTime = currentIndex < lyricsArray.length - 1 ? lyricsArray[currentIndex + 1].time : audioPlayer.duration;
+
+        // Calculate the progress of the current line
+        const progress = (currentTime - currentLine.time) / (nextLineTime - currentLine.time);
+
+        // Update the lyrics display with a gradient background
+        lyricsContainer.innerHTML = `<span style="background: linear-gradient(to right, yellow ${progress * 100}%, transparent ${progress * 100}%);">${currentLine.text}</span>`;
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
-
 // end playSong
 
 
