@@ -381,14 +381,14 @@ audio {
 /*        #lyrics-container {
             color: #cc735d;
         }*/
-        #lyrics-container {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            text-align: center;
-            margin: 20px auto;
-            max-width: 600px;
+    #lyrics-container {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        text-align: center;
+        margin: 20px auto;
+        max-width: 600px;
         }
