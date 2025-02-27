@@ -116,47 +116,44 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
         });
 };
 
-
 // Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 
-// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
-// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
+
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
 
-    // Regex to match timestamps like [01:13.70] but NOT remove [ ] braces
+    // Regex to match timestamps like [01:13.70]
     const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
 
     lines.forEach(line => {
-        let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps, keep braces
+        // Extract all timestamps from the line
+        const matches = line.match(timeRegex);
+        if (matches) {
+            // Extract the text part of the line (without timestamps)
+            const text = line.replace(timeRegex, "").trim();
 
-        // Keep all Unicode letters, matras (diacritics), spaces, and [ ] braces; remove special characters
-        cleanLine = cleanLine.replace(/[^\p{L}\p{M}\s\[\]]/gu, "").replace(/\s+/g, " ").trim();
-
-        if (cleanLine) {
-            // Extract the first timestamp to use as the time reference
-            const match = line.match(timeRegex);
-            if (match) {
-                const firstTimestamp = match[0].match(/(\d+):(\d+\.\d+)/);
-                if (firstTimestamp) {
-                    const minutes = parseInt(firstTimestamp[1]);
-                    const seconds = parseFloat(firstTimestamp[2]);
+            // Process each timestamp
+            matches.forEach(match => {
+                const timeParts = match.match(/(\d+):(\d+\.\d+)/);
+                if (timeParts) {
+                    const minutes = parseInt(timeParts[1]);
+                    const seconds = parseFloat(timeParts[2]);
                     const timeInSeconds = minutes * 60 + seconds;
 
-                    lyricsArray.push({ time: timeInSeconds, text: cleanLine });
+                    // Add the timestamp and text to the lyrics array
+                    lyricsArray.push({ time: timeInSeconds, text: text });
                 }
-            }
+            });
         }
     });
+
+    // Sort the lyrics array by time
+    lyricsArray.sort((a, b) => a.time - b.time);
 
     return lyricsArray;
 }
 
-// Global reference for event listener (to remove old one)
-let handleLyricsUpdate;
-
-// Function to display lyrics in sync with timestamps (real-time display)
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -174,14 +171,17 @@ function displayLyrics(lyricsArray) {
             currentIndex++;
         }
 
-        // Update the lyrics display (only letters and spaces)
-        lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
+        // Update the lyrics display
+        if (lyricsArray[currentIndex] && lyricsArray[currentIndex].text) {
+            lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
+        } else {
+            lyricsContainer.innerHTML = ""; // Clear if no lyrics for the current time
+        }
     };
 
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
-
 // end playSong
 
 
