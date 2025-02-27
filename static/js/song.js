@@ -120,6 +120,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 // Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 
 // Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
+// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
     let lyricsArray = [];
@@ -141,10 +142,7 @@ function parseLRC(lrcText) {
                 if (firstTimestamp) {
                     const minutes = parseInt(firstTimestamp[1]);
                     const seconds = parseFloat(firstTimestamp[2]);
-                    let timeInSeconds = minutes * 60 + seconds;
-
-                    // Show lyrics 2 seconds earlier
-                    timeInSeconds = Math.max(0, timeInSeconds - 2); 
+                    const timeInSeconds = minutes * 60 + seconds;
 
                     lyricsArray.push({ time: timeInSeconds, text: cleanLine });
                 }
@@ -155,12 +153,10 @@ function parseLRC(lrcText) {
     return lyricsArray;
 }
 
-
 // Global reference for event listener (to remove old one)
 let handleLyricsUpdate;
 
 // Function to display lyrics in sync with timestamps (real-time display)
-
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -173,22 +169,13 @@ function displayLyrics(lyricsArray) {
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
 
-        // Find the current lyric line based on exact timestamps
+        // Find the current lyric line
         while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
             currentIndex++;
         }
 
-        const currentLine = lyricsArray[currentIndex];
-        const nextLineTime = currentIndex < lyricsArray.length - 1 ? lyricsArray[currentIndex + 1].time : audioPlayer.duration;
-
-        // Calculate the progress of the current line
-        let progress = (currentTime - currentLine.time) / (nextLineTime - currentLine.time);
-
-        // Ensure progress stays between 0 and 1
-        progress = Math.min(progress, 1);
-
-        // Update the lyrics display with a gradient background
-        lyricsContainer.innerHTML = `<span style="background: linear-gradient(to right, yellow ${progress * 100}%, transparent ${progress * 100}%);">${currentLine.text}</span>`;
+        // Update the lyrics display (only letters and spaces)
+        lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
     };
 
     // Attach event listener
