@@ -160,7 +160,7 @@ function parseLRC(lrcText) {
 let handleLyricsUpdate;
 
 // Function to display lyrics in sync with timestamps (real-time display)
-// Function to display lyrics in sync with timestamps (real-time display)
+
 function displayLyrics(lyricsArray) {
     const lyricsContainer = document.getElementById('lyrics-container');
     if (!lyricsContainer) return;
@@ -173,8 +173,8 @@ function displayLyrics(lyricsArray) {
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
 
-        // Find the current lyric line with a delay
-        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime + 2) { // Add 2 seconds delay
+        // Find the current lyric line
+        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
             currentIndex++;
         }
 
