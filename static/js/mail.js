@@ -1,32 +1,26 @@
-async function fetchGitHubRepos() {
-    const username = "techcure"; // Change this to your GitHub username
-    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
-    const repos = await response.json();
-    const repoList = document.getElementById("repo-list");
-    repoList.innerHTML = ""; 
-    repos.forEach(repo => {
-        const repoCard = document.createElement("div");
-        repoCard.classList.add("repo-card");
-        repoCard.innerHTML = `
-            <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-            <p>${repo.description ? repo.description : "No description available"}</p>`;
-        repoList.appendChild(repoCard);
-    });
-}
-fetchGitHubRepos();
+function trackVisitCount() {
+    // Check if localStorage is supported
+    if (typeof Storage !== "undefined") {
+        // Get the current visit count from localStorage
+        let visitCount = localStorage.getItem('visitCount');
 
+        // If visitCount doesn't exist, initialize it to 1; otherwise, increment it
+        visitCount = visitCount ? Number(visitCount) + 1 : 1;
 
-// Get visit count from local storage
+        // Save the updated visit count to localStorage
+        localStorage.setItem('visitCount', visitCount);
 
-let visitCount = localStorage.getItem('visitCount');
-    // If it's the first visit, set visitCount to 1
-    if (!visitCount) {
-        visitCount = 1;
+        // Display the visit count in the DOM
+        const visitCountElement = document.getElementById('visitCount');
+        if (visitCountElement) {
+            visitCountElement.textContent = visitCount;
+        } else {
+            console.warn("Element with ID 'visitCount' not found in the DOM.");
+        }
     } else {
-        visitCount = parseInt(visitCount) + 1; // Increment the visit count
+        console.warn("localStorage is not supported in this browser.");
     }
-    // Store updated visit count in local storage
-    localStorage.setItem('visitCount', visitCount);
+}
 
-    // Display visit count on the webpage
-document.getElementById('visitCount').textContent = visitCount;
+// Call the function to track and display the visit count
+trackVisitCount();
