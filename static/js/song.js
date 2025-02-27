@@ -67,57 +67,9 @@ function formatTime(time) {
 // playSong function
 
 
+// Global variable to store the lyrics update handler
 
-window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
-    if (!audioPlayer) {
-        console.error('audioPlayer is not initialized!');
-        return;
-    }
-
-    // Remove previous lyrics event listener before adding a new one
-    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
-
-    // Set the audio source and load the song
-    audioPlayer.src = songUrl;
-    audioPlayer.load();
-    customPlayer.style.display = 'block';
-    audioPlayer.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
-
-    // Update UI elements
-    document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
-    
-    const songPoster = document.getElementById('song-poster');
-    songPoster.src = posterUrl;
-    songPoster.style.display = 'block';
-
-    document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
-
-    // Reset lyrics display
-    const lyricsContainer = document.getElementById('lyrics-container');
-    lyricsContainer.innerHTML = "Loading lyrics...";
-
-    // Fetch and parse the LRC file
-    fetch(lyricsFile)
-        .then(response => {
-            if (!response.ok) throw new Error("Lyrics file not found");
-            return response.text();
-        })
-        .then(data => {
-            const lyricsArray = parseLRC(data);
-            if (lyricsArray.length > 0) {
-                displayLyrics(lyricsArray);
-            } else {
-                lyricsContainer.textContent = "Lyrics not available for this audio";
-            }
-        })
-        .catch(() => {
-            lyricsContainer.textContent = "Lyrics unavailable for this audio";
-        });
-};
-
-// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
-
+let handleLyricsUpdate = null;
 
 function parseLRC(lrcText) {
     const lines = lrcText.split("\n");
@@ -161,8 +113,11 @@ function displayLyrics(lyricsArray) {
     let currentIndex = 0;
 
     // Remove old listener before adding a new one
-    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
+    if (handleLyricsUpdate) {
+        audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
+    }
 
+    // Define the lyrics update handler
     handleLyricsUpdate = function () {
         const currentTime = audioPlayer.currentTime;
 
@@ -182,6 +137,59 @@ function displayLyrics(lyricsArray) {
     // Attach event listener
     audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
 }
+
+// Example usage in window.playSong
+window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
+    if (!audioPlayer) {
+        console.error('audioPlayer is not initialized!');
+        return;
+    }
+
+    // Remove previous lyrics event listener before adding a new one
+    if (handleLyricsUpdate) {
+        audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
+    }
+
+    // Set the audio source and load the song
+    audioPlayer.src = songUrl;
+    audioPlayer.load();
+    customPlayer.style.display = 'block';
+    audioPlayer.play();
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+
+    // Update UI elements
+    document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
+    
+    const songPoster = document.getElementById('song-poster');
+    songPoster.src = posterUrl;
+    songPoster.style.display = 'block';
+
+    document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
+
+    // Reset lyrics display
+    const lyricsContainer = document.getElementById('lyrics-container');
+    lyricsContainer.innerHTML = "Loading lyrics...";
+
+    // Fetch and parse the LRC file
+    fetch(lyricsFile)
+        .then(response => {
+            if (!response.ok) throw new Error("Lyrics file not found");
+            return response.text();
+        })
+        .then(data => {
+            const lyricsArray = parseLRC(data);
+            if (lyricsArray.length > 0) {
+                displayLyrics(lyricsArray);
+            } else {
+                lyricsContainer.textContent = "Lyrics unavailable for this audio";
+            }
+        })
+        .catch(() => {
+            lyricsContainer.textContent = "Lyrics unavailable for this audio";
+        });
+};
+
+
 // end playSong
 
 
