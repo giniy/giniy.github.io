@@ -67,78 +67,7 @@ function formatTime(time) {
 // playSong function
 
 
-// Global variable to store the lyrics update handler
 
-let handleLyricsUpdate = null;
-
-function parseLRC(lrcText) {
-    const lines = lrcText.split("\n");
-    let lyricsArray = [];
-
-    // Regex to match timestamps like [01:13.70]
-    const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
-
-    lines.forEach(line => {
-        // Extract all timestamps from the line
-        const matches = line.match(timeRegex);
-        if (matches) {
-            // Extract the text part of the line (without timestamps)
-            const text = line.replace(timeRegex, "").trim();
-
-            // Process each timestamp
-            matches.forEach(match => {
-                const timeParts = match.match(/(\d+):(\d+\.\d+)/);
-                if (timeParts) {
-                    const minutes = parseInt(timeParts[1]);
-                    const seconds = parseFloat(timeParts[2]);
-                    const timeInSeconds = minutes * 60 + seconds;
-
-                    // Add the timestamp and text to the lyrics array
-                    lyricsArray.push({ time: timeInSeconds, text: text });
-                }
-            });
-        }
-    });
-
-    // Sort the lyrics array by time
-    lyricsArray.sort((a, b) => a.time - b.time);
-
-    return lyricsArray;
-}
-
-function displayLyrics(lyricsArray) {
-    const lyricsContainer = document.getElementById('lyrics-container');
-    if (!lyricsContainer) return;
-
-    let currentIndex = 0;
-
-    // Remove old listener before adding a new one
-    if (handleLyricsUpdate) {
-        audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
-    }
-
-    // Define the lyrics update handler
-    handleLyricsUpdate = function () {
-        const currentTime = audioPlayer.currentTime;
-
-        // Find the current lyric line
-        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
-            currentIndex++;
-        }
-
-        // Update the lyrics display
-        if (lyricsArray[currentIndex] && lyricsArray[currentIndex].text) {
-            lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
-        } else {
-            lyricsContainer.innerHTML = ""; // Clear if no lyrics for the current time
-        }
-    };
-
-    // Attach event listener
-    audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
-}
-
-// Example usage in window.playSong
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
@@ -146,9 +75,7 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
     }
 
     // Remove previous lyrics event listener before adding a new one
-    if (handleLyricsUpdate) {
-        audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
-    }
+    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Set the audio source and load the song
     audioPlayer.src = songUrl;
@@ -181,13 +108,79 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
             if (lyricsArray.length > 0) {
                 displayLyrics(lyricsArray);
             } else {
-                lyricsContainer.textContent = "Lyrics unavailable for this audio";
+                lyricsContainer.textContent = "Lyrics not available for this audio";
             }
         })
         .catch(() => {
-            lyricsContainer.textContent = "Lyrics unavailable for this audio";
+            lyricsContainer.textContent = "Lyrics not available for this audio";
         });
 };
+
+// Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
+function parseLRC(lrcText) {
+    const lines = lrcText.split("\n");
+    let lyricsArray = [];
+
+    // Regex to match timestamps like [01:13.70] but NOT remove [ ] braces
+    const timeRegex = /\[(\d+):(\d+\.\d+)\]/g;
+
+    lines.forEach(line => {
+        let cleanLine = line.replace(timeRegex, "").trim(); // Remove timestamps, keep braces
+
+        // Keep all Unicode letters, matras (diacritics), spaces, and [ ] braces; remove special characters
+        cleanLine = cleanLine.replace(/[^\p{L}\p{M}\s\[\]]/gu, "").replace(/\s+/g, " ").trim();
+
+        if (cleanLine) {
+            // Extract the first timestamp to use as the time reference
+            const match = line.match(timeRegex);
+            if (match) {
+                const firstTimestamp = match[0].match(/(\d+):(\d+\.\d+)/);
+                if (firstTimestamp) {
+                    const minutes = parseInt(firstTimestamp[1]);
+                    const seconds = parseFloat(firstTimestamp[2]);
+                    const timeInSeconds = minutes * 60 + seconds;
+
+                    lyricsArray.push({ time: timeInSeconds, text: cleanLine });
+                }
+            }
+        }
+    });
+
+    return lyricsArray;
+}
+
+
+// Global reference for event listener (to remove old one)
+let handleLyricsUpdate;
+
+// Function to display lyrics in sync with timestamps (real-time display)
+function displayLyrics(lyricsArray) {
+    const lyricsContainer = document.getElementById('lyrics-container');
+    if (!lyricsContainer) return;
+
+    let currentIndex = 0;
+
+    // Remove old listener before adding a new one
+    audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
+
+    handleLyricsUpdate = function () {
+        const currentTime = audioPlayer.currentTime;
+
+        // Find the current lyric line
+        while (currentIndex < lyricsArray.length - 1 && lyricsArray[currentIndex + 1].time <= currentTime) {
+            currentIndex++;
+        }
+
+        // Update the lyrics display (only letters and spaces)
+        lyricsContainer.innerHTML = lyricsArray[currentIndex].text;
+    };
+
+    // Attach event listener
+    audioPlayer.addEventListener("timeupdate", handleLyricsUpdate);
+}
+
+
+
 
 
 // end playSong
