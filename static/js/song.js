@@ -108,11 +108,11 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
             if (lyricsArray.length > 0) {
                 displayLyrics(lyricsArray);
             } else {
-                lyricsContainer.textContent = "Lyrics not available for this audio";
+                lyricsContainer.textContent = "Lyrics unavailable for this audio";
             }
         })
         .catch(() => {
-            lyricsContainer.textContent = "Lyrics not available for this audio";
+            lyricsContainer.textContent = "Lyrics unavailable for this audio";
         });
 };
 
