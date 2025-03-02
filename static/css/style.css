@@ -303,9 +303,9 @@ Small (sm) devices (landscape phones, 576px and up)
     margin-right: 35px;
 }
 .img-fluid {
-    max-width: 71%;
+    max-width: 90%;
     height: auto;
-    border-radius: 0%;
+    border-radius: 1%;
 }
 .video-container {
     position: relative;
