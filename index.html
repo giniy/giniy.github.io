@@ -550,20 +550,5 @@
 AOS.init();
 </script>
 <p class="small-text">You've visited this page <span id="visitCount">0</span> times.</p>
-    <script>
-        // Get visit count from local storage
-        let visitCount = localStorage.getItem('visitCount');
-        // If it's the first visit, set visitCount to 1
-        if (!visitCount) {
-            visitCount = 1;
-        } else {
-            visitCount = parseInt(visitCount) + 1; // Increment the visit count
-        }
-        // Store updated visit count in local storage
-        localStorage.setItem('visitCount', visitCount);
-
-        // Display visit count on the webpage
-        document.getElementById('visitCount').textContent = visitCount;
-    </script>
 </body>
 </html>
