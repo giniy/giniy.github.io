@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     async function fetchGitHubRepos() {
-        const username = "techcure";  
+        const username = "gniis";  
         try {
             const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
             const repos = await response.json();
