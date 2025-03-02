@@ -78,10 +78,14 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
 
     // Check if the file is encrypted (.enc) or a supported audio format
     if (songUrl.endsWith('.enc')) {
+        let encryptedData; // Declare it outside to be accessible in catch block
+
         // Fetch and decrypt the encrypted audio file
         fetch(songUrl)
             .then(response => response.arrayBuffer())
-            .then(encryptedData => {
+            .then(data => {
+                encryptedData = data; // Store the fetched data
+
                 // Convert ArrayBuffer to WordArray (CryptoJS format)
                 const encryptedWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(encryptedData));
 
@@ -112,9 +116,9 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
             })
             .catch(error => {
                 console.error('Error fetching or decrypting audio:', error);
-                console.error('Encrypted data:', encryptedData);
-                console.error('Decrypted data:', decryptedArrayBuffer);
+                console.error('Encrypted data:', encryptedData); // Now accessible
             });
+        }
 
     } else if (isSupportedAudioFormat(songUrl)) {
         // Directly play supported audio formats
