@@ -67,7 +67,6 @@ function formatTime(time) {
 // playSong function
 
 
-
 window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsFile) {
     if (!audioPlayer) {
         console.error('audioPlayer is not initialized!');
@@ -77,44 +76,89 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
     // Remove previous lyrics event listener before adding a new one
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
-    // Set the audio source and load the song
-    audioPlayer.src = songUrl;
-    audioPlayer.load();
-    customPlayer.style.display = 'block';
-    audioPlayer.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+    // Check if the file is encrypted (.enc) or a supported audio format
+    if (songUrl.endsWith('.enc')) {
+        // Fetch and decrypt the encrypted audio file
+        fetch(songUrl)
+            .then(response => response.arrayBuffer())
+            .then(encryptedData => {
+                // Decrypt the audio file using CryptoJS
+                const encryptedWordArray = CryptoJS.lib.WordArray.create(encryptedData);
+                const decrypted = CryptoJS.AES.decrypt(
+                    { ciphertext: encryptedWordArray },
+                    CryptoJS.enc.Utf8.parse('5d41402abc4b2a76b9719d911017c592'), // Replace with your secret key
+                    { mode: CryptoJS.mode.CBC }
+                );
 
-    // Update UI elements
-    document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
-    
-    const songPoster = document.getElementById('song-poster');
-    songPoster.src = posterUrl;
-    songPoster.style.display = 'block';
+                // Convert decrypted data to a Blob
+                const decryptedArrayBuffer = decrypted.toString(CryptoJS.enc.Latin1);
+                const blob = new Blob([decryptedArrayBuffer], { type: 'audio/mpeg' });
 
-    document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
+                // Create a URL for the decrypted Blob
+                const decryptedUrl = URL.createObjectURL(blob);
 
-    // Reset lyrics display
-    const lyricsContainer = document.getElementById('lyrics-container');
-    lyricsContainer.innerHTML = "Loading lyrics...";
+                // Set the audio source and load the song
+                audioPlayer.src = decryptedUrl;
+                loadAndPlayAudio();
+            })
+            .catch(error => {
+                console.error('Error fetching or decrypting audio:', error);
+            });
+    } else if (isSupportedAudioFormat(songUrl)) {
+        // Directly play supported audio formats
+        audioPlayer.src = songUrl;
+        loadAndPlayAudio();
+    } else {
+        console.error('Unsupported file format. Only .enc and common audio formats are supported.');
+    }
 
-    // Fetch and parse the LRC file
-    fetch(lyricsFile)
-        .then(response => {
-            if (!response.ok) throw new Error("Lyrics file not found");
-            return response.text();
-        })
-        .then(data => {
-            const lyricsArray = parseLRC(data);
-            if (lyricsArray.length > 0) {
-                displayLyrics(lyricsArray);
-            } else {
+    // Helper function to check if the file is a supported audio format
+    function isSupportedAudioFormat(url) {
+        const supportedFormats = ['.mp3', '.ogg', '.wav', '.aac', '.flac', '.webm'];
+        return supportedFormats.some(format => url.endsWith(format));
+    }
+
+    // Helper function to load and play the audio
+    function loadAndPlayAudio() {
+        audioPlayer.load();
+        customPlayer.style.display = 'block';
+        audioPlayer.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+
+        // Update UI elements
+        document.getElementById('now-playing').textContent = `Now Playing: ${songTitle}`;
+
+        const songPoster = document.getElementById('song-poster');
+        songPoster.src = posterUrl;
+        songPoster.style.display = 'block';
+
+        document.getElementById('song-details').textContent = `Album: ${album} | Artist: ${artist}`;
+
+        // Reset lyrics display
+        const lyricsContainer = document.getElementById('lyrics-container');
+        lyricsContainer.innerHTML = "Loading lyrics...";
+
+        // Fetch and parse the LRC file
+        fetch(lyricsFile)
+            .then(response => {
+                if (!response.ok) throw new Error("Lyrics file not found");
+                return response.text();
+            })
+            .then(data => {
+                const lyricsArray = parseLRC(data);
+                if (lyricsArray.length > 0) {
+                    displayLyrics(lyricsArray);
+                } else {
+                    lyricsContainer.textContent = "Lyrics unavailable for this audio";
+                }
+            })
+            .catch(() => {
                 lyricsContainer.textContent = "Lyrics unavailable for this audio";
-            }
-        })
-        .catch(() => {
-            lyricsContainer.textContent = "Lyrics unavailable for this audio";
-        });
+            });
+    }
 };
+
+
 
 // Function to parse LRC file and remove timestamps but keep all language text and [ ] braces
 function parseLRC(lrcText) {
