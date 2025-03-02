@@ -77,52 +77,45 @@ window.playSong = function(songUrl, songTitle, posterUrl, album, artist, lyricsF
     audioPlayer.removeEventListener("timeupdate", handleLyricsUpdate);
 
     // Check if the file is encrypted (.enc) or a supported audio format
-            if (songUrl.endsWith('.enc')) {
-                let encryptedData;
+    if (songUrl.endsWith('.enc')) {
+        // Fetch and decrypt the encrypted audio file
+        fetch(songUrl)
+            .then(response => response.arrayBuffer())
+            .then(encryptedData => {
+                // Convert ArrayBuffer to WordArray (CryptoJS format)
+                const encryptedWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(encryptedData));
 
-                fetch(songUrl)
-                    .then(response => response.arrayBuffer())
-                    .then(data => {
-                        if (!data || data.byteLength === 0) {
-                            throw new Error('Encrypted data is empty. Check the file or URL.');
-                        }
-                        encryptedData = data;
-                        console.log('Fetched Encrypted Data:', new Uint8Array(encryptedData));
+                // Decrypt the file
+                const decrypted = CryptoJS.AES.decrypt(
+                    { ciphertext: encryptedWordArray }, // Encrypted data
+                    CryptoJS.enc.Utf8.parse('mysecretkey'), // Key (must match encryption key)
+                    {
+                        mode: CryptoJS.mode.CBC, // Mode (must match encryption mode)
+                        padding: CryptoJS.pad.Pkcs7 // Padding (default for OpenSSL)
+                    }
+                );
 
-                        // Convert ArrayBuffer to WordArray
-                        const encryptedWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(encryptedData));
+                // Convert decrypted data to a Blob
+                const decryptedArrayBuffer = decrypted.toString(CryptoJS.enc.Latin1);
+                if (!decryptedArrayBuffer) {
+                    throw new Error('Decryption failed. Check the key or encrypted data.');
+                }
 
-                        // Define AES Key and IV (replace IV with actual value)
-                        const key = CryptoJS.enc.Hex.parse('5d41402abc4b2a76b9719d911017c592');
-                        const iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+                const blob = new Blob([decryptedArrayBuffer], { type: 'audio/mpeg' });
 
-                        // Decrypt
-                        const decrypted = CryptoJS.AES.decrypt(
-                            { ciphertext: encryptedWordArray },
-                            key,
-                            {
-                                mode: CryptoJS.mode.CBC,
-                                padding: CryptoJS.pad.Pkcs7,
-                                iv: iv
-                            }
-                        );
+                // Create a URL for the decrypted Blob
+                const decryptedUrl = URL.createObjectURL(blob);
 
-                        const decryptedArrayBuffer = decrypted.toString(CryptoJS.enc.Latin1);
-                        if (!decryptedArrayBuffer) {
-                            throw new Error('Decryption failed. Check the key or encrypted data.');
-                        }
+                // Set the audio source and load the song
+                audioPlayer.src = decryptedUrl;
+                loadAndPlayAudio();
+            })
+            .catch(error => {
+                console.error('Error fetching or decrypting audio:', error);
+                console.error('Encrypted data:', encryptedData);
+                console.error('Decrypted data:', decryptedArrayBuffer);
+            });
 
-                        const blob = new Blob([decryptedArrayBuffer], { type: 'audio/mpeg' });
-
-                        const decryptedUrl = URL.createObjectURL(blob);
-
-                        audioPlayer.src = decryptedUrl;
-                        loadAndPlayAudio();
-                    })
-                    .catch(error => {
-                        console.error('Error fetching or decrypting audio:', error);
-                        console.error('Encrypted data:', encryptedData);
-                    });
     } else if (isSupportedAudioFormat(songUrl)) {
         // Directly play supported audio formats
         audioPlayer.src = songUrl;
