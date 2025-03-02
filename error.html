@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Occurred</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #1b313d, #431e39);
+        }
+        .container {
+            background: linear-gradient(45deg, #1b313d, #431e39);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #ff5733;
+            font-size: 2rem;
+        }
+        p {
+            color: #555;
+            font-size: 1.2rem;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function getErrorMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorCode = urlParams.get('code') || 'Unknown';
+
+            let message = "Something went wrong.";
+            if (errorCode === '403') {
+                message = "Access Denied! You don't have permission.";
+            } else if (errorCode === '500') {
+                message = "Server Error! Please try again later.";
+            } else if (errorCode === '404') {
+                message = "Page Not Found.";
+            }
+
+            document.getElementById("error-code").textContent = errorCode;
+            document.getElementById("error-message").textContent = message;
+        }
+
+        setTimeout(() => {
+            window.location.href = "https://techcure.github.io/";
+        }, 5000);
+
+        window.onload = getErrorMessage;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Error <span id="error-code">Unknown</span></h1>
+        <p id="error-message">Something went wrong.</p>
+        <p>Redirecting to the <a href="https://techcure.github.io/">home page</a> in 5 seconds...</p>
+    </div>
+</body>
+</html>
