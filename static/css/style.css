@@ -147,13 +147,64 @@ hr.light-100 {
   height: 40px;
 }
 
-
-/*---Media Queries --*/
-@media (max-width: 1500px){
   .carousel-inner img{
     width: 100%;
-    height: 550px;
+    height: 100%;
   }
+/*---Media Queries --*/
+@media (max-width: 768px){
+  .carousel-inner img{
+    width: 100%;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+    .carousel-inner {
+        height: 300px; /* Adjust height for mobile */
+    }
+    .carousel-item img, .carousel-item video {
+        width: 300px;
+        height: auto;
+    }
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 550px;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+}
+
+.highlight{
+  font-size: 1.rem;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    font-size: 0.25rem;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: Adds semi-transparent background */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.overlay-text h4 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.overlay-text p {
+    font-size: 14px;
 }
 
 @media (max-width: 992px) {
@@ -161,17 +212,13 @@ hr.light-100 {
     font-size: 4em;
     padding: 2rem;
   }
-  .carousel-inner img{
-    width: 100%;
-    height: 400px;
-  }
   }
 @media (max-width: 768px) {
   .carousel-caption {
-    top: 45%;
+    top: 30%;
   }
   .carousel-caption h1 {
-    font-size: 350%;
+    font-size: 150%;
   }
   .carousel-caption h3 {
     font-size: 140%;
@@ -185,10 +232,6 @@ hr.light-100 {
   .social a{
     font-size: 2.5em;
     padding: 1.2rem;
-  }
-  .carousel-inner img{
-    width: 100%;
-    height: 100%;
   }
 }
 @media (max-width: 576px) {
@@ -307,16 +350,7 @@ Small (sm) devices (landscape phones, 576px and up)
     height: auto;
     border-radius: 1%;
 }
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 550px;
-}
 
-.video-container video {
-    width: 100%;
-    height: auto;
-}
 .carousel-item active {
     position: relative;
     width: 100%;
@@ -325,27 +359,6 @@ Small (sm) devices (landscape phones, 576px and up)
 .carousel-item active {
     width: 100%;
     height: auto;
-}
-.overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    font-size: 24px;
-    background-color: rgba(0, 0, 0, 0.5); /* Optional: Adds semi-transparent background */
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.overlay-text h4 {
-    margin: 0;
-    font-size: 28px;
-}
-
-.overlay-text p {
-    font-size: 16px;
 }
 
 .card-img-top{
