@@ -51,6 +51,37 @@
                <br>Click on a song from the list to start playing. Enjoy the melodies and experience a musical journey like never before!
             </p>
          </div>
+         <!-- Add Search Bar -->
+         <input type="text" id="search-bar" placeholder="Search for a song..." class="form-control mb-3">
+
+         <!-- No Results Message -->
+         <p id="no-results" style="display: none; color: #fe6f16; text-align: center;">No matching songs found</p>
+
+         <!-- JavaScript for Improved Search -->
+         <script>
+         document.getElementById("search-bar").addEventListener("input", function () {
+             let filter = this.value.toLowerCase().trim();
+             let songs = document.querySelectorAll(".playlist button");  // Get all song buttons
+             let hasResults = false;
+
+             songs.forEach(song => {
+                 let titleElement = song.querySelector(".song-info strong");  
+                 if (titleElement) {
+                     let title = titleElement.innerText.toLowerCase().trim();
+                     if (title.includes(filter)) {
+                         song.style.display = "flex";  // Ensure song is visible
+                         hasResults = true;
+                     } else {
+                         song.style.display = "none";  // Hide non-matching songs
+                     }
+                 }
+             });
+
+             // Show or hide "No matching songs found" message
+             document.getElementById("no-results").style.display = hasResults ? "none" : "block";
+         });
+         </script>
+         
          <div class="player-container ">
             <div class="player">
                <!-- Now Playing Section -->

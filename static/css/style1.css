@@ -382,9 +382,58 @@ audio {
         font-weight: bold;
         color: #caa6a6;
         padding: 10px;
-/*        background-color: #f0f0f0;
+        /* background-color: #f0f0f0;
         border-radius: 5px;*/
         text-align: center;
         margin: 20px auto;
         max-width: 600px;
+        }
+
+        /**/
+
+        #search-bar {
+            width: 90%; /* Makes it responsive */
+            max-width: 400px; /* Restricts max size */
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ff4d4d; /* Red border */
+            border-radius: 25px;
+            outline: none;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px auto;
+            display: block;
+            background: radial-gradient(#ac6969c2, transparent);
+            text-align: center;
+            color: #dab4b4; /* Makes text inside input red */
+        }
+        .mb-3{
+            margin-bottom: 1rem !important;
+            color: red;
+        }
+
+        /* Focus Effect */
+        #search-bar:focus {
+            border-color: #ff1a1a;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Placeholder Styling */
+        #search-bar::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Centering No Results Message */
+        #no-results {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 500px) {
+            #search-bar {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
         }
