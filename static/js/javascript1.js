@@ -349,3 +349,38 @@ function buySong(songName, price, userEmail = null) {
             showAlert("There was an error sending the email. Please try again later.", "error");
         });
 }
+document.addEventListener("DOMContentLoaded", function () {
+    let textElement = document.getElementById("rainbow-text");
+    let text = textElement.innerText;
+    let colors = ["red", "#5fa15f", "#5050e8", "orange", "#b051b0"];    
+    let fontFamily = "Arial, sans-serif"; // Change the font if needed
+    let coloredHTML = "";
+
+    text.split("").forEach((char, index) => {
+        let color = colors[index % colors.length]; // Cycle through colors
+        coloredHTML += `<span class="magic-letter" style="color: ${color}; font-family: ${fontFamily}; font-weight: bold; position: relative;">${char}</span>`;
+    });
+
+    textElement.innerHTML = coloredHTML;
+
+    // Function to Create Magic Stars ✨
+    function createMagicStars() {
+        let letters = document.querySelectorAll(".magic-letter");
+        letters.forEach(letter => {
+            let star = document.createElement("div");
+            star.classList.add("magic-star");
+            document.body.appendChild(star);
+
+            function moveStar() {
+                let rect = letter.getBoundingClientRect();
+                star.style.left = `${rect.left + window.scrollX + Math.random() * 20 - 10}px`;
+                star.style.top = `${rect.top + window.scrollY + Math.random() * 20 - 10}px`;
+                star.style.animationDuration = `${0.5 + Math.random()}s`;
+                setTimeout(() => moveStar(), 800 + Math.random() * 500);
+            }
+            moveStar();
+        });
+    }
+
+    createMagicStars();
+});

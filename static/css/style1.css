@@ -437,3 +437,20 @@ audio {
                 padding: 8px 12px;
             }
         }
+
+        .magic-star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: gold;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            animation: twinkle 1s linear infinite;
+        }
+        /* Twinkling Effect */
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0); }
+        }
