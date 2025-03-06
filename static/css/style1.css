@@ -438,19 +438,72 @@ audio {
             }
         }
 
+         /* Magic Stars Styling */
         .magic-star {
             position: absolute;
             width: 5px;
             height: 5px;
+            font-size: 16px; /* Adjust size */
             background: gold;
             border-radius: 50%;
             opacity: 0;
             pointer-events: none;
             animation: twinkle 1s linear infinite;
+/*            animation: twinkle 1.5s linear infinite;*/
         }
+
         /* Twinkling Effect */
         @keyframes twinkle {
             0% { opacity: 0; transform: scale(0); }
             50% { opacity: 1; transform: scale(1.2); }
             100% { opacity: 0; transform: scale(0); }
+        }
+
+        /* Floating Guitar */
+        .floating-guitar {
+            position: absolute;
+            width: 50px; /* Adjust size */
+            animation: float 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .whatsapp-icon {
+            width: 60px; /* Default size */
+            height: 60px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover Effect */
+        .whatsapp-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .whatsapp-icon {
+                width: 45px;
+                height: 45px;
+            }
         }

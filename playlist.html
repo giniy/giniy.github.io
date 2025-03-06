@@ -51,37 +51,6 @@
             </p>
             <h3>Enjoy the Best <span id="rainbow-text">Music</span></h3>
          </div>
-         <!-- Add Search Bar -->
-         <input type="text" id="search-bar" placeholder="Search for a song..." class="form-control mb-3">
-
-         <!-- No Results Message -->
-         <p id="no-results" style="display: none; color: #fe6f16; text-align: center;">No matching songs found</p>
-
-         <!-- JavaScript for Improved Search -->
-         <script>
-         document.getElementById("search-bar").addEventListener("input", function () {
-             let filter = this.value.toLowerCase().trim();
-             let songs = document.querySelectorAll(".playlist button");  // Get all song buttons
-             let hasResults = false;
-
-             songs.forEach(song => {
-                 let titleElement = song.querySelector(".song-info strong");  
-                 if (titleElement) {
-                     let title = titleElement.innerText.toLowerCase().trim();
-                     if (title.includes(filter)) {
-                         song.style.display = "flex";  // Ensure song is visible
-                         hasResults = true;
-                     } else {
-                         song.style.display = "none";  // Hide non-matching songs
-                     }
-                 }
-             });
-
-             // Show or hide "No matching songs found" message
-             document.getElementById("no-results").style.display = hasResults ? "none" : "block";
-         });
-         </script>
-
          <div class="player-container ">
             <div class="player">
                <!-- Now Playing Section -->
@@ -113,6 +82,37 @@
             </audio>
             <!-- Audio Player -->
 
+            <!-- Add Search Bar -->
+            <input type="text" id="search-bar" placeholder="Search for a song..." class="form-control mb-3">
+            <!-- No Results Message -->
+            <p id="no-results" style="display: none; color: #fe6f16; text-align: center;">No matching songs found</p>
+            <!-- JavaScript for Improved Search -->
+            <script>
+            document.getElementById("search-bar").addEventListener("input", function () {
+                let filter = this.value.toLowerCase().trim();
+                let songs = document.querySelectorAll(".playlist button");  // Get all song buttons
+                let hasResults = false;
+
+                songs.forEach(song => {
+                    let titleElement = song.querySelector(".song-info strong");  
+                    if (titleElement) {
+                        let title = titleElement.innerText.toLowerCase().trim();
+                        if (title.includes(filter)) {
+                            song.style.display = "flex";  // Ensure song is visible
+                            hasResults = true;
+                        } else {
+                            song.style.display = "none";  // Hide non-matching songs
+                        }
+                    }
+                });
+
+                // Show or hide "No matching songs found" message
+                document.getElementById("no-results").style.display = hasResults ? "none" : "block";
+            });
+            </script>
+            <a href="https://wa.me/919407488956" target="_blank" class="whatsapp-float">
+                <img src="https://img.icons8.com/?size=100&id=9OUVlDsyirZq&format=png&color=000000" alt="WhatsApp" class="whatsapp-icon">
+            </a>
             <!-- Playlist -->
                <div class="playlist">
 
@@ -128,7 +128,7 @@
                      <img src="static/media/fading_echoes.png" alt="Song 1 Poster" class="song-poster">
                      <div class="song-info">
                         <strong>Fading Echoes 🎶</strong><br>
-                        <span class="small-text">Artist : Gulab, Om Prakash</span>                       
+                        <span class="small-text">Artist : Gulab, Om Prakash</span>
                      </div>
                      <span class="buy-button" onclick="buySong('Fading Echoes 🎶', '9.99'); event.stopPropagation();">
                      <i class="fa fa-download" aria-hidden="true"></i>
