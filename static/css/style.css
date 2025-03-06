@@ -952,3 +952,39 @@ img {
 .buy-button:hover {
     background-color: #cc3700;
 }
+
+  /* Floating WhatsApp Button */
+  .whatsapp-float {
+      position: fixed;  /* Fixes the button in place */
+      bottom: 20px;     /* Adjust distance from bottom */
+      right: 20px;      /* Adjust distance from right */
+      z-index: 9999;    /* Ensures it's always on top */
+  }
+
+  /* WhatsApp Icon Styling */
+  .whatsapp-icon {
+      width: 60px; /* Default size */
+      height: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+  }
+
+  /* Hover Effect */
+  .whatsapp-icon:hover {
+      transform: scale(1.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+      .whatsapp-icon {
+          width: 50px;
+          height: 50px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .whatsapp-icon {
+          width: 45px;
+          height: 45px;
+      }
+  }
