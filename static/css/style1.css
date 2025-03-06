@@ -461,30 +461,28 @@ audio {
 
         /* Floating Guitar */
         .floating-guitar {
-            position: absolute;
-            width: 50px; /* Adjust size */
-            animation: float 4s infinite ease-in-out;
+            position: fixed;  /* Keep it visible on screen */
+            width: 60px;  /* Adjust size */
+            bottom: 50px;  /* Distance from bottom */
+            right: 80px;  /* Adjust position */
+            animation: float 4s infinite ease-in-out, flip 2s infinite alternate ease-in-out;
+            z-index: 9999; /* Ensure it's above other elements */
             pointer-events: none;
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-            100% { transform: translateY(0) rotate(0deg); }
         }
 
         /* Floating WhatsApp Button */
         .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+            position: fixed;  /* Fixes the button in place */
+            bottom: 20px;     /* Adjust distance from bottom */
+            right: 20px;      /* Adjust distance from right */
+            z-index: 9999;    /* Ensures it's always on top */
         }
 
+        /* WhatsApp Icon Styling */
         .whatsapp-icon {
             width: 60px; /* Default size */
             height: 60px;
+            cursor: pointer;
             transition: transform 0.3s ease-in-out;
         }
 

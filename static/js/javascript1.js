@@ -375,57 +375,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     textElement.innerHTML = coloredHTML;
 
-    // Function to Create Magic Stars & Music Symbols ✨🎶
-    function createMagicEffects() {
+    // Function to Create Magic Stars ✨ (No More Music Symbols 🎶)
+    function createMagicStars() {
         let letters = document.querySelectorAll(".magic-letter");
         letters.forEach(letter => {
-            let effectType = Math.random() > 0.5 ? "star" : "music"; // Randomly choose star or music note
+            let star = document.createElement("div");
+            star.classList.add("magic-star");
+            star.style.width = "5px";
+            star.style.height = "5px";
+            star.style.background = "gold";
+            star.style.borderRadius = "50%";
+            star.style.position = "absolute";
 
-            let effect = document.createElement("div");
-            effect.classList.add("magic-effect");
+            document.body.appendChild(star);
 
-            if (effectType === "star") {
-                effect.style.width = "5px";
-                effect.style.height = "5px";
-                effect.style.background = "gold";
-                effect.style.borderRadius = "50%";
-                effect.style.position = "absolute";
-            } else {
-                let musicSymbol = Math.random() > 0.5 ? "🎵" : "🎶"; // Random music symbols
-                let musicColor = getRandomColor(); // Assign a random bright color
-
-                effect.innerHTML = `<span style="color: ${musicColor}; font-size: 12px;">${musicSymbol}</span>`;
-                effect.style.position = "absolute";
-            }
-
-            document.body.appendChild(effect);
-
-            function moveEffect() {
+            function moveStar() {
                 let rect = letter.getBoundingClientRect();
-                effect.style.left = `${rect.left + window.scrollX + Math.random() * 20 - 10}px`;
-                effect.style.top = `${rect.top + window.scrollY + Math.random() * 20 - 10}px`;
-                effect.style.animation = `twinkle ${0.5 + Math.random()}s linear infinite`;
+                star.style.left = `${rect.left + window.scrollX + Math.random() * 20 - 10}px`;
+                star.style.top = `${rect.top + window.scrollY + Math.random() * 20 - 10}px`;
+                star.style.animation = `twinkle ${0.5 + Math.random()}s linear infinite`;
 
-                setTimeout(() => moveEffect(), 1000 + Math.random() * 1000);
+                setTimeout(() => moveStar(), 1000 + Math.random() * 1000);
             }
-            moveEffect();
+            moveStar();
         });
     }
 
-    createMagicEffects();
-
-    // 🎸 Floating Guitar Effect
-    let guitar = document.createElement("img");
-    guitar.src = "static/images/guitar.png"; // Guitar image URL
-    guitar.classList.add("floating-guitar");
-    document.body.appendChild(guitar);
-
-    function moveGuitar() {
-        let rect = textElement.getBoundingClientRect();
-        guitar.style.left = `${rect.left + window.scrollX + rect.width + 20}px`; // Position near "Music"
-        guitar.style.top = `${rect.top + window.scrollY - 10}px`; // Slightly above
-    }
-
-    moveGuitar();
-    window.addEventListener("resize", moveGuitar);
+    createMagicStars();
 });
