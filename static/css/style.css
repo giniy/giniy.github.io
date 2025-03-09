@@ -467,7 +467,7 @@ textarea.app-form-control {
 .profile-card {
     position: absolute;
     top: 115%;
-    left: -58%;
+    left: -160%;
     transform: translateX(-50%);
     width: 299px;
     background: linear-gradient(45deg, #1b313d, #431e39);
