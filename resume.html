@@ -7,8 +7,67 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/pillar-1.css">
     <base target="_blank">
   <link href="static/css/resume-style.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
 </head> 
 <body>  
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="static/images/logo6.png"></a>
+        <div class="portfolio-tagline">Crafting Digital Symphonies</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#myteam">Team</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#connect">Connect</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="playlist.html">
+              <i class="fa fa-music" aria-hidden="true"></i>
+          </a>
+        </li>
+                <li class="nav-item profile-container">
+                    <a class="nav-link" href="#profile">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    </a>
+                    <div class="profile-card">
+                        <img src="static/images/ubuntu-studio.jpg" alt="Your Image">
+                        <h4>Gulab</h4>
+                        <p>Python Developer | FullStack </p>
+                        <p>Working on Django & Web Development</p>
+                    </div>
+                </li>
+            </ul>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+document.querySelectorAll('a.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function(event) {
+        if (window.location.pathname.includes('index.html')) {  
+            event.preventDefault();  
+            document.getElementById(this.getAttribute('href').substring(1)).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+    });
+});
+</script>
+
     <article class="resume-wrapper text-center position-relative">
       <div class="resume-wrapper-inner mx-auto text-left bg-white shadow-lg">
         <header class="resume-header pt-4 pt-md-0">
@@ -19,7 +78,13 @@
             <div class="media-body p-4 d-flex flex-column flex-md-row mx-auto mx-lg-0">
               <div class="primary-info">
                 <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">Gulab</h1>
-                <div class="title mb-3">Python/Django Developer</div>
+                <code><div class="title mb-3">def Python(django, developer):</code>
+                <p class="small-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  <code>pass
+                    <br>Python("ORM", "applications")
+                </code>
+                </p>
+                </div>
                 <ul class="list-unstyled">
                   <li class="mb-2"><a href="mailto:zveryanovstanis@gmail.com"><i class="far fa-envelope fa-fw mr-2" data-fa-transform="grow-3"></i>gpendare@gmail.com</a></li>
                   <li><a><i class="fas fa-mobile-alt fa-fw mr-2" data-fa-transform="grow-6"></i>9244330044</a></li>
@@ -63,7 +128,7 @@
                     <article class="resume-timeline-item position-relative pb-5">
                       
                       <div class="resume-timeline-item-header mb-2">
-                        <div class="d-flex flex-column flex-md-row">
+                        <div class="d-flex flex-column flex-md-row" id="company-name">
                             <h3 class="resume-position-title font-weight-bold mb-1">SGTP Solutions</h3>
                             <div class="resume-company-name ml-auto">
                             Indore «India»</div>
@@ -90,7 +155,7 @@
                     <article class="resume-timeline-item position-relative pb-5">
                       
                       <div class="resume-timeline-item-header mb-2">
-                        <div class="d-flex flex-column flex-md-row">
+                        <div class="d-flex flex-column flex-md-row" id="company-name">
                             <h3 class="resume-position-title font-weight-bold mb-1">BridgeFix Technologies Pvt. Ltd.</h3>
                             <div class="resume-company-name ml-auto">Indore «India»</div>
                         </div>
@@ -114,7 +179,7 @@
                     </article>
                     <article class="resume-timeline-item position-relative pb-5">
                       <div class="resume-timeline-item-header mb-2">
-                        <div class="d-flex flex-column flex-md-row">
+                        <div class="d-flex flex-column flex-md-row" id="company-name">
                             <h3 class="resume-position-title font-weight-bold mb-1">TEK Infotree Global Solutions</h3>
                             <div class="resume-company-name ml-auto">Indore «India»</div>
                         </div>

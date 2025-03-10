@@ -6411,6 +6411,7 @@ button.bg-dark:focus {
 @media (min-width: 768px) {
   .flex-md-row {
     flex-direction: row !important;
+    background: linear-gradient(45deg, #1b313d, #431e39);
   }
   .flex-md-column {
     flex-direction: column !important;
@@ -8661,7 +8662,7 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
 
 .resume-position-title {
   font-size: 1.125rem;
-  color: #434E5E;
+  color: #bac3d1;
 }
 
 .resume-timeline-item-desc-heading {
@@ -8727,3 +8728,6 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
   }
 }
 
+#company-name{
+  color: #bac3d1;
+}
