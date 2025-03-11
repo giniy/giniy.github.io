@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Resume</title>
+    <title>Profile</title>
     <link rel="icon" type="image/png" href="static/images/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+<!--         <li class="nav-item active">
           <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
@@ -34,11 +34,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.html#connect">Connect</a>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="playlist.html">
-              <i class="fa fa-music" aria-hidden="true"></i>
-          </a>
+                     <a class="nav-link" href="index.html">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                     </a>
         </li>
                 <li class="nav-item profile-container">
                     <a class="nav-link" href="#profile">
@@ -74,7 +74,7 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
           <div class="media flex-column flex-md-row">
            <a href="https://imgbb.com/">
             <img src="static/images/blank_png.png" alt="image" border="0"width="220" height="220"></a>
-            <img class="mr-3 img-fluid picture mx-auto" src="assets/images/фотощька.jpg" alt="">
+            <img class="mr-3 img-fluid picture mx-auto" src="static/images/code.gif" alt="">
             <div class="media-body p-4 d-flex flex-column flex-md-row mx-auto mx-lg-0">
               <div class="primary-info">
                 <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">Gulab</h1>
@@ -358,5 +358,49 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
         </div>
       </div>
     </article>
+<!--- Footer -->
+<footer>
+  <div class="container-fluid padding" data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-duration="1000">
+    <div class="row text-center">
+      <div class="col-md-4 pt-0">
+        <div class="footer-image">
+        <img src="static/images/logo6.png"></div>
+        <hr class="light">
+                <p><i class="fa fa-phone"  aria-hidden="true">
+                  </i> &nbsp; 9244330044 India <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-envelope"></i>&nbsp; gpendare@gmail.com</p>
+      </div>
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>Best time to reach me</h5>
+        <hr class="light">
+        <p>M - F : 2pm - 5pm || S - S : 11am - 8pm IST</p>
+      </div>
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>Service Area</h5>
+        <hr class="light">
+        <p>India | Canada | USA | Maxico <br>
+                </p>
+      </div>
+      <div class="col-12">
+        <hr class="light-100">
+        <h5> Gulab<span class="small-text">&copy;<a href="https://www.linkedin.com/groups/10060577/">GINIY</a> 2025 All rights reserved.</span></h5>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+AOS.init();
+</script>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/919244330044" target="_blank" class="whatsapp-float">
+<img src="https://img.icons8.com/?size=100&id=9OUVlDsyirZq&format=png&color=000000" alt="WhatsApp" class="whatsapp-icon">
+</a>
+<p class="small-text">You've visited this page <span id="visitCount">0</span> times.</p>
 </body>
 </html> 
