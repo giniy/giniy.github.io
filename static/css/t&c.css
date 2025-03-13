@@ -23,7 +23,7 @@ header {
 /*    background-color: #333;*/
     background: linear-gradient(45deg, #1b313d, #431e39);
     color: #fff;
-    padding: 20px 0;
+    padding: 0px 0;
     text-align: center;
     opacity: 0; /* Start with 0 opacity for fade-in effect */
     animation: slideDown 1s ease-in-out 0.5s forwards;
@@ -107,6 +107,35 @@ footer a:hover {
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+h1 a {
+    text-decoration: none; /* Remove underline */
+    color: transparent; /* Make text color transparent */
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff, #ff00cc); /* Gradient background */
+    background-size: 400% 400%; /* Larger background size for animation */
+    -webkit-background-clip: text; /* Clip background to text */
+    background-clip: text;
+    animation: shimmer 5s ease infinite; /* Shimmer animation */
+    font-weight: bold; /* Make text bold */
+    font-size: 1em; /* Larger font size for better effect */
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%; /* Start position of gradient */
+    }
+    50% {
+        background-position: 100% 50%; /* Middle position of gradient */
+    }
+    100% {
+        background-position: 0% 50%; /* End position of gradient */
+    }
+}
+
+h1 a:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+    animation: shimmer 2s ease infinite; /* Faster animation on hover */
 }
 
 /* Back to Top Button */
