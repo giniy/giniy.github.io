@@ -39,3 +39,28 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Failed to fetch GitHub repositories:", error);
         }
     }
+
+
+// Profile card
+
+document.addEventListener("DOMContentLoaded", function () {
+    const profileContainer = document.querySelector(".profile-container");
+    const profileCard = document.querySelector(".profile-card");
+
+    // Toggle profile card on click
+    profileContainer.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent event bubbling
+        if (profileCard.style.display === "block") {
+            profileCard.style.display = "none";
+        } else {
+            profileCard.style.display = "block";
+        }
+    });
+
+    // Close profile card when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!profileContainer.contains(event.target)) {
+            profileCard.style.display = "none";
+        }
+    });
+});

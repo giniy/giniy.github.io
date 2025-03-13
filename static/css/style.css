@@ -462,6 +462,7 @@ textarea.app-form-control {
 }
 .profile-container {
     position: relative;
+    display: inline-block;
 }
 
 .profile-card {
@@ -471,12 +472,17 @@ textarea.app-form-control {
     transform: translateX(-50%);
     width: 299px;
     background: linear-gradient(45deg, #1b313d, #431e39);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 15px;
     text-align: center;
     display: none;
-    z-index: 100;
+    display: none; /* Hidden by default */
+    top: 100%; /* Position below the profile icon */
+    right: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px; /* Adjust width as needed */
+    z-index: 1000; /* Ensure it appears above other elements */
 }
 
 .profile-card p {
@@ -507,6 +513,25 @@ textarea.app-form-control {
 
 /*responsive CSS*/
 
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .profile-card {
+        position: fixed; /* Fixed position for mobile */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the card */
+        width: 43%; /* Wider card for mobile */
+        max-width: 300px; /* Limit maximum width */
+    }
+
+    .profile-container:hover .profile-card {
+        display: none; /* Disable hover on mobile */
+    }
+
+    .profile-container:focus-within .profile-card {
+        display: block; /* Show on focus (click) */
+    }
+}
 
 .responsive-cell-block {
   min-height: 75px;
