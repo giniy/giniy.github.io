@@ -2,31 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="static/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GiNIY</title>
+    <title>Giniy</title>
     <link href="static/css/vid.css" rel="stylesheet">
-    <script src="static/js/vid.js"></script> 
 </head>
 <body>
     <header>
         <div class="logo">
-            <a class="nav-link" href="playlist.html">
-            <img src="static/images/guitar.png" alt="Logo"></a>
+        <a class="nav-link" href="playlist.html">
+            <img src="static/images/guitar.png" alt="Logo">
+            </a>
         </div>
         <div class="search-bar">
-            <input type="text" placeholder="Search">
-            <button>Search</button>
+            <input type="text" id="search-input" placeholder="Search">
+            <button id="search-button">Search</button>
         </div>
-<!--         <div class="user-actions">
-            <button>Upload</button>
-            <button>Sign In</button>
-        </div> -->
     </header>
 
     <main>
         <section class="video-player">
-            <video id="main-video" width="560" height="315" controls autoplay muted>
+            <video id="main-video" controls autoplay muted>
                 <source src="static/vid/Beyond Love - Beautiful Emotional Cinematic - Epic Music and Giniy.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -55,7 +50,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 GiNIY</p>
+        <p>&copy; 2025 Giniy</p>
     </footer>
     <script src="static/js/vid.js"></script>
 </body>
