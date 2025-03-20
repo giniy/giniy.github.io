@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiNIY</title>
+    <link href="static/css/vid.css" rel="stylesheet">
+    <script src="static/js/vid.js"></script> 
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a class="nav-link" href="playlist.html">
+            <img src="static/images/guitar.png" alt="Logo"></a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button>Search</button>
+        </div>
+<!--         <div class="user-actions">
+            <button>Upload</button>
+            <button>Sign In</button>
+        </div> -->
+    </header>
+
+    <main>
+        <section class="video-player">
+            <video id="main-video" width="560" height="315" controls autoplay muted>
+                <source src="static/vid/Beyond Love - Beautiful Emotional Cinematic - Epic Music and Giniy.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3>Beyond Love</h3>
+            <p>Emotional Cinematic</p>
+        </section>
+
+        <section class="video-list">
+            <div class="video-thumbnail" data-video-src="static/vid/Beyond Love - Beautiful Emotional Cinematic - Epic Music and Giniy.mp4">
+                <img src="static/vid/part1.png" alt="Video Thumbnail">
+                <h3>Beyond Love</h3>
+                <p>Emotional Cinematic</p>
+            </div>
+            <div class="video-thumbnail" data-video-src="static/vid/Beyond Love - Part 2 Beautiful Emotional Cinematic - Epic Music and Giniy.mp4">
+                <img src="static/vid/part2.png" alt="Video Thumbnail">
+                <h3>Beyond Love - Part 2</h3>
+                <p>Beautiful Emotional Cinematic</p>
+            </div>
+            <div class="video-thumbnail" data-video-src="static/vid/Beyond Love - Part 2 Beautiful Emotional Cinematic - Epic Music and Giniy.mp4">
+                <img src="static/vid/part2.png" alt="Video Thumbnail">
+                <h3>Beyond Love - Part 2</h3>
+                <p>Beautiful Emotional Cinematic</p>
+            </div>
+            <!-- Add more video thumbnails as needed -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GiNIY</p>
+    </footer>
+    <script src="static/js/vid.js"></script>
+</body>
+</html>
